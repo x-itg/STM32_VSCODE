@@ -96,4 +96,7 @@ source [find /usr/local/share/openocd/scripts/target/stm32f1x.cfg]
     ]
 }
 ```
+### vscode安装cortex-debug插件
+
+
 
