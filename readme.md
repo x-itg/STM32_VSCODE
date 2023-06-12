@@ -57,3 +57,43 @@ sudo make install
 配置文件在 /usr/local/share/openocd/scripts
 ```
 
+### Makefile文件中 添加
+```
+-include $(wildcard $(BUILD_DIR)/*.d)
+update:
+	openocd -f openocd.cfg -c init -c halt -c "program $(BUILD_DIR)/$(TARGET).hex verify reset exit"
+reset:
+	openocd -f openocd.cfg -c init -c halt -reset -c shutdown
+```
+
+### 在工作目录下添加openocd.cfg文件，内容：
+```
+source [find /usr/local/share/openocd/scripts/interface/stlink-v2.cfg]
+source [find /usr/local/share/openocd/scripts/target/stm32f1x.cfg]
+```
+
+### 在.vscode文件夹下添加launch.json文件
+```
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "STM32F103", //调试入口显示的名字，随便起
+            "cwd": "${workspaceRoot}", //工作目录，根路径
+            "executable": "${workspaceFolder}/build/f.elf", //调试文件
+            "request": "launch",
+            "runToMain": true,
+            "type": "cortex-debug", //配置为使用插件调试
+            "servertype": "openocd", //映射openocd
+            "configFiles": [
+                "${workspaceRoot}/openocd.cfg"
+            ], //openocd配置
+            "postDebugTask": "Reset" //同上，调试结束执行的任务
+        }
+    ]
+}
+```
+
