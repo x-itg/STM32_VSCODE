@@ -35,6 +35,8 @@ https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-a/10.3-2021.
 sudo nano /etc/profile
 文末添加： export PATH=$PATH:/home/gg/mycode/gcc-arm-10.3-2021.07-x86_64-arm-none-eabi/bin
 命令行使得环境便利生效：source /etc/profile
+sudo apt-get install gcc-arm-none-eabi
+sudo apt-get remove gcc-arm-none-eabi
 ```
 
 ## 事先安装这些软件
