@@ -112,6 +112,7 @@ source [find /usr/local/share/openocd/scripts/target/stm32f1x.cfg]
 - 下载ubuntu1804： https://wslstorestorage.blob.core.windows.net/wslblob/Ubuntu_1804.2019.522.0_x64.appx
 - 管理员运行powershell：Add-AppxPackage .\Ubuntu_1804.2019.522.0_x64.appx
 - 双击安装Ubuntu_1804.2019.522.0_x64.appx
+- 安装usb驱动： https://kgithub.com/dorssel/usbipd-win
 
 ## 安装SYSTEMCTL
 - git clone https://github.com/DamionGans/ubuntu-wsl2-systemd-script.git
