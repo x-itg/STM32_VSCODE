@@ -126,6 +126,9 @@ source [find /usr/local/share/openocd/scripts/target/stm32f1x.cfg]
 - ubunutu下安装：sudo apt install linux-tools-generic hwdata
 - ubunutu下安装：sudo update-alternatives --install /usr/local/bin/usbip usbip /usr/lib/linux-tools/*-generic/usbip 20
 - powershell下：usbipd wsl list
+- powershell下连接usb连到wsl：usbipd wsl attach --busid 2-1
+- powershell下连接usb断开wsl：usbipd wsl detach --busid 2-1
+- ubuntu下：lsusb
 
 ## 远程桌面连接  
 - ubuntu安装SYSTEMCTL：git clone https://github.com/DamionGans/ubuntu-wsl2-systemd-script.git
