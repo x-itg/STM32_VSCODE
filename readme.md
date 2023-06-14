@@ -37,6 +37,8 @@ sudo nano /etc/profile
 命令行使得环境便利生效：source /etc/profile
 sudo apt-get install gcc-arm-none-eabi
 sudo apt-get remove gcc-arm-none-eabi
+arm-none-eabi-gcc -v
+
 ```
 
 ## 事先安装这些软件
