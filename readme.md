@@ -112,25 +112,26 @@ source [find /usr/local/share/openocd/scripts/target/stm32f1x.cfg]
 - 下载ubuntu1804： https://wslstorestorage.blob.core.windows.net/wslblob/Ubuntu_1804.2019.522.0_x64.appx
 - 管理员运行powershell：Add-AppxPackage .\Ubuntu_1804.2019.522.0_x64.appx
 - 双击安装Ubuntu_1804.2019.522.0_x64.appx
-- 安装usb驱动： https://kgithub.com/dorssel/usbipd-win
-- ubunutu下安装：sudo apt install linux-tools-generic hwdata
-- ubunutu下安装：sudo update-alternatives --install /usr/local/bin/usbip usbip /usr/lib/linux-tools/*-generic/usbip 20
-
-## 安装SYSTEMCTL
-- git clone https://github.com/DamionGans/ubuntu-wsl2-systemd-script.git
-- cd ubuntu-wsl2-systemd-script/
-- bash ubuntu-wsl2-systemd-script.sh --force
-- wsl --shutdown  #去windows cmd下重启wsl
-- wsl #启动ubuntu
-- sudo apt update 
 
 ## wsl2应用程序直接打开gui
-- 下载VxSrv安装时注意勾选Disable access control:    https://nchc.dl.sourceforge.net/project/vcxsrv/vcxsrv/1.20.14.0/vcxsrv-64.1.20.14.0.installer.exe
+- windows下载VxSrv安装时注意勾选Disable access control:    https://nchc.dl.sourceforge.net/project/vcxsrv/vcxsrv/1.20.14.0/vcxsrv-64.1.20.14.0.installer.exe
 - sudo apt install -y x11-apps
 - echo 'export DISPLAY=172.23.80.1:0' >> ~/.bashrc
 - source ~/.bashrc
 
+# WSL USB驱动
+- 安装usb驱动： https://kgithub.com/dorssel/usbipd-win
+- ubunutu下安装：sudo apt install linux-tools-generic hwdata
+- ubunutu下安装：sudo update-alternatives --install /usr/local/bin/usbip usbip /usr/lib/linux-tools/*-generic/usbip 20
+- powershell下：usbipd wsl list
+
 ## 远程桌面连接  
+- ubuntu安装SYSTEMCTL：git clone https://github.com/DamionGans/ubuntu-wsl2-systemd-script.git
+- ubuntu安装SYSTEMCTL：cd ubuntu-wsl2-systemd-script/
+- ubuntu安装SYSTEMCTL：bash ubuntu-wsl2-systemd-script.sh --force
+- ubuntu安装SYSTEMCTL：wsl --shutdown  #去windows cmd下重启wsl
+- ubuntu安装SYSTEMCTL：wsl #启动ubuntu
+- ubuntu安装SYSTEMCTL：sudo apt update 
 - sudo apt install -y ubuntu-desktop
 - sudo apt install -y xubuntu-desktop
 - sudo apt install -y xrdp
@@ -140,3 +141,5 @@ source [find /usr/local/share/openocd/scripts/target/stm32f1x.cfg]
 - sudo echo xfce4-session > ~/.xsession
 - sudo nano /etc/xrdp/sesman.ini   #将`KillDisconnected`的值修改为`true`,保存退出
 - sudo systemctl restart xrdp 
+
+
