@@ -46,8 +46,8 @@ arm-none-eabi-gcc -v
 ```
 sudo apt-get install lsb-core
 sudo apt-get install build-essential pkg-config autoconf automake libtool libusb-dev libusb-1.0-0-dev libhidapi-dev
-sudo apt-get install libtool libsysfs-dev
-sudo apt-get install libnewlib-arm-none-eabi
+sudo apt-get install libtool libsysfs-dev    
+sudo apt-get install libnewlib-arm-none-eabi #当找不到lc-nano的时候
 ```
 
 ## 下载openocd源码 使能stlink 默认没有的
