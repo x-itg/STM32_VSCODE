@@ -113,6 +113,8 @@ source [find /usr/local/share/openocd/scripts/target/stm32f1x.cfg]
 - 管理员运行powershell：Add-AppxPackage .\Ubuntu_1804.2019.522.0_x64.appx
 - 双击安装Ubuntu_1804.2019.522.0_x64.appx
 - 安装usb驱动： https://kgithub.com/dorssel/usbipd-win
+- ubunutu下安装：sudo apt install linux-tools-generic hwdata
+- ubunutu下安装：sudo update-alternatives --install /usr/local/bin/usbip usbip /usr/lib/linux-tools/*-generic/usbip 20
 
 ## 安装SYSTEMCTL
 - git clone https://github.com/DamionGans/ubuntu-wsl2-systemd-script.git
