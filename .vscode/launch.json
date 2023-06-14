@@ -2,13 +2,27 @@
     // See https://go.microsoft.com/fwlink/?LinkId=733558
     // for the documentation about the tasks.json format
     "version": "0.2.0",
+    
     "configurations": [
         {
+            "name": "wsl-ubuntu1804-stm32f1-openocd", //调试入口显示的名字，随便起
+            "cwd": "${workspaceRoot}", //工作目录，根路径
+            "executable": "${workspaceFolder}/build/EC20103RB.elf", //调试文件
+            "request": "launch",
+            "runToMain": true,
+            "type": "cortex-debug", //配置为使用插件调试
+            "servertype": "openocd", //映射openocd
+            "configFiles": [
+                "${workspaceRoot}/openocd.cfg"
+            ], //openocd配置
+            "postDebugTask": "Reset" //同上，调试结束执行的任务
+        }
+        ,{
             // For the Cortex-Debug extension
             "type": "cortex-debug",
-            "servertype": "openocd",
+            "servertype": "openocd-openocd",
             "request": "launch",
-            "name": "Debug - ST-Link",
+            "name": "windows-stm32f1",
             "executable": "${workspaceRoot}/build/EC20103RB.elf",
             "configFiles": [
                 "C:/Program Files/OpenOCD/0.10.0-13/scripts/interface/stlink-v2.cfg",

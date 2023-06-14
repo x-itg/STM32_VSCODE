@@ -53,6 +53,7 @@ sudo apt-get install libnewlib-arm-none-eabi #出现错误时用arm-none-eabi/bi
 ## 下载openocd源码 使能stlink 默认没有的
 
 ```
+ubuntu下安装stm32cubeclt工具不要忘记：https://www.st.com/en/development-tools/stm32cubeclt.html
 https://blog.csdn.net/daoshengtianxia/article/details/115038674
 git clone https://gitee.com/daoshengtianxia/openocd.git
 下载openocd及其子模块后编译安装

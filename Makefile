@@ -198,4 +198,9 @@ upload: build/$(PROJECT).bin
 
 debug-start:
 	openocd -f stm32-bv_openocd.cfg
+
+update:
+	openocd -f openocd.cfg -c init -c halt -c "program $(BUILD_DIR)/$(TARGET).hex verify reset exit"
+reset:
+	openocd -f openocd.cfg -c init -c halt -reset -c shutdown
 # *** EOF ***
