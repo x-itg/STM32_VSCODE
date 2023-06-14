@@ -51,6 +51,7 @@ sudo apt-get install libtool libsysfs-dev
 
 ```
 https://blog.csdn.net/daoshengtianxia/article/details/115038674
+git clone https://gitee.com/daoshengtianxia/openocd.git
 下载openocd及其子模块后编译安装
 ./configure --enable-stlink
 sudo make
