@@ -30,15 +30,53 @@ https://blog.csdn.net/qq_30623591/article/details/88015282
 ## 下载armgccgdb添加环境变量
 
 ```
-https://developer.arm.com/downloads/-/gnu-a
-https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-a/10.3-2021.07/binrel/gcc-arm-10.3-2021.07-x86_64-arm-none-eabi.tar.xzhttps://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-a/10$
-sudo nano /etc/profile
-文末添加： export PATH=$PATH:/home/gg/mycode/gcc-arm-10.3-2021.07-x86_64-arm-none-eabi/bin
-命令行使得环境便利生效：source /etc/profile
-sudo apt-get install gcc-arm-none-eabi
-sudo apt-get remove gcc-arm-none-eabi
-arm-none-eabi-gcc -v
 
+ubuntu下安装stm32cubeclt：https://www.st.com/en/development-tools/stm32cubeclt.html
+
+arm-none-eabi-gcc -v
+.vscode文件夹下settings.json：
+{
+    "cortex-debug.armToolchainPath": "/opt/st/stm32cubeclt_1.12.1/GNU-tools-for-STM32/bin/arm-none-eabi-gcc",
+    "cortex-debug.gdbPath": "/opt/st/stm32cubeclt_1.12.1/GNU-tools-for-STM32/bin/arm-none-eabi-gdb" 
+}
+
+.vscode文件夹下launch.json:
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "0.2.0",
+    
+    "configurations": [
+        {
+            "name": "wsl-ubuntu1804-stm32f1-openocd", //调试入口显示的名字，随便起
+            "cwd": "${workspaceRoot}", //工作目录，根路径
+            "armToolchainPath": "${config:cortex-debug.armToolchainPath}",  
+            "gdbPath": "${config:cortex-debug.gdbPath}",
+            "executable": "${workspaceFolder}/build/EC20103RB.elf", //调试文件
+            "request": "launch",
+            "runToMain": true,
+            "type": "cortex-debug", //配置为使用插件调试
+            "servertype": "openocd", //映射openocd
+            "configFiles": [
+                "${workspaceRoot}/openocd.cfg"
+            ], //openocd配置
+            "postDebugTask": "Reset" //同上，调试结束执行的任务
+        }
+        ,{
+            // For the Cortex-Debug extension
+            "type": "cortex-debug",
+            "servertype": "openocd-openocd",
+            "request": "launch",
+            "name": "windows-stm32f1",
+            "executable": "${workspaceRoot}/build/EC20103RB.elf",
+            "configFiles": [
+                "C:/Program Files/OpenOCD/0.10.0-13/scripts/interface/stlink-v2.cfg",
+                "C:/Program Files/OpenOCD/0.10.0-13/scripts/target/stm32f1x_stlink.cfg",
+            ],
+            "cwd": "${workspaceRoot}"
+        }
+    ]
+}
 ```
 
 ## 事先安装这些软件
@@ -53,7 +91,7 @@ sudo apt-get install libnewlib-arm-none-eabi #出现错误时用arm-none-eabi/bi
 ## 下载openocd源码 使能stlink 默认没有的
 
 ```
-ubuntu下安装stm32cubeclt工具不要忘记：https://www.st.com/en/development-tools/stm32cubeclt.html
+
 根据这篇文章 安装openocd：https://blog.csdn.net/daoshengtianxia/article/details/115038674
 git clone https://gitee.com/daoshengtianxia/openocd.git
 下载openocd及其子模块后编译安装
