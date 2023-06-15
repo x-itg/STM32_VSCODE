@@ -19,15 +19,15 @@
 
 `Fn+F5`
 ---------------------------------------------------------------------------------
-# Ubuntu下环境搭建
-```
-https://blog.csdn.net/zhengyangliu123/article/details/54783443?spm=1001.2101.3001.6661.1&utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-1-54783443-blog-124376993.2$
-https://developer.arm.com/downloads/-/gnu-a
-https://blog.csdn.net/daoshengtianxia/article/details/115038674
-https://blog.csdn.net/qq_30623591/article/details/88015282
-```
 
-## 下载armgccgdb添加环境变量
+## 事先安装这些软件
+
+```
+sudo apt-get install lsb-core
+sudo apt-get install build-essential pkg-config autoconf automake libtool libusb-dev libusb-1.0-0-dev libhidapi-dev
+sudo apt-get install libtool libsysfs-dev    
+```
+## 下载armgccgdb添加环境变量vscode安装cortex-debug插件
 
 ```
 
@@ -81,14 +81,7 @@ arm-none-eabi-gcc -v
 }
 ```
 
-## 事先安装这些软件
 
-```
-sudo apt-get install lsb-core
-sudo apt-get install build-essential pkg-config autoconf automake libtool libusb-dev libusb-1.0-0-dev libhidapi-dev
-sudo apt-get install libtool libsysfs-dev    
-sudo apt-get install libnewlib-arm-none-eabi #出现错误时用arm-none-eabi/bin/ld: cannot find -lc_nano
-```
 
 ## 下载openocd源码 使能stlink 默认没有的
 
@@ -118,34 +111,6 @@ reset:
 source [find /usr/local/share/openocd/scripts/interface/stlink.cfg]
 source [find /usr/local/share/openocd/scripts/target/stm32f1x.cfg]
 ```
-
-### 在.vscode文件夹下添加launch.json文件
-```
-{
-    // 使用 IntelliSense 了解相关属性。 
-    // 悬停以查看现有属性的描述。
-    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "wsl", //调试入口显示的名字，随便起
-            "cwd": "${workspaceRoot}", //工作目录，根路径
-            "executable": "${workspaceFolder}/build/f.elf", //调试文件
-            "request": "launch",
-            "runToMain": true,
-            "type": "cortex-debug", //配置为使用插件调试
-            "servertype": "openocd", //映射openocd
-            "configFiles": [
-                "${workspaceRoot}/openocd.cfg"
-            ], //openocd配置
-            "postDebugTask": "Reset" //同上，调试结束执行的任务
-        }
-    ]
-}
-```
-### vscode安装cortex-debug插件
-
-
 
 
 # WSL 图形界面
