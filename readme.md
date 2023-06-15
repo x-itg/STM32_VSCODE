@@ -54,7 +54,7 @@ sudo apt-get install libnewlib-arm-none-eabi #出现错误时用arm-none-eabi/bi
 
 ```
 ubuntu下安装stm32cubeclt工具不要忘记：https://www.st.com/en/development-tools/stm32cubeclt.html
-https://blog.csdn.net/daoshengtianxia/article/details/115038674
+根据这篇文章 安装openocd：https://blog.csdn.net/daoshengtianxia/article/details/115038674
 git clone https://gitee.com/daoshengtianxia/openocd.git
 下载openocd及其子模块后编译安装
 sudo ./bootstrap
@@ -65,9 +65,8 @@ sudo make install
 配置文件在 /usr/local/share/openocd/scripts
 ```
 
-### Makefile文件中 添加
+### Makefile文件中 添加 可以使用make update命令烧入代码
 ```
--include $(wildcard $(BUILD_DIR)/*.d)
 update:
 	openocd -f openocd.cfg -c init -c halt -c "program $(BUILD_DIR)/$(TARGET).hex verify reset exit"
 reset:
