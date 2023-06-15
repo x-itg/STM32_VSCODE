@@ -74,9 +74,9 @@ reset:
 	openocd -f openocd.cfg -c init -c halt -reset -c shutdown
 ```
 
-### 在工作目录下添加openocd.cfg文件，内容：
+### 在工作目录下添加openocd.cfg文件，内容：## stlink-v2.cfg 不对劲直接使用 stlink.cfg
 ```
-source [find /usr/local/share/openocd/scripts/interface/stlink-v2.cfg]
+source [find /usr/local/share/openocd/scripts/interface/stlink.cfg]
 source [find /usr/local/share/openocd/scripts/target/stm32f1x.cfg]
 ```
 
@@ -89,7 +89,7 @@ source [find /usr/local/share/openocd/scripts/target/stm32f1x.cfg]
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "STM32F103", //调试入口显示的名字，随便起
+            "name": "wsl", //调试入口显示的名字，随便起
             "cwd": "${workspaceRoot}", //工作目录，根路径
             "executable": "${workspaceFolder}/build/f.elf", //调试文件
             "request": "launch",
