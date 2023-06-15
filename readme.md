@@ -149,9 +149,8 @@ source [find /usr/local/share/openocd/scripts/target/stm32f1x.cfg]
 - sudo echo xfce4-session > ~/.xsession
 - sudo nano /etc/xrdp/sesman.ini   #将`KillDisconnected`的值修改为`true`,保存退出
 - sudo systemctl restart xrdp 
-
-查看wls中ubuntu的ip：
-ip addr show eth0
-windows宿主机器powershell：
-netsh interface portproxy add v4tov4 listenport=3390 listenaddress=0.0.0.0 connectport=3390 connectaddress=192.168.92.156 protocol=tcp
-netsh interface portproxy show all
+- 查看wls中ubuntu的ip：
+-  ip addr show eth0
+- windows宿主机器powershell：
+-  netsh interface portproxy add v4tov4 listenport=3390 listenaddress=0.0.0.0 connectport=3390 connectaddress=192.168.92.156 protocol=tcp
+- netsh interface portproxy show all
