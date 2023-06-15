@@ -7,6 +7,8 @@
         {
             "name": "wsl-ubuntu1804-stm32f1-openocd", //调试入口显示的名字，随便起
             "cwd": "${workspaceRoot}", //工作目录，根路径
+            "armToolchainPath": "${config:cortex-debug.armToolchainPath}",  
+            "gdbPath": "${config:cortex-debug.gdbPath}",
             "executable": "${workspaceFolder}/build/EC20103RB.elf", //调试文件
             "request": "launch",
             "runToMain": true,
