@@ -31,7 +31,9 @@ https://blog.csdn.net/qq_30623591/article/details/88015282
 
 ```
 
-ubuntu下安装stm32cubeclt：https://www.st.com/en/development-tools/stm32cubeclt.html
+ubuntu下安装stm32cubeclt之前有安装过的可以卸载掉：https://www.st.com/en/development-tools/stm32cubeclt.html
+
+下载好后 sudo bash stm32cubeclt.sh 安装
 
 arm-none-eabi-gcc -v
 .vscode文件夹下settings.json：
