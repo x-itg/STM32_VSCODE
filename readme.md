@@ -1,11 +1,8 @@
 ##### 一、工程搭建
 
 - makefile文件由stm32cube生成后修改
-
 - 事先安装的软件：vscode cortex-debug插件；tup-latest、 openocd 、arm-gdb/gcc 、GNU MCU Eclipse安装到C:\Program Files文件夹，它们的bin文件夹路径加入到path环境变量当中。
-
 - 修改的stm32f1discovery.cfg文件放到C:\Program Files\OpenOCD\0.10.0-13\scripts\board的文件夹；这个make upload烧入的时候用到
-
 
 ##### 二、编译指令
 
@@ -18,16 +15,18 @@
 ##### 四、进入调试
 
 `Fn+F5`
----------------------------------------------------------------------------------
+---
 
 ## 事先安装这些软件
 
 ```
 sudo apt-get install lsb-core
 sudo apt-get install build-essential pkg-config autoconf automake libtool libusb-dev libusb-1.0-0-dev libhidapi-dev
-sudo apt-get install libtool libsysfs-dev    
+sudo apt-get install libtool libsysfs-dev  
 ```
-# WSL USB驱动 我用wsl下的ubuntu 
+
+# WSL USB驱动 我用wsl下的ubuntu
+
 - 安装usb驱动： https://kgithub.com/dorssel/usbipd-win
 - ubunutu下安装：sudo apt install linux-tools-generic hwdata
 - ubunutu下安装：sudo update-alternatives --install /usr/local/bin/usbip usbip /usr/lib/linux-tools/*-generic/usbip 20
@@ -56,7 +55,7 @@ arm-none-eabi-gcc -v
     // See https://go.microsoft.com/fwlink/?LinkId=733558
     // for the documentation about the tasks.json format
     "version": "0.2.0",
-    
+  
     "configurations": [
         {
             "name": "wsl-ubuntu1804-stm32f1-openocd", //调试入口显示的名字，随便起
@@ -90,8 +89,6 @@ arm-none-eabi-gcc -v
 }
 ```
 
-
-
 ## 下载openocd源码 使能stlink 默认没有的
 
 ```
@@ -108,6 +105,7 @@ sudo make install
 ```
 
 ### Makefile文件中 添加 可以使用make update命令烧入代码
+
 ```
 update:
 	openocd -f openocd.cfg -c init -c halt -c "program $(BUILD_DIR)/$(TARGET).hex verify reset exit"
@@ -116,13 +114,14 @@ reset:
 ```
 
 ### 在工作目录下添加openocd.cfg文件，内容：## stlink-v2.cfg 不对劲直接使用 stlink.cfg
+
 ```
 source [find /usr/local/share/openocd/scripts/interface/stlink.cfg]
 source [find /usr/local/share/openocd/scripts/target/stm32f1x.cfg]
 ```
 
-
 # WSL 图形界面
+
 - https://learn.microsoft.com/zh-cn/windows/wsl/install-manual#step-4--download-the-linux-kernel-update-package
 - 管理员运行powershell：dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
 - 管理员运行powershell：dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
@@ -133,20 +132,20 @@ source [find /usr/local/share/openocd/scripts/target/stm32f1x.cfg]
 - 双击安装Ubuntu_1804.2019.522.0_x64.appx
 
 ## wsl2应用程序直接打开gui
+
 - windows下载VxSrv安装时注意勾选Disable access control:    https://nchc.dl.sourceforge.net/project/vcxsrv/vcxsrv/1.20.14.0/vcxsrv-64.1.20.14.0.installer.exe
 - sudo apt install -y x11-apps
 - echo 'export DISPLAY=172.23.80.1:0' >> ~/.bashrc
 - source ~/.bashrc
 
+## 远程桌面连接
 
-
-## 远程桌面连接  
 - ubuntu安装SYSTEMCTL：git clone https://github.com/DamionGans/ubuntu-wsl2-systemd-script.git
 - ubuntu安装SYSTEMCTL：cd ubuntu-wsl2-systemd-script/
 - ubuntu安装SYSTEMCTL：bash ubuntu-wsl2-systemd-script.sh --force
 - ubuntu安装SYSTEMCTL：wsl --shutdown  #去windows cmd下重启wsl
 - ubuntu安装SYSTEMCTL：wsl #启动ubuntu
-- ubuntu安装SYSTEMCTL：sudo apt update 
+- ubuntu安装SYSTEMCTL：sudo apt update
 - sudo apt install -y ubuntu-desktop
 - sudo apt install -y xubuntu-desktop
 - sudo apt install -y xrdp
@@ -154,28 +153,33 @@ source [find /usr/local/share/openocd/scripts/target/stm32f1x.cfg]
 - sudo ufw allow 3390
 - sudo sed -i 's/port=3389/port=3390/g' /etc/xrdp/xrdp.ini
 - sudo echo xfce4-session > ~/.xsession
-- sudo nano /etc/xrdp/sesman.ini   #将`KillDisconnected`的值修改为`true`,保存退出
-- sudo systemctl restart xrdp 
+- sudo nano /etc/xrdp/sesman.ini   #将 `KillDisconnected`的值修改为 `true`,保存退出
+- sudo systemctl restart xrdp
 
 # windows端口转发
+
 - 查看wls中ubuntu的ip：
--  ip addr show eth0
+- ip addr show eth0
 - windows宿主机器powershell：
--  netsh interface portproxy add v4tov4 listenport=3390 listenaddress=0.0.0.0 connectport=3390 connectaddress=192.168.92.156 protocol=tcp
--  netsh interface portproxy add v4tov4 listenport=2222 listenaddress=0.0.0.0 connectport=2222 connectaddress=192.168.92.156
--  netsh interface portproxy add v4tov4 listenport=22 listenaddress=0.0.0.0 connectport=22 connectaddress=192.168.92.156
+- netsh interface portproxy add v4tov4 listenport=3390 listenaddress=0.0.0.0 connectport=3390 connectaddress=192.168.92.156 protocol=tcp
+- netsh interface portproxy add v4tov4 listenport=2222 listenaddress=0.0.0.0 connectport=2222 connectaddress=192.168.92.156
+- netsh interface portproxy add v4tov4 listenport=22 listenaddress=0.0.0.0 connectport=22 connectaddress=192.168.92.156
 - netsh interface portproxy show all
 
-
 # UBUNTU ssh server
+
 1. 查看是否安装SSHServer：ps -e|grep ssh
 2. 安装SSHServer：sudo apt-get install openssh-server
 3. 修改sshd_config: sudo nano /etc/ssh/sshd_config
+
 - port 22
 - PermitRootLogin prohibit-password
 - PermitRootLogin yes
+
 4. 启动SSH：/etc/init.d/ssh start
 5. 设置开机自启SSH：sudo systemctl enable ssh
 
-# git ssh密钥
+# git ssh密钥 
+
 1. ssh-keygen -C “572981033@qq.com” -t rsa
+2. git config **--**global credential**.**helper store
