@@ -182,4 +182,4 @@ source [find /usr/local/share/openocd/scripts/target/stm32f1x.cfg]
 # git ssh密钥 
 
 1. ssh-keygen -C “572981033@qq.com” -t rsa
-2. git config **--**global credential**.**helper store
+2. git config --global credential.helper store
