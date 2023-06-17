@@ -163,6 +163,7 @@ source [find /usr/local/share/openocd/scripts/target/stm32f1x.cfg]
 - windows宿主机器powershell：
 -  netsh interface portproxy add v4tov4 listenport=3390 listenaddress=0.0.0.0 connectport=3390 connectaddress=192.168.92.156 protocol=tcp
 -  netsh interface portproxy add v4tov4 listenport=2222 listenaddress=0.0.0.0 connectport=2222 connectaddress=192.168.92.156
+-  netsh interface portproxy add v4tov4 listenport=22 listenaddress=0.0.0.0 connectport=22 connectaddress=192.168.92.156
 - netsh interface portproxy show all
 
 
