@@ -156,8 +156,25 @@ source [find /usr/local/share/openocd/scripts/target/stm32f1x.cfg]
 - sudo echo xfce4-session > ~/.xsession
 - sudo nano /etc/xrdp/sesman.ini   #将`KillDisconnected`的值修改为`true`,保存退出
 - sudo systemctl restart xrdp 
+
+# windows端口转发
 - 查看wls中ubuntu的ip：
 -  ip addr show eth0
 - windows宿主机器powershell：
 -  netsh interface portproxy add v4tov4 listenport=3390 listenaddress=0.0.0.0 connectport=3390 connectaddress=192.168.92.156 protocol=tcp
+-  netsh interface portproxy add v4tov4 listenport=2222 listenaddress=0.0.0.0 connectport=2222 connectaddress=192.168.92.156
 - netsh interface portproxy show all
+
+
+# UBUNTU ssh server
+1. 查看是否安装SSHServer：ps -e|grep ssh
+2. 安装SSHServer：sudo apt-get install openssh-server
+3. 修改sshd_config: sudo nano /etc/ssh/sshd_config
+- port 22
+- PermitRootLogin prohibit-password
+- PermitRootLogin yes
+4. 启动SSH：/etc/init.d/ssh start
+5. 设置开机自启SSH：sudo systemctl enable ssh
+
+# git ssh密钥
+1. ssh-keygen -C “572981033@qq.com” -t rsa

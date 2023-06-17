@@ -1,89 +1,89 @@
-ARM GAS  /tmp/ccf009mC.s 			page 1
+ARM GAS  /tmp/cc8iVYGA.s 			page 1
 
 
    1              		.cpu cortex-m3
-   2              		.eabi_attribute 20, 1
-   3              		.eabi_attribute 21, 1
-   4              		.eabi_attribute 23, 3
-   5              		.eabi_attribute 24, 1
-   6              		.eabi_attribute 25, 1
-   7              		.eabi_attribute 26, 1
-   8              		.eabi_attribute 30, 6
-   9              		.eabi_attribute 34, 1
-  10              		.eabi_attribute 18, 4
-  11              		.file	"u3radar.c"
-  12              		.text
-  13              	.Ltext0:
-  14              		.cfi_sections	.debug_frame
-  15              		.section	.text.u3Conf,"ax",%progbits
-  16              		.align	1
-  17              		.global	u3Conf
-  18              		.syntax unified
-  19              		.thumb
-  20              		.thumb_func
-  21              		.fpu softvfp
-  23              	u3Conf:
-  24              	.LFB66:
-  25              		.file 1 "Src/u3radar.c"
+   2              		.arch armv7-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"u3radar.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.u3Conf,"ax",%progbits
+  18              		.align	1
+  19              		.global	u3Conf
+  20              		.syntax unified
+  21              		.thumb
+  22              		.thumb_func
+  24              	u3Conf:
+  25              	.LFB68:
+  26              		.file 1 "Src/u3radar.c"
    1:Src/u3radar.c **** #include"ec20.h"
    2:Src/u3radar.c **** 
    3:Src/u3radar.c **** //雷达模块 PB10、PB11
    4:Src/u3radar.c **** //Radar Mod
    5:Src/u3radar.c **** void u3Conf(void)
    6:Src/u3radar.c **** {
-  26              		.loc 1 6 0
-  27              		.cfi_startproc
-  28              		@ args = 0, pretend = 0, frame = 0
-  29              		@ frame_needed = 1, uses_anonymous_args = 0
-  30 0000 80B5     		push	{r7, lr}
-  31              	.LCFI0:
-  32              		.cfi_def_cfa_offset 8
-  33              		.cfi_offset 7, -8
-  34              		.cfi_offset 14, -4
-  35 0002 00AF     		add	r7, sp, #0
-  36              	.LCFI1:
-  37              		.cfi_def_cfa_register 7
+  27              		.loc 1 6 1
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 1, uses_anonymous_args = 0
+  31 0000 80B5     		push	{r7, lr}
+  32              	.LCFI0:
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 7, -8
+  35              		.cfi_offset 14, -4
+  36 0002 00AF     		add	r7, sp, #0
+  37              	.LCFI1:
+  38              		.cfi_def_cfa_register 7
    7:Src/u3radar.c ****   __HAL_UART_ENABLE_IT(&huart3, UART_IT_IDLE); 
-  38              		.loc 1 7 0
-  39 0004 074B     		ldr	r3, .L2
-  40 0006 1B68     		ldr	r3, [r3]
-  41 0008 064A     		ldr	r2, .L2
-  42 000a 1268     		ldr	r2, [r2]
-  43 000c D268     		ldr	r2, [r2, #12]
-  44 000e 42F01002 		orr	r2, r2, #16
-  45 0012 DA60     		str	r2, [r3, #12]
+  39              		.loc 1 7 3
+  40 0004 074B     		ldr	r3, .L2
+  41 0006 1B68     		ldr	r3, [r3]
+  42 0008 DA68     		ldr	r2, [r3, #12]
+  43 000a 064B     		ldr	r3, .L2
+  44 000c 1B68     		ldr	r3, [r3]
+  45 000e 42F01002 		orr	r2, r2, #16
+  46 0012 DA60     		str	r2, [r3, #12]
    8:Src/u3radar.c ****   HAL_UART_Receive_DMA(&huart3, u3rx, u3mx);  
-  46              		.loc 1 8 0
-  47 0014 6422     		movs	r2, #100
-  48 0016 0449     		ldr	r1, .L2+4
-  49 0018 0248     		ldr	r0, .L2
-  50 001a FFF7FEFF 		bl	HAL_UART_Receive_DMA
-ARM GAS  /tmp/ccf009mC.s 			page 2
+  47              		.loc 1 8 3
+  48 0014 6422     		movs	r2, #100
+  49 0016 0449     		ldr	r1, .L2+4
+  50 0018 0248     		ldr	r0, .L2
+ARM GAS  /tmp/cc8iVYGA.s 			page 2
 
 
+  51 001a FFF7FEFF 		bl	HAL_UART_Receive_DMA
    9:Src/u3radar.c **** }
-  51              		.loc 1 9 0
-  52 001e 00BF     		nop
-  53 0020 80BD     		pop	{r7, pc}
-  54              	.L3:
-  55 0022 00BF     		.align	2
-  56              	.L2:
-  57 0024 00000000 		.word	huart3
-  58 0028 00000000 		.word	u3rx
-  59              		.cfi_endproc
-  60              	.LFE66:
-  62              		.section	.text.u3rxProcess,"ax",%progbits
-  63              		.align	1
-  64              		.global	u3rxProcess
-  65              		.syntax unified
-  66              		.thumb
-  67              		.thumb_func
-  68              		.fpu softvfp
+  52              		.loc 1 9 1
+  53 001e 00BF     		nop
+  54 0020 80BD     		pop	{r7, pc}
+  55              	.L3:
+  56 0022 00BF     		.align	2
+  57              	.L2:
+  58 0024 00000000 		.word	huart3
+  59 0028 00000000 		.word	u3rx
+  60              		.cfi_endproc
+  61              	.LFE68:
+  63              		.section	.text.u3rxProcess,"ax",%progbits
+  64              		.align	1
+  65              		.global	u3rxProcess
+  66              		.syntax unified
+  67              		.thumb
+  68              		.thumb_func
   70              	u3rxProcess:
-  71              	.LFB67:
+  71              	.LFB69:
   10:Src/u3radar.c **** void u3rxProcess(void)
   11:Src/u3radar.c **** {
-  72              		.loc 1 11 0
+  72              		.loc 1 11 1
   73              		.cfi_startproc
   74              		@ args = 0, pretend = 0, frame = 8
   75              		@ frame_needed = 1, uses_anonymous_args = 0
@@ -99,259 +99,266 @@ ARM GAS  /tmp/ccf009mC.s 			page 1
   85              	.LCFI4:
   86              		.cfi_def_cfa_register 7
   12:Src/u3radar.c ****   unsigned short i=0;
-  87              		.loc 1 12 0
+  87              		.loc 1 12 18
   88 0006 0023     		movs	r3, #0
   89 0008 FB80     		strh	r3, [r7, #6]	@ movhi
   13:Src/u3radar.c ****   unsigned char flag=0;
-  90              		.loc 1 13 0
+  90              		.loc 1 13 17
   91 000a 0023     		movs	r3, #0
   92 000c 7B71     		strb	r3, [r7, #5]
   14:Src/u3radar.c ****   static unsigned char sflagCnt=0;
   15:Src/u3radar.c ****   if((__HAL_UART_GET_FLAG(&huart3,UART_FLAG_IDLE)!=RESET))//空闲中断
-  93              		.loc 1 15 0
+  93              		.loc 1 15 7
   94 000e 364B     		ldr	r3, .L15
   95 0010 1B68     		ldr	r3, [r3]
   96 0012 1B68     		ldr	r3, [r3]
   97 0014 03F01003 		and	r3, r3, #16
-  98 0018 102B     		cmp	r3, #16
-  99 001a 61D1     		bne	.L14
- 100              	.LBB2:
+  98              		.loc 1 15 5
+  99 0018 102B     		cmp	r3, #16
+ 100 001a 61D1     		bne	.L14
+ 101              	.LBB2:
   16:Src/u3radar.c ****   {
+ARM GAS  /tmp/cc8iVYGA.s 			page 3
+
+
   17:Src/u3radar.c ****     __HAL_UART_CLEAR_IDLEFLAG(&huart3);
-ARM GAS  /tmp/ccf009mC.s 			page 3
-
-
- 101              		.loc 1 17 0
- 102 001c 0023     		movs	r3, #0
- 103 001e 3B60     		str	r3, [r7]
- 104 0020 314B     		ldr	r3, .L15
- 105 0022 1B68     		ldr	r3, [r3]
- 106 0024 1B68     		ldr	r3, [r3]
- 107 0026 3B60     		str	r3, [r7]
- 108 0028 2F4B     		ldr	r3, .L15
- 109 002a 1B68     		ldr	r3, [r3]
- 110 002c 5B68     		ldr	r3, [r3, #4]
- 111 002e 3B60     		str	r3, [r7]
- 112 0030 3B68     		ldr	r3, [r7]
- 113              	.LBE2:
+ 102              		.loc 1 17 5
+ 103 001c 0023     		movs	r3, #0
+ 104 001e 3B60     		str	r3, [r7]
+ 105 0020 314B     		ldr	r3, .L15
+ 106 0022 1B68     		ldr	r3, [r3]
+ 107 0024 1B68     		ldr	r3, [r3]
+ 108 0026 3B60     		str	r3, [r7]
+ 109 0028 2F4B     		ldr	r3, .L15
+ 110 002a 1B68     		ldr	r3, [r3]
+ 111 002c 5B68     		ldr	r3, [r3, #4]
+ 112 002e 3B60     		str	r3, [r7]
+ 113 0030 3B68     		ldr	r3, [r7]
+ 114              	.LBE2:
   18:Src/u3radar.c ****     HAL_UART_DMAStop(&huart3);
- 114              		.loc 1 18 0
- 115 0032 2D48     		ldr	r0, .L15
- 116 0034 FFF7FEFF 		bl	HAL_UART_DMAStop
+ 115              		.loc 1 18 5
+ 116 0032 2D48     		ldr	r0, .L15
+ 117 0034 FFF7FEFF 		bl	HAL_UART_DMAStop
   19:Src/u3radar.c ****     flag=0;
- 117              		.loc 1 19 0
- 118 0038 0023     		movs	r3, #0
- 119 003a 7B71     		strb	r3, [r7, #5]
+ 118              		.loc 1 19 9
+ 119 0038 0023     		movs	r3, #0
+ 120 003a 7B71     		strb	r3, [r7, #5]
   20:Src/u3radar.c ****     RxLenU3=u3mx-huart3.hdmarx->Instance->CNDTR;//接收到的字节长度
- 120              		.loc 1 20 0
- 121 003c 2A4B     		ldr	r3, .L15
- 122 003e 9B6B     		ldr	r3, [r3, #56]
- 123 0040 1B68     		ldr	r3, [r3]
- 124 0042 5B68     		ldr	r3, [r3, #4]
- 125 0044 9BB2     		uxth	r3, r3
- 126 0046 C3F16403 		rsb	r3, r3, #100
- 127 004a 9AB2     		uxth	r2, r3
- 128 004c 274B     		ldr	r3, .L15+4
- 129 004e 1A80     		strh	r2, [r3]	@ movhi
+ 121              		.loc 1 20 24
+ 122 003c 2A4B     		ldr	r3, .L15
+ 123 003e 9B6B     		ldr	r3, [r3, #56]
+ 124              		.loc 1 20 31
+ 125 0040 1B68     		ldr	r3, [r3]
+ 126              		.loc 1 20 41
+ 127 0042 5B68     		ldr	r3, [r3, #4]
+ 128              		.loc 1 20 17
+ 129 0044 9BB2     		uxth	r3, r3
+ 130 0046 C3F16403 		rsb	r3, r3, #100
+ 131 004a 9AB2     		uxth	r2, r3
+ 132              		.loc 1 20 12
+ 133 004c 274B     		ldr	r3, .L15+4
+ 134 004e 1A80     		strh	r2, [r3]	@ movhi
   21:Src/u3radar.c ****     for(i=0;i<RxLenU3;i++)
- 130              		.loc 1 21 0
- 131 0050 0023     		movs	r3, #0
- 132 0052 FB80     		strh	r3, [r7, #6]	@ movhi
- 133 0054 0EE0     		b	.L6
- 134              	.L8:
+ 135              		.loc 1 21 10
+ 136 0050 0023     		movs	r3, #0
+ 137 0052 FB80     		strh	r3, [r7, #6]	@ movhi
+ 138              		.loc 1 21 5
+ 139 0054 0EE0     		b	.L6
+ 140              	.L8:
   22:Src/u3radar.c ****     {
   23:Src/u3radar.c ****       if(u3rx[i]<='9'&&u3rx[i]>='0')
- 135              		.loc 1 23 0
- 136 0056 FB88     		ldrh	r3, [r7, #6]
- 137 0058 254A     		ldr	r2, .L15+8
- 138 005a D35C     		ldrb	r3, [r2, r3]	@ zero_extendqisi2
- 139 005c 392B     		cmp	r3, #57
- 140 005e 06D8     		bhi	.L7
- 141              		.loc 1 23 0 is_stmt 0 discriminator 1
- 142 0060 FB88     		ldrh	r3, [r7, #6]
- 143 0062 234A     		ldr	r2, .L15+8
- 144 0064 D35C     		ldrb	r3, [r2, r3]	@ zero_extendqisi2
- 145 0066 2F2B     		cmp	r3, #47
- 146 0068 01D9     		bls	.L7
+ 141              		.loc 1 23 14
+ 142 0056 FB88     		ldrh	r3, [r7, #6]
+ 143 0058 254A     		ldr	r2, .L15+8
+ 144 005a D35C     		ldrb	r3, [r2, r3]	@ zero_extendqisi2
+ 145              		.loc 1 23 9
+ 146 005c 392B     		cmp	r3, #57
+ 147 005e 06D8     		bhi	.L7
+ 148              		.loc 1 23 28 discriminator 1
+ 149 0060 FB88     		ldrh	r3, [r7, #6]
+ 150 0062 234A     		ldr	r2, .L15+8
+ 151 0064 D35C     		ldrb	r3, [r2, r3]	@ zero_extendqisi2
+ARM GAS  /tmp/cc8iVYGA.s 			page 4
+
+
+ 152              		.loc 1 23 22 discriminator 1
+ 153 0066 2F2B     		cmp	r3, #47
+ 154 0068 01D9     		bls	.L7
   24:Src/u3radar.c ****       {
   25:Src/u3radar.c ****         flag=1;
- 147              		.loc 1 25 0 is_stmt 1
- 148 006a 0123     		movs	r3, #1
- 149 006c 7B71     		strb	r3, [r7, #5]
-ARM GAS  /tmp/ccf009mC.s 			page 4
-
-
- 150              	.L7:
+ 155              		.loc 1 25 13
+ 156 006a 0123     		movs	r3, #1
+ 157 006c 7B71     		strb	r3, [r7, #5]
+ 158              	.L7:
   21:Src/u3radar.c ****     {
- 151              		.loc 1 21 0 discriminator 2
- 152 006e FB88     		ldrh	r3, [r7, #6]
- 153 0070 0133     		adds	r3, r3, #1
- 154 0072 FB80     		strh	r3, [r7, #6]	@ movhi
- 155              	.L6:
+ 159              		.loc 1 21 24 discriminator 2
+ 160 006e FB88     		ldrh	r3, [r7, #6]
+ 161 0070 0133     		adds	r3, r3, #1
+ 162 0072 FB80     		strh	r3, [r7, #6]	@ movhi
+ 163              	.L6:
   21:Src/u3radar.c ****     {
- 156              		.loc 1 21 0 is_stmt 0 discriminator 1
- 157 0074 1D4B     		ldr	r3, .L15+4
- 158 0076 1B88     		ldrh	r3, [r3]
- 159 0078 FA88     		ldrh	r2, [r7, #6]
- 160 007a 9A42     		cmp	r2, r3
- 161 007c EBD3     		bcc	.L8
+ 164              		.loc 1 21 14 discriminator 1
+ 165 0074 1D4B     		ldr	r3, .L15+4
+ 166 0076 1B88     		ldrh	r3, [r3]
+  21:Src/u3radar.c ****     {
+ 167              		.loc 1 21 5 discriminator 1
+ 168 0078 FA88     		ldrh	r2, [r7, #6]
+ 169 007a 9A42     		cmp	r2, r3
+ 170 007c EBD3     		bcc	.L8
   26:Src/u3radar.c ****       }
   27:Src/u3radar.c ****     }
   28:Src/u3radar.c ****      for(i=0;i<RxLenU3;i++)
- 162              		.loc 1 28 0 is_stmt 1
- 163 007e 0023     		movs	r3, #0
- 164 0080 FB80     		strh	r3, [r7, #6]	@ movhi
- 165 0082 06E0     		b	.L9
- 166              	.L10:
+ 171              		.loc 1 28 11
+ 172 007e 0023     		movs	r3, #0
+ 173 0080 FB80     		strh	r3, [r7, #6]	@ movhi
+ 174              		.loc 1 28 6
+ 175 0082 06E0     		b	.L9
+ 176              	.L10:
   29:Src/u3radar.c ****     {
   30:Src/u3radar.c ****       u3rx[i]=0x00;
- 167              		.loc 1 30 0 discriminator 3
- 168 0084 FB88     		ldrh	r3, [r7, #6]
- 169 0086 1A4A     		ldr	r2, .L15+8
- 170 0088 0021     		movs	r1, #0
- 171 008a D154     		strb	r1, [r2, r3]
+ 177              		.loc 1 30 11 discriminator 3
+ 178 0084 FB88     		ldrh	r3, [r7, #6]
+ 179              		.loc 1 30 14 discriminator 3
+ 180 0086 1A4A     		ldr	r2, .L15+8
+ 181 0088 0021     		movs	r1, #0
+ 182 008a D154     		strb	r1, [r2, r3]
   28:Src/u3radar.c ****     {
- 172              		.loc 1 28 0 discriminator 3
- 173 008c FB88     		ldrh	r3, [r7, #6]
- 174 008e 0133     		adds	r3, r3, #1
- 175 0090 FB80     		strh	r3, [r7, #6]	@ movhi
- 176              	.L9:
+ 183              		.loc 1 28 25 discriminator 3
+ 184 008c FB88     		ldrh	r3, [r7, #6]
+ 185 008e 0133     		adds	r3, r3, #1
+ 186 0090 FB80     		strh	r3, [r7, #6]	@ movhi
+ 187              	.L9:
   28:Src/u3radar.c ****     {
- 177              		.loc 1 28 0 is_stmt 0 discriminator 1
- 178 0092 164B     		ldr	r3, .L15+4
- 179 0094 1B88     		ldrh	r3, [r3]
- 180 0096 FA88     		ldrh	r2, [r7, #6]
- 181 0098 9A42     		cmp	r2, r3
- 182 009a F3D3     		bcc	.L10
+ 188              		.loc 1 28 15 discriminator 1
+ 189 0092 164B     		ldr	r3, .L15+4
+ 190 0094 1B88     		ldrh	r3, [r3]
+  28:Src/u3radar.c ****     {
+ 191              		.loc 1 28 6 discriminator 1
+ 192 0096 FA88     		ldrh	r2, [r7, #6]
+ 193 0098 9A42     		cmp	r2, r3
+ 194 009a F3D3     		bcc	.L10
   31:Src/u3radar.c ****     }
+ARM GAS  /tmp/cc8iVYGA.s 			page 5
+
+
   32:Src/u3radar.c ****     
   33:Src/u3radar.c ****     if(flag==1)
- 183              		.loc 1 33 0 is_stmt 1
- 184 009c 7B79     		ldrb	r3, [r7, #5]	@ zero_extendqisi2
- 185 009e 012B     		cmp	r3, #1
- 186 00a0 06D1     		bne	.L11
+ 195              		.loc 1 33 7
+ 196 009c 7B79     		ldrb	r3, [r7, #5]	@ zero_extendqisi2
+ 197 009e 012B     		cmp	r3, #1
+ 198 00a0 06D1     		bne	.L11
   34:Src/u3radar.c ****     {
   35:Src/u3radar.c ****         sflagCnt++;
- 187              		.loc 1 35 0
- 188 00a2 144B     		ldr	r3, .L15+12
- 189 00a4 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
- 190 00a6 0133     		adds	r3, r3, #1
- 191 00a8 DAB2     		uxtb	r2, r3
- 192 00aa 124B     		ldr	r3, .L15+12
-ARM GAS  /tmp/ccf009mC.s 			page 5
-
-
- 193 00ac 1A70     		strb	r2, [r3]
- 194 00ae 02E0     		b	.L12
- 195              	.L11:
+ 199              		.loc 1 35 17
+ 200 00a2 144B     		ldr	r3, .L15+12
+ 201 00a4 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 202 00a6 0133     		adds	r3, r3, #1
+ 203 00a8 DAB2     		uxtb	r2, r3
+ 204 00aa 124B     		ldr	r3, .L15+12
+ 205 00ac 1A70     		strb	r2, [r3]
+ 206 00ae 02E0     		b	.L12
+ 207              	.L11:
   36:Src/u3radar.c ****     }else
   37:Src/u3radar.c ****     {
   38:Src/u3radar.c ****         sflagCnt=0;
- 196              		.loc 1 38 0
- 197 00b0 104B     		ldr	r3, .L15+12
- 198 00b2 0022     		movs	r2, #0
- 199 00b4 1A70     		strb	r2, [r3]
- 200              	.L12:
+ 208              		.loc 1 38 17
+ 209 00b0 104B     		ldr	r3, .L15+12
+ 210 00b2 0022     		movs	r2, #0
+ 211 00b4 1A70     		strb	r2, [r3]
+ 212              	.L12:
   39:Src/u3radar.c ****         
   40:Src/u3radar.c ****     }
   41:Src/u3radar.c ****     if(sflagCnt>3)
- 201              		.loc 1 41 0
- 202 00b6 0F4B     		ldr	r3, .L15+12
- 203 00b8 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
- 204 00ba 032B     		cmp	r3, #3
- 205 00bc 0BD9     		bls	.L13
+ 213              		.loc 1 41 16
+ 214 00b6 0F4B     		ldr	r3, .L15+12
+ 215 00b8 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 216              		.loc 1 41 7
+ 217 00ba 032B     		cmp	r3, #3
+ 218 00bc 0BD9     		bls	.L13
   42:Src/u3radar.c ****     {
   43:Src/u3radar.c ****       sflagCnt=0;
- 206              		.loc 1 43 0
- 207 00be 0D4B     		ldr	r3, .L15+12
- 208 00c0 0022     		movs	r2, #0
- 209 00c2 1A70     		strb	r2, [r3]
+ 219              		.loc 1 43 15
+ 220 00be 0D4B     		ldr	r3, .L15+12
+ 221 00c0 0022     		movs	r2, #0
+ 222 00c2 1A70     		strb	r2, [r3]
   44:Src/u3radar.c ****       ready_2_warning = 1; 
- 210              		.loc 1 44 0
- 211 00c4 0C4B     		ldr	r3, .L15+16
- 212 00c6 0122     		movs	r2, #1
- 213 00c8 1A70     		strb	r2, [r3]
+ 223              		.loc 1 44 23
+ 224 00c4 0C4B     		ldr	r3, .L15+16
+ 225 00c6 0122     		movs	r2, #1
+ 226 00c8 1A70     		strb	r2, [r3]
   45:Src/u3radar.c ****       warning_ID = 0;
- 214              		.loc 1 45 0
- 215 00ca 0C4B     		ldr	r3, .L15+20
- 216 00cc 0022     		movs	r2, #0
- 217 00ce 1A70     		strb	r2, [r3]
+ 227              		.loc 1 45 18
+ 228 00ca 0C4B     		ldr	r3, .L15+20
+ 229 00cc 0022     		movs	r2, #0
+ 230 00ce 1A70     		strb	r2, [r3]
   46:Src/u3radar.c ****       warmSend[0]=1;
- 218              		.loc 1 46 0
- 219 00d0 0B4B     		ldr	r3, .L15+24
- 220 00d2 0122     		movs	r2, #1
- 221 00d4 1A70     		strb	r2, [r3]
- 222              	.L13:
+ 231              		.loc 1 46 18
+ 232 00d0 0B4B     		ldr	r3, .L15+24
+ 233 00d2 0122     		movs	r2, #1
+ 234 00d4 1A70     		strb	r2, [r3]
+ 235              	.L13:
   47:Src/u3radar.c ****     }
+ARM GAS  /tmp/cc8iVYGA.s 			page 6
+
+
   48:Src/u3radar.c ****     
   49:Src/u3radar.c ****     HAL_UART_Receive_DMA(&huart3, u3rx, u3mx); //再次开启DMA接收
- 223              		.loc 1 49 0
- 224 00d6 6422     		movs	r2, #100
- 225 00d8 0549     		ldr	r1, .L15+8
- 226 00da 0348     		ldr	r0, .L15
- 227 00dc FFF7FEFF 		bl	HAL_UART_Receive_DMA
- 228              	.L14:
+ 236              		.loc 1 49 5
+ 237 00d6 6422     		movs	r2, #100
+ 238 00d8 0549     		ldr	r1, .L15+8
+ 239 00da 0348     		ldr	r0, .L15
+ 240 00dc FFF7FEFF 		bl	HAL_UART_Receive_DMA
+ 241              	.L14:
   50:Src/u3radar.c ****   }
   51:Src/u3radar.c **** }...
- 229              		.loc 1 51 0
- 230 00e0 00BF     		nop
- 231 00e2 0837     		adds	r7, r7, #8
- 232              	.LCFI5:
- 233              		.cfi_def_cfa_offset 8
-ARM GAS  /tmp/ccf009mC.s 			page 6
-
-
- 234 00e4 BD46     		mov	sp, r7
- 235              	.LCFI6:
- 236              		.cfi_def_cfa_register 13
- 237              		@ sp needed
- 238 00e6 80BD     		pop	{r7, pc}
- 239              	.L16:
- 240              		.align	2
- 241              	.L15:
- 242 00e8 00000000 		.word	huart3
- 243 00ec 00000000 		.word	RxLenU3
- 244 00f0 00000000 		.word	u3rx
- 245 00f4 00000000 		.word	sflagCnt.7056
- 246 00f8 00000000 		.word	ready_2_warning
- 247 00fc 00000000 		.word	warning_ID
- 248 0100 00000000 		.word	warmSend
- 249              		.cfi_endproc
- 250              	.LFE67:
- 252              		.section	.bss.sflagCnt.7056,"aw",%nobits
- 255              	sflagCnt.7056:
- 256 0000 00       		.space	1
- 257              		.text
- 258              	.Letext0:
- 259              		.file 2 "/usr/include/newlib/machine/_default_types.h"
- 260              		.file 3 "/usr/include/newlib/sys/_stdint.h"
- 261              		.file 4 "Drivers/CMSIS/Include/core_cm3.h"
- 262              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
- 263              		.file 6 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
- 264              		.file 7 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h"
- 265              		.file 8 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
- 266              		.file 9 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
- 267              		.file 10 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
- 268              		.file 11 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
- 269              		.file 12 "/usr/include/newlib/sys/lock.h"
- 270              		.file 13 "/usr/include/newlib/sys/_types.h"
- 271              		.file 14 "/usr/lib/gcc/arm-none-eabi/6.3.1/include/stddef.h"
- 272              		.file 15 "/usr/include/newlib/sys/reent.h"
- 273              		.file 16 "Inc/ec20.h"
-ARM GAS  /tmp/ccf009mC.s 			page 7
+ 242              		.loc 1 51 1
+ 243 00e0 00BF     		nop
+ 244 00e2 0837     		adds	r7, r7, #8
+ 245              	.LCFI5:
+ 246              		.cfi_def_cfa_offset 8
+ 247 00e4 BD46     		mov	sp, r7
+ 248              	.LCFI6:
+ 249              		.cfi_def_cfa_register 13
+ 250              		@ sp needed
+ 251 00e6 80BD     		pop	{r7, pc}
+ 252              	.L16:
+ 253              		.align	2
+ 254              	.L15:
+ 255 00e8 00000000 		.word	huart3
+ 256 00ec 00000000 		.word	RxLenU3
+ 257 00f0 00000000 		.word	u3rx
+ 258 00f4 00000000 		.word	sflagCnt.0
+ 259 00f8 00000000 		.word	ready_2_warning
+ 260 00fc 00000000 		.word	warning_ID
+ 261 0100 00000000 		.word	warmSend
+ 262              		.cfi_endproc
+ 263              	.LFE69:
+ 265              		.section	.bss.sflagCnt.0,"aw",%nobits
+ 268              	sflagCnt.0:
+ 269 0000 00       		.space	1
+ 270              		.text
+ 271              	.Letext0:
+ 272              		.file 2 "/opt/st/stm32cubeclt_1.12.0/GNU-tools-for-STM32/arm-none-eabi/include/machine/_default_ty
+ 273              		.file 3 "/opt/st/stm32cubeclt_1.12.0/GNU-tools-for-STM32/arm-none-eabi/include/sys/_stdint.h"
+ 274              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 275              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h"
+ 276              		.file 6 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 277              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 278              		.file 8 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
+ 279              		.file 9 "Inc/ec20.h"
+ARM GAS  /tmp/cc8iVYGA.s 			page 7
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 u3radar.c
-     /tmp/ccf009mC.s:16     .text.u3Conf:0000000000000000 $t
-     /tmp/ccf009mC.s:23     .text.u3Conf:0000000000000000 u3Conf
-     /tmp/ccf009mC.s:57     .text.u3Conf:0000000000000024 $d
-     /tmp/ccf009mC.s:63     .text.u3rxProcess:0000000000000000 $t
-     /tmp/ccf009mC.s:70     .text.u3rxProcess:0000000000000000 u3rxProcess
-     /tmp/ccf009mC.s:242    .text.u3rxProcess:00000000000000e8 $d
-     /tmp/ccf009mC.s:255    .bss.sflagCnt.7056:0000000000000000 sflagCnt.7056
-     /tmp/ccf009mC.s:256    .bss.sflagCnt.7056:0000000000000000 $d
-                     .debug_frame:0000000000000010 $d
+     /tmp/cc8iVYGA.s:18     .text.u3Conf:0000000000000000 $t
+     /tmp/cc8iVYGA.s:24     .text.u3Conf:0000000000000000 u3Conf
+     /tmp/cc8iVYGA.s:58     .text.u3Conf:0000000000000024 $d
+     /tmp/cc8iVYGA.s:64     .text.u3rxProcess:0000000000000000 $t
+     /tmp/cc8iVYGA.s:70     .text.u3rxProcess:0000000000000000 u3rxProcess
+     /tmp/cc8iVYGA.s:255    .text.u3rxProcess:00000000000000e8 $d
+     /tmp/cc8iVYGA.s:268    .bss.sflagCnt.0:0000000000000000 sflagCnt.0
+     /tmp/cc8iVYGA.s:269    .bss.sflagCnt.0:0000000000000000 $d
 
 UNDEFINED SYMBOLS
 HAL_UART_Receive_DMA
