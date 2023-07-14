@@ -182,4 +182,161 @@ source [find /usr/local/share/openocd/scripts/target/stm32f1x.cfg]
 # git ssh密钥 
 
 1. ssh-keygen -C “572981033@qq.com” -t rsa
-2. git config --global credential.helper store
+2. git config --global credential. Helper store
+
+
+
+
+#### 1、Python
+
+把pip的安装源设置为国内的清华源
+
+pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple/
+
+#### 2、WSL2 下 ROS 添加ROS官方源添加密钥
+
+[(14条消息) win10 wsl2 + ubuntu20.04 配置 ROS-Noetic_lainegates的博客-CSDN博客_wsl2 rosnoetic](https://blog.csdn.net/LaineGates/article/details/120910628)
+```
+sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
+source ~/.bashrc
+```
+##### 3、安装配套工具初始化rosdep开机自动进行ROS环境配置
+```
+sudo apt install python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential
+sudo apt-get install python3-pip
+sudo pip install rosdepc
+sudo apt-get install python3-roslaunch
+sudo apt-get install ros-noetic-roslaunch
+sudo rosdepc init
+rosdepc update
+sudo apt install python3-rosnode #安装节点查看工具rosnode list #查看节点
+sudo apt-get install ros-noetic-rqt #rqt_graph
+sudo apt-get install ros-noetic-rqt-common-plugins #rqt_graph
+sudo apt-get install ros-noetic-rqt ros-noetic-rqt-common-plugins ros-noetic-turtlesim
+source /opt/ros/noetic/setup.bash
+```
+
+
+- 安装ros-tutorials程序包
+- 软件包查找如
+- 软件包定位如
+```
+sudo apt-get install ros-noetic-ros-tutorials
+rospack find roscpp
+roscd roscpp
+roscd roscpp/cmake
+```
+
+
+- 创建软件包
+```
+my_package/
+  CMakeLists.txt#配置Catkin元包的CMakeLists.txt模板文件
+  package.xml#提供软件包元信息
+```
+#### 创建Catkin工作空间
+
+```
+mkdir -p ~/catkin_ws/src
+cd ~/catkin_ws/
+catkin_make #构建一个catkin工作区并生效配置文件
+source devel/setup.bash
+cd ~/catkin_ws/src
+catkin_create_pkg beginner_tutorials std_msgs rospy roscpp #在catkin_ws/src创建软件包
+rospack depends1 beginner_tutorials #查看包依赖
+roscore #开启核心节点
+rosrun turtlesim turtlesim_node #启动小乌龟节点
+rosrun turtlesim turtle_teleop_key #开启小乌龟遥控节点
+rosrun rqt_graph rqt_graph #打开画图图形
+rosmsg show geometry_msgs/Twist #查看消息类型的详细信息
+
+rostopic echo /turtle1/cmd_vel ##### 显示话题内容
+rostopic type /turtle1/cmd_vel ##### 查看话题消息类型
+rostopic pub -1 /turtle1/cmd_vel geometry_msgs/Twist -- '[2.0, 0.0, 0.0]' '[0.0, 0.0, 1.8]'##### 发布消息
+rostopic pub /turtle1/cmd_vel geometry_msgs/Twist -r 1 -- '[2.0, 0.0, 0.0]' '[0.0, 0.0, -1.8]'##### 1Hz频率发送话题消息
+
+rosrun rqt_plot rqt_plot # rqt_plot命令可以在滚动时间图上显示发布到某个话题上的数据。这里我们将使用rqt_plot命令来绘制正被发布到/
+rosrun rqt_console rqt_console #连接到了ROS的日志框架
+rosrun rqt_logger_level rqt_logger_level #节点运行时改变输出信息的详细级别
+ 
+rosservice list #服务
+rosservice call /clear #调用/call服务
+
+rosparam list #参数服务器
+rosparam set /turtlesim/background_r 150
+rosparam get /turtlesim/background_r 
+rosservice call /clear
+rosparam get / #获取参数服务器上所有内容
+--------------------------------------------------------------
+mkdir msg
+echo "int64 num" > msg/Num.msg
+msg package.xml 加入依赖项：
+<build_depend>message_generation</build_depend>
+<exec_depend>message_runtime</exec_depend>
+
+msg CMakeLists.txt find_package中加入message_generation
+# 不要直接复制这一大段，只需将message_generation加在括号闭合前即可
+find_package(catkin REQUIRED COMPONENTS
+   roscpp
+   rospy
+   std_msgs
+   message_generation #加入这个
+)
+#添加编译
+add_message_files(
+  FILES
+  Num.msg
+)
+#查看消息是否在ROS中起作用了
+rosmsg show beginner_tutorials/Num
+
+-------------------------------------------------------------
+roscd beginner_tutorials
+mkdir srv
+roscp rospy_tutorials AddTwoInts.srv srv/AddTwoInts.srv
+#package.xml中确保开启message创建和message运行依赖
+<build_depend>message_generation</build_depend
+msg CMakeLists.txt find_package中加入message_generation
+# 不要直接复制这一大段，只需将message_generation加在括号闭合前即可
+find_package(catkin REQUIRED COMPONENTS
+   roscpp
+   rospy
+   std_msgs
+   message_generation #加入这个
+)
+#添加编译
+add_service_files(
+  FILES
+  AddTwoInts.srv
+)
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+)
+#查看服务
+rossrv show beginner_tutorials/AddTwoInts
+
+```
+
+## 5.2图形界面
+
+- [(14条消息) 超详细Windows10/Windows11 子系统（WSL2）安装Ubuntu20.04（带桌面环境）_萌褚的博客-CSDN博客_wsl ubuntu 桌面](https://blog.csdn.net/m0_60028455/article/details/125316625)
+- [(14条消息) wsl安装xrdp（可视化界面并远程），解决闪退、黑屏_xrdp闪退_daboluo520的博客-CSDN博客](https://blog.csdn.net/guorong520/article/details/124749625)
+- [(14条消息) WSL（Ubuntu20.04）与其图形界面安装配置_sandonz的博客-CSDN博客_wsl ubuntu图形界面](https://blog.csdn.net/sandonz/article/details/120854876?spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EOPENSEARCH%7ERate-1-120854876-blog-113616883.pc_relevant_vip_default&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EOPENSEARCH%7ERate-1-120854876-blog-113616883.pc_relevant_vip_default&utm_relevant_index=2)
+- git clone https://github.com/DamionGans/ubuntu-wsl2-systemd-script.git
+- cd ubuntu-wsl2-systemd-script/
+- bash ubuntu-wsl2-systemd-script.sh --force
+- wsl --shutdown  #去windows cmd下重启wsl
+- wsl #启动ubuntu
+- systemctl 
+- sudo apt update
+- sudo apt install -y xubuntu-desktop
+- sudo apt install -y xrdp
+- sudo adduser xrdp ssl-cert
+- sudo ufw allow 3390
+- sudo sed -i 's/port=3389/port=3390/g' /etc/xrdp/xrdp.ini
+- sudo echo xfce4-session > ~/.xsession
+- sudo nano /etc/xrdp/sesman.ini   #将`KillDisconnected`的值修改为`true`,保存退出
+- sudo systemctl restart xrdp 
