@@ -230,16 +230,24 @@ roscd roscpp/cmake
 ```
 
 
-- 创建软件包
+- 创建软件包 快速开始
 ```
 my_package/
   CMakeLists.txt#配置Catkin元包的CMakeLists.txt模板文件
   package.xml#提供软件包元信息
+
+mkdir -p ~/catkin_ws/src
+cd ~/catkin_ws/src
+git clone https://gitee.com/ros1-learning/beginner_tutorials.git
+cd ~/catkin_ws/
+catkin_make
+roscore
+rosrun beginner_tutorials listener
+rosrun beginner_tutorials talker
 ```
 #### 创建Catkin工作空间
 
 ```
-mkdir -p ~/catkin_ws/src
 cd ~/catkin_ws/
 catkin_make #构建一个catkin工作区并生效配置文件
 source devel/setup.bash
