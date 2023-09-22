@@ -158,37 +158,36 @@ LDSCRIPT = STM32F103RBTx_FLASH.ld
 LIBS = -lc -lm -lnosys 
 LIBDIR = 
 LDFLAGS = $(MCU) -specs=nano.specs -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref -Wl,--gc-sections
+default_language:=zh-CN
 RED = \033[0;31m
 GREEN = \033[0;32m
 YELLOW = \033[0;33m
 NC = \033[0m
 
-# default action: build all
 all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
-
-git:
+dif:
+	diff $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin -a
+git: 
 	@if [ -n "$(findstring dirty,$(shell git describe --dirty --long --always))" ]; then \
 		echo -e "$(YELLOW)code update, building$(NC)"; \
 		cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin; \
 		make -s; \
 		echo -e "$(YELLOW)code update, builded$(NC)"; \
 		if diff -q $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin >/dev/null; then \
-			echo -e "$(YELLOW)bin no change,code changed,commit and push for dispel dirty$(NC)"; \
-			git add .; \
-			git commit -am "bin is same"; \
-			git push -q origin master; \
+			echo -e "$(RED)bin no change,code changed,keep dirty$(NC)"; \
+			echo -e "$(RED)current commit:$$(git log -1 --pretty=%B)$(NC)"; \
 		else \
-			echo -e "$(RED)bin change, bin file copying$(NC)"; \
+			echo -e "$(GREEN)bin changed created:$(COMMIT_INFO).bin$(NC)"; \
 			cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(COMMIT_INFO).bin; \
-			echo -e "$(RED)bin, copied$(NC)"; \
 			git add .; \
 			git commit -am $(BUILDTIME); \
+			echo -e "$(YELLOW)new commit:$$(git log -1 --pretty=%B)$(NC)"; \
 			git push -q origin master; \
-			echo -e "$(RED)bin changed,code changed,commit and push success$(NC)"; \
-		fi \
+			echo -e "$(GREEN)bin changed,code changed,commit and push success$(NC)"; \
+		fi; \
 	else \
-		echo -e "$(GREEN)code no change$(NC)"; \
-	fi
+		echo -e "$(GREEN)code no change commit:$$(git log -1 --pretty=%B)$(NC)"; \
+	fi;
 #######################################
 # build the application
 #######################################
