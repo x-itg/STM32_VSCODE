@@ -183,7 +183,7 @@ git:
 		if diff -q $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin >/dev/null; then \
 			echo -e "$(RED)bin no change,code changed,keep dirty$(NC)"; \
 			echo -e "$(RED)current commit:$$(git log -1 --pretty=%B)$(NC)"; \
-			echo -e "$(COMMIT_INFO)"; \
+			make -p | grep READABLE_TIME ;\
 		else \
 			echo -e "$(GREEN)bin changed created:$(COMMIT_INFO).bin$(NC)"; \
 			cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(COMMIT_INFO).bin; \
