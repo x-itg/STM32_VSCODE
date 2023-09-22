@@ -23,7 +23,17 @@ PROJECT= EC20103RB
 DEBUG = 1
 # optimization
 OPT = -O0
-
+COMMIT_COUNT := $(shell git rev-list --count HEAD)
+BUILDTIME := $(shell date +'-%Y%m%d_%H%M%S') 
+BUILDTIME := $(shell git describe --dirty --long --always)
+BUILDTIME := $(shell echo "$(BUILDTIME)" | tr -d ' ')_$(COMMIT_COUNT)
+COMMIT_TIME := $(shell git show -s --format=%ct HEAD)
+COMMIT_ID := $(shell git rev-parse HEAD)
+COMMIT_ID_ABBREV := $(shell git rev-parse --short HEAD)
+READABLE_TIME := $(shell date -d @$(COMMIT_TIME) +"%Y%m%d_%H%M%S")
+COMMIT_INFO := $(READABLE_TIME)_$(COMMIT_ID_ABBREV)_$(COMMIT_COUNT)
+COMMIT_INFO := $(shell echo "$(COMMIT_INFO)" | tr -d ' ')
+BUILDTIME := $(COMMIT_INFO)
 
 #######################################
 # paths
@@ -108,7 +118,8 @@ AS_DEFS =
 # C defines
 C_DEFS =  \
 -DUSE_HAL_DRIVER \
--DSTM32F103xB
+-DSTM32F103xB \
+-DBUILDCOMMITID=\"$(BUILDTIME)\"
 
 
 # AS includes
@@ -151,7 +162,29 @@ LDFLAGS = $(MCU) -specs=nano.specs -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,-Map=$(BU
 # default action: build all
 all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
 
-
+git:
+	@if [ -n "$(findstring dirty,$(shell git describe --dirty --long --always))" ]; then \
+		echo -e "$(YELLOW)code update, building$(NC)"; \
+		cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin; \
+		make -s; \
+		echo -e "$(YELLOW)code update, builded$(NC)"; \
+		if diff -q $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin >/dev/null; then \
+			echo -e "$(YELLOW)bin no change,code changed,commit and push for dispel dirty$(NC)"; \
+			git add .; \
+			git commit -am "bin is same"; \
+			git push -q origin master; \
+		else \
+			echo -e "$(RED)bin change, bin file copying$(NC)"; \
+			cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(COMMIT_INFO).bin; \
+			echo -e "$(RED)bin, copied$(NC)"; \
+			git add .; \
+			git commit -am $(BUILDTIME); \
+			git push -q origin master; \
+			echo -e "$(RED)bin changed,code changed,commit and push success$(NC)"; \
+		fi \
+	else \
+		echo -e "$(GREEN)code no change$(NC)"; \
+	fi
 #######################################
 # build the application
 #######################################
