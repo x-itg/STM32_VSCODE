@@ -163,19 +163,13 @@ RED = \033[0;31m
 GREEN = \033[0;32m
 YELLOW = \033[0;33m
 NC = \033[0m
-HINCLUDES =  \
-	Core/Inc \
-	Drivers/STM32F4xx_HAL_Driver/Inc \
-	Drivers/STM32F4xx_HAL_Driver/Inc/Legacy \
-	Drivers/CMSIS/Device/ST/STM32F4xx/Include \
-	Drivers/CMSIS/Include
-H_SOURCES := $(shell find $(HINCLUDES) -type f -name "*.h")
+
 all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
 diffch:
-	@if git diff --quiet --exit-code $(C_SOURCES)$(H_SOURCES); then \
+	@if git diff --quiet --exit-code $(C_SOURCES); then \
 		echo "no change"; \
     else \
-		echo ".c .h changed"; \
+		echo ".c  changed"; \
     fi
 all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
 dif:
@@ -189,13 +183,14 @@ git:
 		if diff -q $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin >/dev/null; then \
 			echo -e "$(RED)bin no change,code changed,keep dirty$(NC)"; \
 			echo -e "$(RED)current commit:$$(git log -1 --pretty=%B)$(NC)"; \
+			echo -e "$(COMMIT_INFO)"; \
 		else \
 			echo -e "$(GREEN)bin changed created:$(COMMIT_INFO).bin$(NC)"; \
 			cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(COMMIT_INFO).bin; \
 			git add .; \
 			git commit -am $(BUILDTIME); \
 			echo -e "$(YELLOW)new commit:$$(git log -1 --pretty=%B)$(NC)"; \
-			git push -q origin master; \
+			git push -q origin main; \
 			echo -e "$(GREEN)bin changed,code changed,commit and push success$(NC)"; \
 		fi; \
 	else \
