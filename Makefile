@@ -163,7 +163,20 @@ RED = \033[0;31m
 GREEN = \033[0;32m
 YELLOW = \033[0;33m
 NC = \033[0m
-
+HINCLUDES =  \
+	Core/Inc \
+	Drivers/STM32F4xx_HAL_Driver/Inc \
+	Drivers/STM32F4xx_HAL_Driver/Inc/Legacy \
+	Drivers/CMSIS/Device/ST/STM32F4xx/Include \
+	Drivers/CMSIS/Include
+H_SOURCES := $(shell find $(HINCLUDES) -type f -name "*.h")
+all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
+diffch:
+	@if git diff --quiet --exit-code $(C_SOURCES)$(H_SOURCES); then \
+		echo "no change"; \
+    else \
+		echo ".c .h changed"; \
+    fi
 all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
 dif:
 	diff $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin -a
