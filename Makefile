@@ -197,8 +197,8 @@ git:
 			git commit -am $(BUILDTIME); \
 			git push -q origin main; \
 			echo -e "$(YELLOW)bin changed,code changed,commit and push success$(NC)"; \
-			echo -e "$(YELLOW)bin changed,code changed,  BIN   Created:$(COMMIT_INFO).bin$(NC)"; \
-			echo -e "$(YELLOW)bin changed,code changed,  NEW    Commit:$$(git log -1 --pretty=%B)$(NC)"; \
+			echo -e "$(YELLOW)bin changed,code changed,  BIN   Created: $(COMMIT_INFO).bin$(NC)"; \
+			echo -e "$(YELLOW)bin changed,code changed,  NEW    Commit: $$(git log -1 --pretty=%B)$(NC)"; \
 			echo -e "$(YELLOW)bin changed,code changed,LastTime md5sum: $(md5lasttim)$(NC)"; \
 			echo -e "$(YELLOW)bin changed,code changed,Current  md5sum: $(md5current)$(NC)"; \
 		fi; \
