@@ -67,27 +67,27 @@ unsigned int POLLTime = NORMARLTIME;
 #define SendRecButGpsNotExp 3  // gps数据不在预期范围的计数
 // 发送列表
 const unsigned char *SendList[] = {
-    "AT\r\n\0",                // 0
-    "ATE0\r\n\0",              // 1  回显关闭
-    "AT+CPIN?\r\n\0",          // 2 读卡测试
-    "AT+CSQ\r\n\0",            // 3 信号质量查询
-    "AT+CREG?\r\n\0",          // 4 网络注册查询
-    "AT+CGATT?\r\n\0",         // 5 附着网络查询
-    "AT+QIACT=1\r\n",          // 6 激活移动场景 激活 context profile
-    "AT+QIACT?\r\n\0",         // 7 IP地址查询   QIACT: 1,1,1,"10.23.163.28"  第一个1context号（1-16）  0-1连接号 1
-    "AT+QIDEACT=1\r\n\0",      // 8  Deactivate a PDP Context
-    "AT+QICLOSE=0,2000\r\n\0", // 9 关闭connect 0 不管怎样先关闭一下
+    "AT\r\n",                // 0
+    "ATE0\r\n",              // 1  回显关闭
+    "AT+CPIN?\r\n",          // 2 读卡测试
+    "AT+CSQ\r\n",            // 3 信号质量查询
+    "AT+CREG?\r\n",          // 4 网络注册查询
+    "AT+CGATT?\r\n",         // 5 附着网络查询
+    "AT+QIACT=1\r\n",        // 6 激活移动场景 激活 context profile
+    "AT+QIACT?\r\n",         // 7 IP地址查询   QIACT: 1,1,1,"10.23.163.28"  第一个1context号（1-16）  0-1连接号 1
+    "AT+QIDEACT=1\r\n",      // 8  Deactivate a PDP Context
+    "AT+QICLOSE=0,2000\r\n", // 9 关闭connect 0 不管怎样先关闭一下
 #if FacIP == 0
-    "AT+QIOPEN=1,0,\"TCP\",\"139.198.162.94\",999\r\n\0", // 10 连接context 1号   connect0号 TCP ip及端口47.103.104.119   47.97.25.70
+    "AT+QIOPEN=1,0,\"TCP\",\"139.198.162.94\",999\r\n", // 10 连接context 1号   connect0号 TCP ip及端口47.103.104.119   47.97.25.70
 #else
-    "AT+QIOPEN=1,0,\"TCP\",\"47.103.104.119\",999\r\n\0", // 10 连接context 1号   connect0号 TCP ip及端口47.103.104.119   47.97.25.70
+    "AT+QIOPEN=1,0,\"TCP\",\"47.103.104.119\",999\r\n", // 10 连接context 1号   connect0号 TCP ip及端口47.103.104.119   47.97.25.70
 #endif
-    "AT+QISENDEX=0,\"313233343536373839\"\r\n\0", // 11 发送数据
-    "AT+QIRD=0,1500\r\n\0",                       // 12  接收
-    "AT+QGPSCFG=\"outport\",\"uartdebug\"\r\n\0", // 13  设置gnss的端口----------------------------------------
-    "AT+QGPS=1\r\n\0",                            // 14开启GNNS功能   使用串口发送
-    "AT+QGPSLOC=0\r\n\0",                         // 15读取位置信息发送
-    "F2.0.5" _BUILDCOMMITID "\r\n\0",             // 16
+    "AT+QISENDEX=0,\"313233343536373839\"\r\n", // 11 发送数据
+    "AT+QIRD=0,1500\r\n",                       // 12  接收
+    "AT+QGPSCFG=\"outport\",\"uartdebug\"\r\n", // 13  设置gnss的端口----------------------------------------
+    "AT+QGPS=1\r\n",                            // 14开启GNNS功能   使用串口发送
+    "AT+QGPSLOC=0\r\n",                         // 15读取位置信息发送
+    "F2.0.5" _BUILDCOMMITID "\r\n",             // 16
 };
 
 // 接收期待列表
@@ -221,7 +221,7 @@ unsigned int GetIDCode(void)
   //  SendID=0x15C0;
   //  SendID=0x15D1;
   //  SendID=0x15D2;
-  sprintf(txb, "id:%x\r\n\0", SendID);
+  sprintf(txb, "id:%x\r\n", SendID);
   SendTxDebug((unsigned char *)txb);
 
   return SendID;
@@ -271,11 +271,11 @@ void DataSendPre(void)
     sprintf((char *)&(pec20->longitude[0]), "117.242314E");
     ec20send.End = 0xffff0000;
     i = 0;
-    sprintf((char *)&sendbuf[i], "AT+QISENDEX=0,\"\0"); // AT+QISENDEX=0,"
-    i = i + strlen("AT+QISENDEX=0,\"\0");
+    sprintf((char *)&sendbuf[i], "AT+QISENDEX=0,\""); // AT+QISENDEX=0,"
+    i = i + strlen("AT+QISENDEX=0,\"");
     HexStrConvert((unsigned char *)&ec20send, sizeof(Ec20SendData), &sendbuf[i]);
     i = i + sizeof(Ec20SendData) * 2;
-    sprintf((char *)&sendbuf[i], "\"\r\n\0");                                // 3字节
+    sprintf((char *)&sendbuf[i], "\"\r\n");                                  // 3字节
     HAL_UART_Transmit(&huart2, sendbuf, 2 * sizeof(Ec20SendData) + 18, 800); // 69*2+18=156一共发送156字节
   }
   else
@@ -283,11 +283,11 @@ void DataSendPre(void)
     ec20heart.Len = sizeof(Ec20HEART);
     ec20heart.ID = GetIDCode();
     i = 0;
-    sprintf((char *)&sendbuf[i], "AT+QISENDEX=0,\"\0"); // AT+QISENDEX=0,"
-    i = i + strlen("AT+QISENDEX=0,\"\0");
+    sprintf((char *)&sendbuf[i], "AT+QISENDEX=0,\""); // AT+QISENDEX=0,"
+    i = i + strlen("AT+QISENDEX=0,\"");
     HexStrConvert((unsigned char *)&ec20heart, sizeof(Ec20HEART), &sendbuf[i]);
     i = i + sizeof(Ec20HEART) * 2;
-    sprintf((char *)&sendbuf[i], "\"\r\n\0");                             // 3字节
+    sprintf((char *)&sendbuf[i], "\"\r\n");                               // 3字节
     HAL_UART_Transmit(&huart2, sendbuf, 2 * sizeof(Ec20HEART) + 18, 800); // 69*2+18=156一共发送156字节
   }
 }
@@ -349,7 +349,7 @@ void ec20ProcessFun(void)
       OLED_ShowString(0, 0, "                  ", 16);
       PrintHZ(0, 0, "RST ERROR             ", 0, 1, 0);
 #else
-      SendTxDebug((unsigned char *)"EC20非预期错误\0");
+      SendTxDebug((unsigned char *)"EC20非预期错误");
 #endif
     }
     // 发送 有接收 但非预期的计数 识别断线
@@ -363,7 +363,7 @@ void ec20ProcessFun(void)
       OLED_ShowString(0, 0, "                  ", 16);
       PrintHZ(0, 0, "EXP ERROR             ", 0, 1, 0);
 #else
-      SendTxDebug((unsigned char *)"EC20非预期错误\0");
+      SendTxDebug((unsigned char *)"EC20非预期错误");
 #endif
     }
 
@@ -397,7 +397,7 @@ void ec20ProcessFun(void)
           SendGPSCnt++; // 读取GPS计数
         }
         SendCntRecClear++;
-        sprintf((char *)numstr, "%02d\0", ProSta);
+        sprintf((char *)numstr, "%02d", ProSta);
 #if DEBUGMODE == 0
         OLED_ShowString(0, 0, (char *)numstr, 2);
 
@@ -420,7 +420,7 @@ void ec20ProcessFun(void)
           OLED_ShowString(0, 0, "                  ", 16);
           PrintHZ(0, 0, "正在连接               ", 0, 1, 0);
 #else
-          SendTxDebug((unsigned char *)"正在连接\0");
+          SendTxDebug((unsigned char *)"正在连接");
 #endif
         }
 
@@ -431,10 +431,10 @@ void ec20ProcessFun(void)
       {
         rsRecFlag = 0;
         SendCntRecClear = 0;
-        sprintf((char *)numstr, "%02d\0", ProSta);
+        sprintf((char *)numstr, "%02d", ProSta);
 #if DEBUGMODE == 0
-        OLED_ShowString(0, 0, "                   \0", 8);
-        OLED_ShowString(0, 2, "                   \0", 8);
+        OLED_ShowString(0, 0, "                   ", 8);
+        OLED_ShowString(0, 2, "                   ", 8);
         OLED_ShowString(0, 0, (char *)numstr, 2);
         OLED_ShowString(24, 0, (char *)rsRxBuf, 8);
 #else
@@ -448,7 +448,7 @@ void ec20ProcessFun(void)
           OLED_ShowString(0, 0, "                  ", 16);
           PrintHZ(0, 0, "SIM ERROR             ", 0, 1, 0);
 #else
-          SendTxDebug((unsigned char *)"电话卡有问题\0");
+          SendTxDebug((unsigned char *)"电话卡有问");
 #endif
           linkflag = 0;
         }
@@ -464,7 +464,7 @@ void ec20ProcessFun(void)
           OLED_ShowString(0, 0, "                  ", 16);
           PrintHZ(0, 0, "连接成功              ", 0, 1, 0);
 #else
-          SendTxDebug((unsigned char *)"连接成功\0");
+          SendTxDebug((unsigned char *)"连接成功");
 #endif
         }
 
@@ -610,7 +610,7 @@ void PollFun(void)
     delay_ms(1000);
     OLED_CLS();
 #else
-    SendTxDebug((unsigned char *)"初始化完成\0");
+    SendTxDebug((unsigned char *)"初始化完成");
 #endif
     lifetime_count[0] = 0;
     lifetime_count[1] = 0;
@@ -681,7 +681,7 @@ void PollFun(void)
 #if DEBUGMODE == 0
       OLED_ShowString(0, 0, "RADAR[1]DANGER!!", 16);
 #else
-      SendTxDebug((unsigned char *)"雷达1报警\0");
+      SendTxDebug((unsigned char *)"雷达1报警");
 #endif
     }
     else if (warning_ID == 2)
@@ -689,7 +689,7 @@ void PollFun(void)
 #if DEBUGMODE == 0
       OLED_ShowString(0, 0, "RADAR[2]DANGER!!", 16);
 #else
-      SendTxDebug((unsigned char *)"雷达2报警\0");
+      SendTxDebug((unsigned char *)"雷达2报警");
 #endif
     }
     else if (warning_ID == 3)
@@ -697,7 +697,7 @@ void PollFun(void)
 #if DEBUGMODE == 0
       OLED_ShowString(0, 0, "RADAR[3]DANGER!!", 16);
 #else
-      SendTxDebug((unsigned char *)"雷达3报警\0");
+      SendTxDebug((unsigned char *)"雷达3报警");
 #endif
     }
     else if (warning_ID == 4)
@@ -706,7 +706,7 @@ void PollFun(void)
 #if DEBUGMODE == 0
       OLED_ShowString(0, 0, "RADAR[4]DANGER!!", 16);
 #else
-      SendTxDebug((unsigned char *)"雷达4报警\0");
+      SendTxDebug((unsigned char *)"雷达4报警");
 #endif
     }
 
@@ -726,9 +726,9 @@ void PollFun(void)
   {
     WarmLow;
 #if DEBUGMODE == 0
-    SendTxDebug((unsigned char *)"已报警\0");
+    SendTxDebug((unsigned char *)"已报警");
 #else
-    SendTxDebug((unsigned char *)"已报警\0");
+    SendTxDebug((unsigned char *)"已报警");
 #endif
     waringtimeflag = 0;
     sendingflag = 0; // 未发送 20220527
@@ -758,7 +758,7 @@ void PollFun(void)
 #if DEBUGMODE == 0
       OLED_Clear();
 #else
-      SendTxDebug((unsigned char *)"清除屏幕\0");
+      SendTxDebug((unsigned char *)"清除屏幕");
 #endif
       WarmLow;
     }
