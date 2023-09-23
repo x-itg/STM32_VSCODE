@@ -221,8 +221,8 @@ g:
 			echo -e "$(RED)bin no change,Invalid code modification$(NC),$(GREEN)Current   MD5SUM: $(md5current)$(NC)"; \
 		else \
 		    cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(COMMIT_INFO)_$(md5current).bin; \
-			rm -f build/*.elf build/*.hex build/*.d build/*.map build/*.o build/*.d build/*.lst; \
 			git add .; \
+			git rm -f build/*.elf build/*.hex build/*.d build/*.map build/*.o build/*.d build/*.lst; \
 			git commit -am "bin Changed Version @ 2.1.3_"$(BUILDTIME); \
 			git push -q origin main; \
 			echo -e "$(YELLOW)bin changed,code changed$(NC),$(GREEN)  COMMIT PUSH SUCCESSFULL$(NC)"; \
