@@ -171,18 +171,17 @@ md5lasttim := $(shell md5sum $(BUILD_DIR)/$(TARGET)_backup.bin | cut -d ' ' -f 1
 # git describe --dirty --long --always
 readdirty :
 	@git describe --dirty --long --always
-readd:= $(shell git describe --dirty --long --always)
 # make g
 g:
 	@if git diff --quiet --exit-code $(HFILES) && git diff --quiet --exit-code $(C_SOURCES); then \
 		echo -e "$(GREEN)No changes in .H and .C files IF dirty because of Others Changed$(NC)"; \
-		echo -e "$(GREEN)$(readd)$(NC)"; \
+		echo -e "$(GREEN)$(shell git describe --dirty --long --always)$(NC)"; \
 		if [ -n "$(findstring dirty,$(shell git describe --dirty --long --always))" ]; then \
 			git add .; \
 			git commit -am $(BUILDTIME); \
 			git push -q origin main; \
 		fi; \
-		echo -e "$(GREEN)$(readd)$(NC)"; \
+		make readdirty; \
 		echo -e "$(GREEN)code no change LastCommit: $$(git log -1 --pretty=%B)$(NC)"; \
 		echo -e "$(GREEN)code no Last Time  MD5SUM: $(md5lasttim)$(NC)"; \
 		echo -e "$(GREEN)code no Current    MD5SUM: $(md5current)$(NC)"; \
