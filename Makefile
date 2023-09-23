@@ -174,7 +174,7 @@ readdirty :
 # make g
 g:
 	@if git diff --quiet --exit-code $(HFILES) && git diff --quiet --exit-code $(C_SOURCES); then \
-		echo -e "$(GREEN)No changes in .H and .C files IF dirty because of Others Changed$(NC)"; \
+		echo -e "$(GREEN)No changes in .H and .C files We choose whether to automatically submit updates to other files based on the repository's describe status$(NC)"; \
 		if [ -n "$(findstring dirty,$(shell git describe --dirty --long --always))" ]; then \
 			rm -f build/*.elf build/*.hex build/*.d build/*.map build/*.o build/*.d build/*.lst; \
 			echo -e "$(YELLOW)The repository is dirty, and we have to resubmit it:$(shell git describe --dirty --long --always)! pushing...$(NC)"; \
