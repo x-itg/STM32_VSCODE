@@ -97,7 +97,7 @@ const unsigned char F6x8[][6] =
         0x14, 0x14, 0x14, 0x14, 0x14, 0x14, // horiz lines
 };
 
-/****************************************8*16µÄµãÕó************************************/
+/****************************************8*16ï¿½Äµï¿½ï¿½ï¿½************************************/
 const unsigned char F8X16[] =
     {
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 0
@@ -218,25 +218,25 @@ void delay_oledms(unsigned int ms)
 
 void WriteCmd(unsigned char IIC_Cmd)
 {
-#if DEBUGMODE == 0 // ¼Ü¿ÕÕâ¸öº¯Êý
+#if DEBUGMODE == 0 // ï¿½Ü¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   uint8_t *pData;
   pData = &IIC_Cmd;
   HAL_I2C_Mem_Write(&hi2c1, OLED_ADDRESS, 0x00, I2C_MEMADD_SIZE_8BIT, pData, 1, 100);
 #endif
 }
 //------------------------------------------------------
-// Ð´Êý¾Ý
+// Ð´ï¿½ï¿½ï¿½ï¿½
 //------------------------------------------------------
 void WriteDat(unsigned char IIC_Dat)
 {
-#if DEBUGMODE == 0 // ¼Ü¿ÕÕâ¸öº¯Êý
+#if DEBUGMODE == 0 // ï¿½Ü¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   uint8_t *pData;
   pData = &IIC_Dat;
   HAL_I2C_Mem_Write(&hi2c1, OLED_ADDRESS, 0x40, I2C_MEMADD_SIZE_8BIT, pData, 1, 100);
 #endif
 }
 //-----------------------------------------------------
-// OLED³õÊ¼»¯
+// OLEDï¿½ï¿½Ê¼ï¿½ï¿½
 //-----------------------------------------------------
 void OLED_Init(void)
 {
@@ -271,13 +271,13 @@ void OLED_Init(void)
   WriteCmd(0xa6);
   WriteCmd(0xaf);
 #endif
-  WriteCmd(0xAE); // 1?¡À???¨º?
+  WriteCmd(0xAE); // 1?ï¿½ï¿½???ï¿½ï¿½?
   WriteCmd(0x40); //---set low column address
   WriteCmd(0xB0); //---set high column addres
   WriteCmd(0xC8); //-not offset
-  WriteCmd(0x81); // ¨¦¨¨????¡À¨¨?¨¨
+  WriteCmd(0x81); // ï¿½ï¿½ï¿½ï¿½????ï¿½ï¿½ï¿½ï¿½?ï¿½ï¿½
   WriteCmd(0xff);
-  WriteCmd(0xa1); //?????¡§?¨°¨¦¨¨??
+  WriteCmd(0xa1); //?????ï¿½ï¿½?ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½??
   WriteCmd(0xa6);
   WriteCmd(0xa8);
   WriteCmd(0x1f);
@@ -298,7 +298,7 @@ void OLED_Init(void)
 }
 
 //-----------------------------------------------------------------------
-// OLEDÈ«ÆÁÌî³ä
+// OLEDÈ«ï¿½ï¿½ï¿½ï¿½ï¿½
 //----------------------------------------------------------------------
 void OLED_Fill(unsigned char fill_Data)
 {
@@ -339,7 +339,7 @@ void OLED_OFF(void)
 }
 
 //----------------------------------------------------------------------
-// ÉèÖÃ×ø±ê
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //----------------------------------------------------------------------
 void OLED_Set_Pos(unsigned char x, unsigned char y)
 {
@@ -352,7 +352,7 @@ void OLED_Set_Pos(unsigned char x, unsigned char y)
   delay_us(DELAYUS);
 }
 
-// ÏÔÊ¾ºº×Ö
+// ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
 //-----------------------------------------------------------------------------
 void OLED_WR_Byte(unsigned dat, unsigned cmd)
 {
@@ -367,30 +367,30 @@ void OLED_WR_Byte(unsigned dat, unsigned cmd)
   }
 }
 
-// ÇåÆÁº¯Êý,ÇåÍêÆÁ,Õû¸öÆÁÄ»ÊÇºÚÉ«µÄ!ºÍÃ»µãÁÁÒ»Ñù!!!
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½Çºï¿½É«ï¿½ï¿½!ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½!!!
 void OLED_Clear(void)
 {
 
   unsigned char i, n;
   for (i = 0; i < 8; i++)
   {
-    OLED_WR_Byte(0xb0 + i, OLED_CMD); // ÉèÖÃÒ³µØÖ·£¨0~7£©
-    OLED_WR_Byte(0x00, OLED_CMD);     // ÉèÖÃÏÔÊ¾Î»ÖÃ¡ªÁÐµÍµØÖ·
-    OLED_WR_Byte(0x10, OLED_CMD);     // ÉèÖÃÏÔÊ¾Î»ÖÃ¡ªÁÐ¸ßµØÖ·
+    OLED_WR_Byte(0xb0 + i, OLED_CMD); // ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½Ö·ï¿½ï¿½0~7ï¿½ï¿½
+    OLED_WR_Byte(0x00, OLED_CMD);     // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾Î»ï¿½Ã¡ï¿½ï¿½ÐµÍµï¿½Ö·
+    OLED_WR_Byte(0x10, OLED_CMD);     // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾Î»ï¿½Ã¡ï¿½ï¿½Ð¸ßµï¿½Ö·
     for (n = 0; n < 128; n++)
       OLED_WR_Byte(0, OLED_DATA);
-  } // ¸üÐÂÏÔÊ¾
+  } // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
 }
-// ÔÚÖ¸¶¨Î»ÖÃÏÔÊ¾Ò»¸ö×Ö·û,°üÀ¨²¿·Ö×Ö·û
+// ï¿½ï¿½Ö¸ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½Ê¾Ò»ï¿½ï¿½ï¿½Ö·ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½
 // x:0~127
 // y:0~63
-// mode:0,·´°×ÏÔÊ¾;1,Õý³£ÏÔÊ¾
-// size:Ñ¡Ôñ×ÖÌå 16/12
+// mode:0,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾;1,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
+// size:Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 16/12
 void OLED_ShowChar(unsigned char x, unsigned char y, unsigned char chr, unsigned char Char_Size)
 {
 
   unsigned char c = 0, i = 0;
-  c = chr - ' '; // µÃµ½Æ«ÒÆºóµÄÖµ
+  c = chr - ' '; // ï¿½Ãµï¿½Æ«ï¿½Æºï¿½ï¿½Öµ
   if (x > Max_Column - 1)
   {
     x = 0;
@@ -413,7 +413,7 @@ void OLED_ShowChar(unsigned char x, unsigned char y, unsigned char chr, unsigned
   }
 }
 
-// ÏÔÊ¾Ò»¸ö×Ö·ûºÅ´®
+// ï¿½ï¿½Ê¾Ò»ï¿½ï¿½ï¿½Ö·ï¿½ï¿½Å´ï¿½
 void OLED_ShowString(unsigned char x, unsigned char y, char *chr, unsigned char Char_Size)
 {
 
@@ -433,17 +433,17 @@ void OLED_ShowString(unsigned char x, unsigned char y, char *chr, unsigned char 
     j++;
   }
 }
-// 8x16  ¸ß16
+// 8x16  ï¿½ï¿½16
 void OLED_ShowCharNomAndRev(unsigned char x, unsigned char y, unsigned char chr, unsigned char rev)
 {
 
   unsigned char c = 0, i = 0;
-  c = chr - ' '; // µÃµ½Æ«ÒÆºóµÄÖµ
+  c = chr - ' '; // ï¿½Ãµï¿½Æ«ï¿½Æºï¿½ï¿½Öµ
   if (x > 128 - 1)
   {
     x = 0;
     y = y + 2;
-  } // ×î¶à128ÁÐ
+  } // ï¿½ï¿½ï¿½128ï¿½ï¿½
   if (rev == 0)
   {
     OLED_Set_Pos(x, y);
@@ -463,40 +463,40 @@ void OLED_ShowCharNomAndRev(unsigned char x, unsigned char y, unsigned char chr,
       WriteDat(~F8X16[c * 16 + i + 8]);
   }
 }
-typedef struct gbx16 // ºº×Ö×ÖÄ£Êý¾Ý½á¹¹
+typedef struct gbx16 // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½Ý½á¹¹
 {
   char Index[2];
   char Msk[32];
 } GBX16;
 const GBX16 Hzk[] = {
 
-    // ×ÝÏò8µãÏÂ¸ßÎ»
-    "Õý", 0x00, 0x02, 0x02, 0xC2, 0x02, 0x02, 0x02, 0xFE,
+    // ï¿½ï¿½ï¿½ï¿½8ï¿½ï¿½ï¿½Â¸ï¿½Î»
+    "ï¿½ï¿½", 0x00, 0x02, 0x02, 0xC2, 0x02, 0x02, 0x02, 0xFE,
     0x82, 0x82, 0x82, 0xC2, 0x83, 0x02, 0x00, 0x00,
     0x40, 0x40, 0x40, 0x7F, 0x40, 0x40, 0x40, 0x7F,
     0x40, 0x40, 0x40, 0x40, 0x40, 0x60, 0x40, 0x00,
 
-    "ÔÚ", 0x08, 0x08, 0x08, 0x08, 0xC8, 0x38, 0x0F, 0x08,
+    "ï¿½ï¿½", 0x08, 0x08, 0x08, 0x08, 0xC8, 0x38, 0x0F, 0x08,
     0x08, 0xE8, 0x08, 0x88, 0x08, 0x0C, 0x08, 0x00,
     0x08, 0x04, 0x02, 0xFF, 0x00, 0x40, 0x41, 0x41,
     0x41, 0x7F, 0x41, 0x41, 0x41, 0x60, 0x40, 0x00,
 
-    "Á¬", 0x40, 0x42, 0xCC, 0x00, 0x04, 0x44, 0x64, 0x5C,
+    "ï¿½ï¿½", 0x40, 0x42, 0xCC, 0x00, 0x04, 0x44, 0x64, 0x5C,
     0x47, 0xF4, 0x44, 0x64, 0x46, 0x04, 0x00, 0x00,
     0x40, 0x20, 0x1F, 0x20, 0x44, 0x44, 0x44, 0x44,
     0x44, 0x7F, 0x44, 0x44, 0x46, 0x64, 0x20, 0x00,
 
-    "½Ó", 0x10, 0x10, 0x10, 0xFF, 0x90, 0x54, 0x44, 0x54,
+    "ï¿½ï¿½", 0x10, 0x10, 0x10, 0xFF, 0x90, 0x54, 0x44, 0x54,
     0xE5, 0x46, 0x64, 0x54, 0x46, 0x44, 0x00, 0x00,
     0x02, 0x42, 0x81, 0x7F, 0x02, 0x02, 0x82, 0x8A,
     0x57, 0x22, 0x32, 0x4E, 0xC2, 0x03, 0x02, 0x00,
 
-    "³É", 0x00, 0x00, 0xF8, 0x88, 0x88, 0x88, 0x88, 0x08,
+    "ï¿½ï¿½", 0x00, 0x00, 0xF8, 0x88, 0x88, 0x88, 0x88, 0x08,
     0x7F, 0x88, 0x0A, 0x0C, 0x08, 0xC8, 0x00, 0x00,
     0x40, 0x20, 0x1F, 0x00, 0x08, 0x10, 0x0F, 0x40,
     0x20, 0x13, 0x1C, 0x24, 0x43, 0x80, 0xF0, 0x00,
 
-    "¹¦", 0x08, 0x08, 0x08, 0xF8, 0x0C, 0x28, 0x20, 0x20,
+    "ï¿½ï¿½", 0x08, 0x08, 0x08, 0xF8, 0x0C, 0x28, 0x20, 0x20,
     0xFF, 0x20, 0x20, 0x20, 0x20, 0xF0, 0x20, 0x00,
     0x08, 0x18, 0x08, 0x0F, 0x84, 0x44, 0x20, 0x1C,
     0x03, 0x20, 0x40, 0x80, 0x40, 0x3F, 0x00, 0x00,
@@ -506,7 +506,7 @@ const GBX16 Hzk[] = {
     0x01, 0x81, 0x81, 0x41, 0x21, 0x11, 0x0D, 0x03,
     0x0D, 0x11, 0x21, 0x21, 0x41, 0xC1, 0x41, 0x00,
 
-    "°Ü", 0x00, 0xFE, 0x02, 0xFA, 0x02, 0xFF, 0x02, 0x20,
+    "ï¿½ï¿½", 0x00, 0xFE, 0x02, 0xFA, 0x02, 0xFF, 0x02, 0x20,
     0x10, 0xCF, 0x08, 0x08, 0xF8, 0x0C, 0x08, 0x00,
     0x80, 0x47, 0x30, 0x0F, 0x10, 0x67, 0x80, 0x40,
     0x20, 0x17, 0x08, 0x16, 0x21, 0x60, 0x20, 0x00};
@@ -583,12 +583,12 @@ int PrintHZ(unsigned short ucY, unsigned short ucX, const unsigned char *ptr, un
         revyn = 0;
       }
 
-      if (j == k && c1 != Hzk[j].Index[0] || c2 != Hzk[j].Index[1])
+      if (j == k && (c1 != Hzk[j].Index[0] || c2 != Hzk[j].Index[1]))
       {
 
         if ((i + ucX) < 32)
         {
-          OLED_ShowCHinese(i * 8 + 8 * ucX, 2 * ucY, (unsigned char *)&Hzk[0].Msk[0], revyn); // ¨º¦Ì?¨²?¨°2?¦Ì??¨ª¡ä¨°¨®?¦Ì¨²¨°???oo¡Á?
+          OLED_ShowCHinese(i * 8 + 8 * ucX, 2 * ucY, (unsigned char *)&Hzk[0].Msk[0], revyn); // ï¿½ï¿½ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½2?ï¿½ï¿½??ï¿½ï¿½ï¿½ä¨°ï¿½ï¿½?ï¿½Ì¨ï¿½ï¿½ï¿½???ooï¿½ï¿½?
         }
       }
       else
