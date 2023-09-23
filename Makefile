@@ -170,7 +170,8 @@ md5lasttim := $(shell md5sum $(BUILD_DIR)/$(TARGET)_backup.bin | cut -d ' ' -f 1
 
 # git describe --dirty --long --always
 readdirty :
-	@git describe --dirty --long --always
+	@echo -n "Current commit: "
+	git describe --dirty --long --always
 # make g
 g:
 	@if git diff --quiet --exit-code $(HFILES) && git diff --quiet --exit-code $(C_SOURCES); then \
