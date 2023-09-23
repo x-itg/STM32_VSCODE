@@ -194,7 +194,7 @@ g:
 			echo -e "$(YELLOW)The repository is dirty, have to clean:$(shell git describe --dirty --long --always)! $(NC)"; \
 			echo -e "$(YELLOW)Now clearing this dirty..............................$(NC)"; \
 			git add .; \
-			git commit -am $(BUILDTIME); \
+			git commit -am ".C.H NO CHANGE"$(BUILDTIME); \
 			git push -q origin main; \
 			make readdirty; \
 		else \
