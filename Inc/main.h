@@ -70,6 +70,7 @@ extern "C"
 
   /* USER CODE BEGIN Private defines */
   // change test
+
   /* USER CODE END Private defines */
 
 #ifdef __cplusplus
