@@ -179,13 +179,10 @@ source [find /usr/local/share/openocd/scripts/target/stm32f1x.cfg]
 4. 启动SSH：/etc/init.d/ssh start
 5. 设置开机自启SSH：sudo systemctl enable ssh
 
-# git ssh密钥 
+# git ssh密钥
 
 1. ssh-keygen -C “572981033@qq.com” -t rsa
 2. git config --global credential. Helper store
-
-
-
 
 #### 1、Python
 
@@ -196,13 +193,16 @@ pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple/
 #### 2、WSL2 下 ROS 添加ROS官方源添加密钥
 
 [(14条消息) win10 wsl2 + ubuntu20.04 配置 ROS-Noetic_lainegates的博客-CSDN博客_wsl2 rosnoetic](https://blog.csdn.net/LaineGates/article/details/120910628)
+
 ```
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
 echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 ```
+
 ##### 3、安装配套工具初始化rosdep开机自动进行ROS环境配置
+
 ```
 sudo apt install python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential
 sudo apt-get install python3-pip
@@ -218,10 +218,10 @@ sudo apt-get install ros-noetic-rqt ros-noetic-rqt-common-plugins ros-noetic-tur
 source /opt/ros/noetic/setup.bash
 ```
 
-
 - 安装ros-tutorials程序包
 - 软件包查找如
 - 软件包定位如
+
 ```
 sudo apt-get install ros-noetic-ros-tutorials
 rospack find roscpp
@@ -229,8 +229,8 @@ roscd roscpp
 roscd roscpp/cmake
 ```
 
-
 - 创建软件包 快速开始
+
 ```
 my_package/
   CMakeLists.txt#配置Catkin元包的CMakeLists.txt模板文件
@@ -245,6 +245,7 @@ roscore
 rosrun beginner_tutorials listener
 rosrun beginner_tutorials talker
 ```
+
 #### 创建Catkin工作空间
 
 ```
@@ -338,7 +339,7 @@ rossrv show beginner_tutorials/AddTwoInts
 - bash ubuntu-wsl2-systemd-script.sh --force
 - wsl --shutdown  #去windows cmd下重启wsl
 - wsl #启动ubuntu
-- systemctl 
+- systemctl
 - sudo apt update
 - sudo apt install -y xubuntu-desktop
 - sudo apt install -y xrdp
@@ -346,5 +347,6 @@ rossrv show beginner_tutorials/AddTwoInts
 - sudo ufw allow 3390
 - sudo sed -i 's/port=3389/port=3390/g' /etc/xrdp/xrdp.ini
 - sudo echo xfce4-session > ~/.xsession
-- sudo nano /etc/xrdp/sesman.ini   #将`KillDisconnected`的值修改为`true`,保存退出
-- sudo systemctl restart xrdp 
+- sudo nano /etc/xrdp/sesman.ini   #将 `KillDisconnected`的值修改为 `true`,保存退出
+- sudo systemctl restart xrdp
+-
