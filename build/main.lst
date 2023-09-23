@@ -1,4 +1,4 @@
-ARM GAS  /tmp/cc5uOsVB.s 			page 1
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  /tmp/cc5uOsVB.s 			page 1
   47              		.align	2
   50              	hdma_usart1_rx:
   51 0000 00000000 		.space	68
-ARM GAS  /tmp/cc5uOsVB.s 			page 2
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s 			page 2
 
 
   51      00000000 
@@ -118,7 +118,7 @@ ARM GAS  /tmp/cc5uOsVB.s 			page 1
   24:Src/main.c    **** /* USER CODE BEGIN Includes */
   25:Src/main.c    **** 
   26:Src/main.c    **** /* USER CODE END Includes */
-ARM GAS  /tmp/cc5uOsVB.s 			page 3
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s 			page 3
 
 
   27:Src/main.c    **** 
@@ -178,7 +178,7 @@ ARM GAS  /tmp/cc5uOsVB.s 			page 1
   78              		@ args = 0, pretend = 0, frame = 0
   79              		@ frame_needed = 1, uses_anonymous_args = 0
   80 0000 80B5     		push	{r7, lr}
-ARM GAS  /tmp/cc5uOsVB.s 			page 4
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s 			page 4
 
 
   81              	.LCFI0:
@@ -238,7 +238,7 @@ ARM GAS  /tmp/cc5uOsVB.s 			page 1
  109:Src/main.c    **** 
  110:Src/main.c    ****   /* Infinite loop */
  111:Src/main.c    ****   /* USER CODE BEGIN WHILE */
-ARM GAS  /tmp/cc5uOsVB.s 			page 5
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s 			page 5
 
 
  112:Src/main.c    ****   while (1)
@@ -298,7 +298,7 @@ ARM GAS  /tmp/cc5uOsVB.s 			page 1
  143 0016 0022     		movs	r2, #0
  144 0018 1A60     		str	r2, [r3]
  145 001a 5A60     		str	r2, [r3, #4]
-ARM GAS  /tmp/cc5uOsVB.s 			page 6
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s 			page 6
 
 
  146 001c 9A60     		str	r2, [r3, #8]
@@ -358,7 +358,7 @@ ARM GAS  /tmp/cc5uOsVB.s 			page 1
  182 0058 0F23     		movs	r3, #15
  183 005a 7B60     		str	r3, [r7, #4]
  148:Src/main.c    ****                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
-ARM GAS  /tmp/cc5uOsVB.s 			page 7
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s 			page 7
 
 
  149:Src/main.c    ****   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
@@ -418,7 +418,7 @@ ARM GAS  /tmp/cc5uOsVB.s 			page 1
  160:Src/main.c    **** /**
  161:Src/main.c    ****   * @brief I2C1 Initialization Function
  162:Src/main.c    ****   * @param None
-ARM GAS  /tmp/cc5uOsVB.s 			page 8
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s 			page 8
 
 
  163:Src/main.c    ****   * @retval None
@@ -478,7 +478,7 @@ ARM GAS  /tmp/cc5uOsVB.s 			page 1
  181:Src/main.c    ****   hi2c1.Init.OwnAddress2 = 0;
  265              		.loc 1 181 26
  266 002a 094B     		ldr	r3, .L10
-ARM GAS  /tmp/cc5uOsVB.s 			page 9
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s 			page 9
 
 
  267 002c 0022     		movs	r2, #0
@@ -538,7 +538,7 @@ ARM GAS  /tmp/cc5uOsVB.s 			page 1
  198:Src/main.c    ****   */
  199:Src/main.c    **** static void MX_USART1_UART_Init(void)
  200:Src/main.c    **** {
-ARM GAS  /tmp/cc5uOsVB.s 			page 10
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s 			page 10
 
 
  307              		.loc 1 200 1
@@ -598,7 +598,7 @@ ARM GAS  /tmp/cc5uOsVB.s 			page 1
  346 002e 9A61     		str	r2, [r3, #24]
  216:Src/main.c    ****   huart1.Init.OverSampling = UART_OVERSAMPLING_16;
  347              		.loc 1 216 28
-ARM GAS  /tmp/cc5uOsVB.s 			page 11
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s 			page 11
 
 
  348 0030 064B     		ldr	r3, .L15
@@ -658,7 +658,7 @@ ARM GAS  /tmp/cc5uOsVB.s 			page 1
  387              		.cfi_offset 7, -8
  388              		.cfi_offset 14, -4
  389 0002 00AF     		add	r7, sp, #0
-ARM GAS  /tmp/cc5uOsVB.s 			page 12
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s 			page 12
 
 
  390              	.LCFI12:
@@ -718,7 +718,7 @@ ARM GAS  /tmp/cc5uOsVB.s 			page 1
  427 003c 0346     		mov	r3, r0
  428              		.loc 1 250 6
  429 003e 002B     		cmp	r3, #0
-ARM GAS  /tmp/cc5uOsVB.s 			page 13
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s 			page 13
 
 
  430 0040 01D0     		beq	.L19
@@ -778,7 +778,7 @@ ARM GAS  /tmp/cc5uOsVB.s 			page 1
  272:Src/main.c    ****   /* USER CODE BEGIN USART3_Init 1 */
  273:Src/main.c    **** 
  274:Src/main.c    ****   /* USER CODE END USART3_Init 1 */
-ARM GAS  /tmp/cc5uOsVB.s 			page 14
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s 			page 14
 
 
  275:Src/main.c    ****   huart3.Instance = USART3;
@@ -838,7 +838,7 @@ ARM GAS  /tmp/cc5uOsVB.s 			page 1
  287:Src/main.c    ****   /* USER CODE BEGIN USART3_Init 2 */
  288:Src/main.c    **** 
  289:Src/main.c    ****   /* USER CODE END USART3_Init 2 */
-ARM GAS  /tmp/cc5uOsVB.s 			page 15
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s 			page 15
 
 
  290:Src/main.c    **** 
@@ -898,7 +898,7 @@ ARM GAS  /tmp/cc5uOsVB.s 			page 1
  552 001c 7B68     		ldr	r3, [r7, #4]
  553              	.LBE2:
  301:Src/main.c    **** 
-ARM GAS  /tmp/cc5uOsVB.s 			page 16
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s 			page 16
 
 
  302:Src/main.c    ****   /* DMA interrupt init */
@@ -958,7 +958,7 @@ ARM GAS  /tmp/cc5uOsVB.s 			page 1
  597              		.syntax unified
  598              		.thumb
  599              		.thumb_func
-ARM GAS  /tmp/cc5uOsVB.s 			page 17
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s 			page 17
 
 
  601              	MX_GPIO_Init:
@@ -1018,7 +1018,7 @@ ARM GAS  /tmp/cc5uOsVB.s 			page 1
  642 0030 2D4A     		ldr	r2, .L31
  643 0032 43F02003 		orr	r3, r3, #32
  644 0036 9361     		str	r3, [r2, #24]
-ARM GAS  /tmp/cc5uOsVB.s 			page 18
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s 			page 18
 
 
  645 0038 2B4B     		ldr	r3, .L31
@@ -1078,7 +1078,7 @@ ARM GAS  /tmp/cc5uOsVB.s 			page 1
  688 008a 4FF40053 		mov	r3, #8192
  689 008e 3B61     		str	r3, [r7, #16]
  338:Src/main.c    ****   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-ARM GAS  /tmp/cc5uOsVB.s 			page 19
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s 			page 19
 
 
  690              		.loc 1 338 24
@@ -1138,7 +1138,7 @@ ARM GAS  /tmp/cc5uOsVB.s 			page 1
  729 00d0 FB61     		str	r3, [r7, #28]
  354:Src/main.c    ****   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
  730              		.loc 1 354 3
-ARM GAS  /tmp/cc5uOsVB.s 			page 20
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s 			page 20
 
 
  731 00d2 07F11003 		add	r3, r7, #16
@@ -1198,7 +1198,7 @@ ARM GAS  /tmp/cc5uOsVB.s 			page 1
  774              		.cfi_def_cfa_register 7
  368:Src/main.c    ****   /* USER CODE BEGIN Error_Handler_Debug */
  369:Src/main.c    ****   /* User can add his own implementation to report the HAL error return state */
-ARM GAS  /tmp/cc5uOsVB.s 			page 21
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s 			page 21
 
 
  370:Src/main.c    **** 
@@ -1219,9 +1219,9 @@ ARM GAS  /tmp/cc5uOsVB.s 			page 1
  787              	.LFE76:
  789              		.text
  790              	.Letext0:
- 791              		.file 2 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
- 792              		.file 3 "/opt/st/stm32cubeclt_1.12.1/GNU-tools-for-STM32/arm-none-eabi/include/machine/_default_ty
- 793              		.file 4 "/opt/st/stm32cubeclt_1.12.1/GNU-tools-for-STM32/arm-none-eabi/include/sys/_stdint.h"
+ 791              		.file 2 "c:\\program files\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\machine\\_defa
+ 792              		.file 3 "c:\\program files\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\sys\\_stdint.h
+ 793              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
  794              		.file 5 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
  795              		.file 6 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h"
  796              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc_ex.h"
@@ -1229,52 +1229,49 @@ ARM GAS  /tmp/cc5uOsVB.s 			page 1
  798              		.file 9 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
  799              		.file 10 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h"
  800              		.file 11 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
- 801              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h"
- 802              		.file 13 "Inc/ec20.h"
- 803              		.file 14 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
-ARM GAS  /tmp/cc5uOsVB.s 			page 22
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s 			page 22
 
 
 DEFINED SYMBOLS
-                            *ABS*:0000000000000000 main.c
-     /tmp/cc5uOsVB.s:22     .bss.hi2c1:0000000000000000 hi2c1
-     /tmp/cc5uOsVB.s:19     .bss.hi2c1:0000000000000000 $d
-     /tmp/cc5uOsVB.s:29     .bss.huart1:0000000000000000 huart1
-     /tmp/cc5uOsVB.s:26     .bss.huart1:0000000000000000 $d
-     /tmp/cc5uOsVB.s:36     .bss.huart2:0000000000000000 huart2
-     /tmp/cc5uOsVB.s:33     .bss.huart2:0000000000000000 $d
-     /tmp/cc5uOsVB.s:43     .bss.huart3:0000000000000000 huart3
-     /tmp/cc5uOsVB.s:40     .bss.huart3:0000000000000000 $d
-     /tmp/cc5uOsVB.s:50     .bss.hdma_usart1_rx:0000000000000000 hdma_usart1_rx
-     /tmp/cc5uOsVB.s:47     .bss.hdma_usart1_rx:0000000000000000 $d
-     /tmp/cc5uOsVB.s:57     .bss.hdma_usart2_rx:0000000000000000 hdma_usart2_rx
-     /tmp/cc5uOsVB.s:54     .bss.hdma_usart2_rx:0000000000000000 $d
-     /tmp/cc5uOsVB.s:64     .bss.hdma_usart3_rx:0000000000000000 hdma_usart3_rx
-     /tmp/cc5uOsVB.s:61     .bss.hdma_usart3_rx:0000000000000000 $d
-     /tmp/cc5uOsVB.s:67     .text.main:0000000000000000 $t
-     /tmp/cc5uOsVB.s:73     .text.main:0000000000000000 main
-     /tmp/cc5uOsVB.s:118    .text.SystemClock_Config:0000000000000000 SystemClock_Config
-     /tmp/cc5uOsVB.s:601    .text.MX_GPIO_Init:0000000000000000 MX_GPIO_Init
-     /tmp/cc5uOsVB.s:524    .text.MX_DMA_Init:0000000000000000 MX_DMA_Init
-     /tmp/cc5uOsVB.s:305    .text.MX_USART1_UART_Init:0000000000000000 MX_USART1_UART_Init
-     /tmp/cc5uOsVB.s:378    .text.MX_USART2_UART_Init:0000000000000000 MX_USART2_UART_Init
-     /tmp/cc5uOsVB.s:451    .text.MX_USART3_UART_Init:0000000000000000 MX_USART3_UART_Init
-     /tmp/cc5uOsVB.s:227    .text.MX_I2C1_Init:0000000000000000 MX_I2C1_Init
-     /tmp/cc5uOsVB.s:112    .text.SystemClock_Config:0000000000000000 $t
-     /tmp/cc5uOsVB.s:761    .text.Error_Handler:0000000000000000 Error_Handler
-     /tmp/cc5uOsVB.s:222    .text.MX_I2C1_Init:0000000000000000 $t
-     /tmp/cc5uOsVB.s:293    .text.MX_I2C1_Init:0000000000000050 $d
-     /tmp/cc5uOsVB.s:300    .text.MX_USART1_UART_Init:0000000000000000 $t
-     /tmp/cc5uOsVB.s:367    .text.MX_USART1_UART_Init:000000000000004c $d
-     /tmp/cc5uOsVB.s:373    .text.MX_USART2_UART_Init:0000000000000000 $t
-     /tmp/cc5uOsVB.s:440    .text.MX_USART2_UART_Init:000000000000004c $d
-     /tmp/cc5uOsVB.s:446    .text.MX_USART3_UART_Init:0000000000000000 $t
-     /tmp/cc5uOsVB.s:513    .text.MX_USART3_UART_Init:000000000000004c $d
-     /tmp/cc5uOsVB.s:519    .text.MX_DMA_Init:0000000000000000 $t
-     /tmp/cc5uOsVB.s:591    .text.MX_DMA_Init:0000000000000058 $d
-     /tmp/cc5uOsVB.s:596    .text.MX_GPIO_Init:0000000000000000 $t
-     /tmp/cc5uOsVB.s:748    .text.MX_GPIO_Init:00000000000000e8 $d
-     /tmp/cc5uOsVB.s:755    .text.Error_Handler:0000000000000000 $t
+                            *ABS*:00000000 main.c
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:22     .bss.hi2c1:00000000 hi2c1
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:19     .bss.hi2c1:00000000 $d
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:29     .bss.huart1:00000000 huart1
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:26     .bss.huart1:00000000 $d
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:36     .bss.huart2:00000000 huart2
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:33     .bss.huart2:00000000 $d
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:43     .bss.huart3:00000000 huart3
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:40     .bss.huart3:00000000 $d
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:50     .bss.hdma_usart1_rx:00000000 hdma_usart1_rx
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:47     .bss.hdma_usart1_rx:00000000 $d
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:57     .bss.hdma_usart2_rx:00000000 hdma_usart2_rx
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:54     .bss.hdma_usart2_rx:00000000 $d
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:64     .bss.hdma_usart3_rx:00000000 hdma_usart3_rx
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:61     .bss.hdma_usart3_rx:00000000 $d
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:67     .text.main:00000000 $t
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:73     .text.main:00000000 main
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:118    .text.SystemClock_Config:00000000 SystemClock_Config
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:601    .text.MX_GPIO_Init:00000000 MX_GPIO_Init
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:524    .text.MX_DMA_Init:00000000 MX_DMA_Init
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:305    .text.MX_USART1_UART_Init:00000000 MX_USART1_UART_Init
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:378    .text.MX_USART2_UART_Init:00000000 MX_USART2_UART_Init
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:451    .text.MX_USART3_UART_Init:00000000 MX_USART3_UART_Init
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:227    .text.MX_I2C1_Init:00000000 MX_I2C1_Init
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:112    .text.SystemClock_Config:00000000 $t
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:761    .text.Error_Handler:00000000 Error_Handler
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:222    .text.MX_I2C1_Init:00000000 $t
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:293    .text.MX_I2C1_Init:00000050 $d
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:300    .text.MX_USART1_UART_Init:00000000 $t
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:367    .text.MX_USART1_UART_Init:0000004c $d
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:373    .text.MX_USART2_UART_Init:00000000 $t
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:440    .text.MX_USART2_UART_Init:0000004c $d
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:446    .text.MX_USART3_UART_Init:00000000 $t
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:513    .text.MX_USART3_UART_Init:0000004c $d
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:519    .text.MX_DMA_Init:00000000 $t
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:591    .text.MX_DMA_Init:00000058 $d
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:596    .text.MX_GPIO_Init:00000000 $t
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:748    .text.MX_GPIO_Init:000000e8 $d
+C:\Users\57298\AppData\Local\Temp\cccAYCFJ.s:755    .text.Error_Handler:00000000 $t
 
 UNDEFINED SYMBOLS
 HAL_Init

@@ -24,7 +24,6 @@ DEBUG = 1
 # optimization
 OPT = -O0
 COMMIT_COUNT := $(shell git rev-list --count HEAD)
-BUILDTIME := $(shell date +'-%Y%m%d_%H%M%S') 
 BUILDTIME := $(shell git describe --dirty --long --always)
 BUILDTIME := $(shell echo "$(BUILDTIME)" | tr -d ' ')_$(COMMIT_COUNT)
 COMMIT_TIME := $(shell git show -s --format=%ct HEAD)
