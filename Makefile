@@ -185,8 +185,11 @@ git:
 		else \
 			echo -e "$(GREEN)bin changed created:$(COMMIT_INFO).bin$(NC)"; \
 			cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(COMMIT_INFO).bin; \
-			rm -f build/*.elf build/*.hex build/*.d build/*.map build/*.o build/*.d build/*.lst; \
-			git rm build/*.elf build/*.hex build/*.d build/*.map build/*.o build/*.d build/*.lst; \
+			cp $(BUILD_DIR)/$(COMMIT_INFO).bin $(BUILD_DIR)/$(COMMIT_INFO)_temp.bin; \
+			md5sum $(BUILD_DIR)/$(COMMIT_INFO)_temp.bin | awk '{print $1}' > $(BUILD_DIR)/md5.txt; \
+			read -r md5 < $(BUILD_DIR)/md5.txt; \
+			mv $(BUILD_DIR)/$(COMMIT_INFO)_temp.bin $(BUILD_DIR)/$(COMMIT_INFO)_$${md5}.bin; \
+			rm -f build/*.elf build/*.hex build/*.d build/*.map build/*.o build/*.d build/*.lst; build/*temp.bin \
 			git add .; \
 			git commit -am $(BUILDTIME); \
 			echo -e "$(YELLOW)new commit:$$(git log -1 --pretty=%B)$(NC)"; \
