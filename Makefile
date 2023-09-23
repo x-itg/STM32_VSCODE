@@ -182,7 +182,6 @@ g:
 			git push -q origin main; \
 		fi; \
 		make readdirty; \
-		echo -e "$(GREEN)$(shell git describe --dirty --long --always)$(NC)"; \
 		echo -e "$(GREEN)code no change LastCommit: $$(git log -1 --pretty=%B)$(NC)"; \
 		echo -e "$(GREEN)code no Last Time  MD5SUM: $(md5lasttim)$(NC)"; \
 		echo -e "$(GREEN)code no Current    MD5SUM: $(md5current)$(NC)"; \
