@@ -178,7 +178,8 @@ g:
 		echo -e "$(GREEN)submit updates to other files based on the repository's status.$(NC)"; \
 		if [ -n "$(findstring dirty,$(shell git describe --dirty --long --always))" ]; then \
 			rm -f build/*.elf build/*.hex build/*.d build/*.map build/*.o build/*.d build/*.lst; \
-			echo -e "$(YELLOW)The repository is dirty, have to clean:$(shell git describe --dirty --long --always)! pushing...$(NC)"; \
+			echo -e "$(YELLOW)The repository is dirty, have to clean:$(shell git describe --dirty --long --always)! $(NC)"; \
+			echo -e "$(YELLOW)Now clearing this dirty...............................$(NC)"; \
 			git add .; \
 			git commit -am $(BUILDTIME); \
 			git push -q origin main; \
