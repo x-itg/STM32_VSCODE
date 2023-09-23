@@ -62,7 +62,7 @@ static void MX_USART2_UART_Init(void);
 static void MX_USART3_UART_Init(void);
 static void MX_I2C1_Init(void);
 /* USER CODE BEGIN PFP */
-#include "ec20.h" //last time
+#include "ec20.h" //last time change
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/

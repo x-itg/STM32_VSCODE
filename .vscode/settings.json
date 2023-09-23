@@ -8,5 +8,8 @@
         "linux": "/opt/st/stm32cubeclt_1.12.1/GNU-tools-for-STM32/bin/arm-none-eabi-gdb"
     },
     "cortex-debug.armToolchainPath": "${command:pickToolchainPath}",
-    "cortex-debug.gdbPath": "${command:pickGdbPath}"
+    "cortex-debug.gdbPath": "${command:pickGdbPath}",
+    "files.associations": {
+        "main.h": "c"
+    }
 }

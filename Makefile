@@ -162,21 +162,51 @@ RED = \033[0;31m
 GREEN = \033[0;32m
 YELLOW = \033[0;33m
 NC = \033[0m
-
+HFILES := $(shell find Inc Drivers/STM32F1xx_HAL_Driver/Inc Drivers/STM32F1xx_HAL_Driver/Inc/Legacy Drivers/CMSIS/Device/ST/STM32F1xx/Include Drivers/CMSIS/Include -type f -name "*.h")
+ 
 all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
-diffch:
-	@if git diff --quiet --exit-code $(C_SOURCES); then \
-		echo "no change"; \
-    else \
-		echo ".c  changed"; \
-    fi
+
 all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
 dif:
 	diff $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin -a
 
 md5current := $(shell md5sum $(BUILD_DIR)/$(TARGET).bin | cut -d ' ' -f 1)
 md5lasttim := $(shell md5sum $(BUILD_DIR)/$(TARGET)_backup.bin | cut -d ' ' -f 1)
-
+g:
+	@if git diff --quiet --exit-code $(HFILES) && git diff --quiet --exit-code $(C_SOURCES); then \
+		echo "No changes in .H and .C files"; \
+		echo -e "$(GREEN)code no change LastCommit: $$(git log -1 --pretty=%B)$(NC)"; \
+		echo -e "$(GREEN)code no Last Time  MD5SUM: $(md5lasttim)$(NC)"; \
+		echo -e "$(GREEN)code no Current    MD5SUM: $(md5current)$(NC)"; \
+	else \
+		if ! git diff --quiet --exit-code $(HFILES); then \
+			echo "$(YELLOW).H files changed$(NC)"; \
+		fi; \
+		if ! git diff --quiet --exit-code $(C_SOURCES); then \
+			echo "$(YELLOW).C files changed$(NC)"; \
+		fi; \
+		echo -e "$(YELLOW)code update, building$(NC)"; \
+		cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin; \
+		make -s; \
+		echo -e "$(YELLOW)code update, builded$(NC)"; \
+		if diff -q $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin >/dev/null; then \
+			echo -e "$(RED)bin no change,code changed$(NC),$(GREEN)keep dirty$(NC)"; \
+			echo -e "$(RED)bin no change,code changed$(NC),$(GREEN)Current   Commit:$$(git log -1 --pretty=%B)$(NC)"; \
+			echo -e "$(RED)bin no change,code changed$(NC),$(GREEN)Last Time MD5SUM: $(md5lasttim)$(NC)"; \
+			echo -e "$(RED)bin no change,code changed$(NC),$(GREEN)Current   MD5SUM: $(md5current)$(NC)"; \
+		else \
+		    cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(COMMIT_INFO)_$(md5current).bin; \
+			rm -f build/*.elf build/*.hex build/*.d build/*.map build/*.o build/*.d build/*.lst; \
+			git add .; \
+			git commit -am $(BUILDTIME); \
+			git push -q origin main; \
+			echo -e "$(YELLOW)bin changed,code changed$(NC),$(GREEN)  COMMIT PUSH SUCCESSFULL$(NC)"; \
+			echo -e "$(YELLOW)bin changed,code changed$(NC),$(GREEN)  BIN   Created: $(COMMIT_INFO).bin$(NC)"; \
+			echo -e "$(YELLOW)bin changed,code changed$(NC),$(GREEN)  NEW    Commit: $$(git log -1 --pretty=%B)$(NC)"; \
+			echo -e "$(YELLOW)bin changed,code changed$(NC),$(GREEN)LastTime MD5SUM: $(md5lasttim)$(NC)"; \
+			echo -e "$(YELLOW)bin changed,code changed$(NC),$(GREEN)Current  MD5SUM: $(md5current)$(NC)"; \
+		fi; \
+	fi
 git: 
 	@echo -e "$(GREEN)LastTim  MD5SUM: $(md5lasttim)$(NC)"; \
 	echo -e "$(GREEN)Current  MD5SUM: $(md5current)$(NC)"; \
