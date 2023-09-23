@@ -173,6 +173,9 @@ diffch:
 all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
 dif:
 	diff $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin -a
+
+md5 := $(shell md5sum $(BUILD_DIR)/$(TARGET).bin | awk '{print $1}')
+
 git: 
 	@if [ -n "$(findstring dirty,$(shell git describe --dirty --long --always))" ]; then \
 		echo -e "$(YELLOW)code update, building$(NC)"; \
@@ -184,9 +187,7 @@ git:
 			echo -e "$(RED)current commit:$$(git log -1 --pretty=%B)$(NC)"; \
 		else \
 			echo -e "$(GREEN)bin changed created:$(COMMIT_INFO).bin$(NC)"; \
-			md5sum $(BUILD_DIR)/$(TARGET).bin| awk '{print $1}' > $(BUILD_DIR)/md5.txt; \
-			read -r md5 < $(BUILD_DIR)/md5.txt; \
-			echo -e "$(GREEN)md5sum:$(md5)$(NC)"; \
+			echo -e "$(GREEN)md5sum: $(md5)$(NC)"; \
 		    cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(COMMIT_INFO).bin; \
 			rm -f build/*.elf build/*.hex build/*.d build/*.map build/*.o build/*.d build/*.lst; \
 			git add .; \
