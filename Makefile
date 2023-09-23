@@ -174,24 +174,27 @@ all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET
 dif:
 	diff $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin -a
 
-md5 := $(shell md5sum $(BUILD_DIR)/$(TARGET).bin | cut -d ' ' -f 1)
-md6 := $(shell md5sum $(BUILD_DIR)/$(TARGET)_backup.bin | cut -d ' ' -f 1)
+md5current := $(shell md5sum $(BUILD_DIR)/$(TARGET).bin | cut -d ' ' -f 1)
+md5lasttim := $(shell md5sum $(BUILD_DIR)/$(TARGET)_backup.bin | cut -d ' ' -f 1)
 
 git: 
 	@if [ -n "$(findstring dirty,$(shell git describe --dirty --long --always))" ]; then \
 		echo -e "$(YELLOW)code update, building$(NC)"; \
 		cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin; \
-		cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup_$(md6).bin; \
+		cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup_$(md5lasttim).bin; \
 		make -s; \
 		echo -e "$(YELLOW)code update, builded$(NC)"; \
 		if diff -q $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin >/dev/null; then \
 			echo -e "$(RED)bin no change,code changed,keep dirty$(NC)"; \
 			echo -e "$(RED)current commit:$$(git log -1 --pretty=%B)$(NC)"; \
+			echo -e "$(GREEN)Last Time md5sum: $(md5lasttim)$(NC)"; \
+			echo -e "$(GREEN)Current   md5sum: $(md5current)$(NC)"; \
 		else \
 			echo -e "$(GREEN)bin changed created:$(COMMIT_INFO).bin$(NC)"; \
-			echo -e "$(GREEN)md5sum: $(md5)$(NC)"; \
-			cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_$(md5).bin; \
-		    cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(COMMIT_INFO)_$(md5).bin; \
+			echo -e "$(GREEN)Last Time md5sum: $(md5lasttim)$(NC)"; \
+			echo -e "$(GREEN)Current   md5sum: $(md5current)$(NC)"; \
+			cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_$(md5current).bin; \
+		    cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(COMMIT_INFO)_$(md5current).bin; \
 			rm -f build/*.elf build/*.hex build/*.d build/*.map build/*.o build/*.d build/*.lst; \
 			git add .; \
 			git commit -am $(BUILDTIME); \
