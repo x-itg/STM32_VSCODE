@@ -178,8 +178,8 @@ md5current := $(shell md5sum $(BUILD_DIR)/$(TARGET).bin | cut -d ' ' -f 1)
 md5lasttim := $(shell md5sum $(BUILD_DIR)/$(TARGET)_backup.bin | cut -d ' ' -f 1)
 
 git: 
-	@echo -e "$(GREEN)preCopied Last Timemd5sum: $(md5lasttim)$(NC)"; \
-	echo -e "$(GREEN)preCopied Current  md5sum: $(md5current)$(NC)"; \
+	@echo -e "$(GREEN)Last Timemd5sum: $(md5lasttim)$(NC)"; \
+	echo -e "$(GREEN)Current  md5sum: $(md5current)$(NC)"; \
 	if [ -n "$(findstring dirty,$(shell git describe --dirty --long --always))" ]; then \
 		echo -e "$(YELLOW)code update, building$(NC)"; \
 		cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin; \
