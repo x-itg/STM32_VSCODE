@@ -187,7 +187,7 @@ git:
 			md5sum $(BUILD_DIR)/$(TARGET).bin| awk '{print $1}' > $(BUILD_DIR)/md5.txt; \
 			read -r md5 < $(BUILD_DIR)/md5.txt; \
 		    cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(COMMIT_INFO).bin; \
-			rm -f build/*.elf build/*.hex build/*.d build/*.map build/*.o build/*.d build/*.lst; build/temp.bin \
+			rm -f build/*.elf build/*.hex build/*.d build/*.map build/*.o build/*.d build/*.lst; \
 			git add .; \
 			git commit -am $(BUILDTIME); \
 			echo -e "$(YELLOW)new commit:$$(git log -1 --pretty=%B)$(NC)"; \
