@@ -188,7 +188,7 @@ git:
 			cp $(BUILD_DIR)/$(COMMIT_INFO).bin $(BUILD_DIR)/temp.bin; \
 			md5sum $(BUILD_DIR)/temp.bin | awk '{print $1}' > $(BUILD_DIR)/md5.txt; \
 			read -r md5 < $(BUILD_DIR)/md5.txt; \
-			mv -f ./$(BUILD_DIR)/temp.bin $(BUILD_DIR)/$(COMMIT_INFO)_$${md5}.bin; \
+			cp $(BUILD_DIR)/temp.bin $(BUILD_DIR)/$(COMMIT_INFO)_$${md5}.bin; \
 			rm -f build/*.elf build/*.hex build/*.d build/*.map build/*.o build/*.d build/*.lst; build/temp.bin \
 			git add .; \
 			git commit -am $(BUILDTIME); \
