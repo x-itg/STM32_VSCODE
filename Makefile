@@ -215,10 +215,10 @@ g:
 		make -s; \
 		echo -e "$(YELLOW)code update, builded$(NC)"; \
 		if diff -q $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin >/dev/null; then \
-			echo -e "$(RED)bin no change,code changed$(NC),$(GREEN)keep dirty$(NC)"; \
-			echo -e "$(RED)bin no change,code changed$(NC),$(GREEN)Current   Commit:$$(git log -1 --pretty=%B)$(NC)"; \
-			echo -e "$(RED)bin no change,code changed$(NC),$(GREEN)Last Time MD5SUM: $(md5lasttim)$(NC)"; \
-			echo -e "$(RED)bin no change,code changed$(NC),$(GREEN)Current   MD5SUM: $(md5current)$(NC)"; \
+			echo -e "$(RED)bin no change,Invalid code modification$(NC),$(GREEN)keep dirty$(NC)"; \
+			echo -e "$(RED)bin no change,Invalid code modification$(NC),$(GREEN)Current   Commit:$$(git log -1 --pretty=%B)$(NC)"; \
+			echo -e "$(RED)bin no change,Invalid code modification$(NC),$(GREEN)Last Time MD5SUM: $(md5lasttim)$(NC)"; \
+			echo -e "$(RED)bin no change,Invalid code modification$(NC),$(GREEN)Current   MD5SUM: $(md5current)$(NC)"; \
 		else \
 		    cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(COMMIT_INFO)_$(md5current).bin; \
 			rm -f build/*.elf build/*.hex build/*.d build/*.map build/*.o build/*.d build/*.lst; \
