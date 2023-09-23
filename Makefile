@@ -177,10 +177,10 @@ g:
 		echo -e "$(GREEN)No changes in .H and .C files IF dirty because of Others Changed$(NC)"; \
 		if [ -n "$(findstring dirty,$(shell git describe --dirty --long --always))" ]; then \
 			rm -f build/*.elf build/*.hex build/*.d build/*.map build/*.o build/*.d build/*.lst; \
+			echo -e "$(YELLOW) The repository is dirty, and we have to resubmit it:$(shell git describe --dirty --long --always)! pushing...$(NC)"; \
 			git add .; \
 			git commit -am $(BUILDTIME); \
 			git push -q origin main; \
-			echo -e "$(YELLOW) The repository is dirty, and we have to resubmit it:$(shell git describe --dirty --long --always)! pushing...$(NC)"; \
 			make readdirty; \
 		else \
 			echo -e "$(GREEN) The repository itself is clean:$(shell git describe --dirty --long --always)$(NC)"; \
