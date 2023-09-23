@@ -176,7 +176,7 @@ readdirty :
  
 # make g 先判断_backup.bin是否存在，不存在则先执行f
 g:
-	@if [ -f $(BUILD_DIR)/$(TARGET)_backup.bin ]; then \
+	@if [ ! -f $(BUILD_DIR)/$(TARGET)_backup.bin ]; then \
 	    make -s;\
 		cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin; \
 		echo -e "$(YELLOW)$(TARGET)_backup none$(NC)"; \
