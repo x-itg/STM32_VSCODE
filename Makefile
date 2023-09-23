@@ -172,7 +172,7 @@ md5lasttim := $(shell md5sum $(BUILD_DIR)/$(TARGET)_backup.bin | cut -d ' ' -f 1
 # git describe --dirty --long --always
 readdirty :
 	@echo -e "$(YELLOW)The repository dirty has been cleaned up:$(shell git describe --dirty --long --always)$(NC)";
-# make first
+# make first make and cp a backup.bin
 f:
 	@make -s;\
 	cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin; 
