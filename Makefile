@@ -219,6 +219,54 @@ g:
 			echo -e "$(YELLOW)bin changed,code changed$(NC),$(GREEN)Current  MD5SUM: $(md5current)$(NC)"; \
 		fi; \
 	fi
+
+gg:
+	@if git diff --quiet --exit-code $(HFILES) && git diff --quiet --exit-code $(C_SOURCES); then \
+		echo -e "$(GREEN)No changes in .H and .C files. We choose whether to automatically$(NC)\t\t"; \
+		echo -e "$(GREEN)submit updates to other files based on the repository's status.$(NC)\t\t"; \
+		if [ -n "$(findstring dirty,$(shell git describe --dirty --long --always))" ]; then \
+			rm -f build/*.elf build/*.hex build/*.d build/*.map build/*.o build/*.d build/*.lst; \
+			echo -e "$(YELLOW)The repository is dirty, have to clean:$(shell git describe --dirty --long --always)! $(NC)\t\t"; \
+			echo -e "$(YELLOW)Now clearing this dirty..............................$(NC)\t\t"; \
+			git add .; \
+			git commit -am $(BUILDTIME); \
+			git push -q origin main; \
+			make readdirty; \
+		else \
+			echo -e "$(YELLOW)The repository itself is clean:$(shell git describe --dirty --long --always)$(NC)\t\t"; \
+		fi; \
+		echo -e "$(GREEN)code no change LastCommit: $$(git log -1 --pretty=%B)$(NC)\t\t"; \
+		echo -e "$(GREEN)code no Last Time  MD5SUM: $(md5lasttim)$(NC)\t\t"; \
+		echo -e "$(GREEN)code no Current    MD5SUM: $(md5current)$(NC)\t\t"; \
+	else \
+		if ! git diff --quiet --exit-code $(HFILES); then \
+			echo -e "$(YELLOW).H files changed$(NC)\t\t"; \
+		fi; \
+		if ! git diff --quiet --exit-code $(C_SOURCES); then \
+			echo -e "$(YELLOW).C files changed$(NC)\t\t"; \
+		fi; \
+		echo -e "$(YELLOW)code update, building$(NC)\t\t"; \
+		cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin; \
+		make -s; \
+		echo -e "$(YELLOW)code update, builded$(NC)\t\t"; \
+		if diff -q $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin >/dev/null; then \
+			echo -e "$(RED)bin no change,code changed$(NC),$(GREEN)keep dirty$(NC)\t\t"; \
+			echo -e "$(RED)bin no change,code changed$(NC),$(GREEN)Current   Commit:$$(git log -1 --pretty=%B)$(NC)\t\t"; \
+			echo -e "$(RED)bin no change,code changed$(NC),$(GREEN)Last Time MD5SUM: $(md5lasttim)$(NC)\t\t"; \
+			echo -e "$(RED)bin no change,code changed$(NC),$(GREEN)Current   MD5SUM: $(md5current)$(NC)\t\t"; \
+		else \
+			cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(COMMIT_INFO)_$(md5current).bin; \
+			rm -f build/*.elf build/*.hex build/*.d build/*.map build/*.o build/*.d build/*.lst; \
+			git add .; \
+			git commit -am $(BUILDTIME); \
+			git push -q origin main; \
+			echo -e "$(YELLOW)bin changed,code changed$(NC),$(GREEN)  COMMIT PUSH SUCCESSFULL$(NC)\t\t"; \
+			echo -e "$(YELLOW)bin changed,code changed$(NC),$(GREEN)  BIN   Created: $(COMMIT_INFO).bin$(NC)\t\t"; \
+			echo -e "$(YELLOW)bin changed,code changed$(NC),$(GREEN)  NEW    Commit: $$(git log -1 --pretty=%B)$(NC)\t\t"; \
+			echo -e "$(YELLOW)bin changed,code changed$(NC),$(GREEN)LastTime MD5SUM: $(md5lasttim)$(NC)\t\t"; \
+			echo -e "$(YELLOW)bin changed,code changed$(NC),$(GREEN)Current  MD5SUM: $(md5current)$(NC)\t\t"; \
+		fi; \
+	fi
 git: 
 	@echo -e "$(GREEN)LastTim  MD5SUM: $(md5lasttim)$(NC)"; \
 	echo -e "$(GREEN)Current  MD5SUM: $(md5current)$(NC)"; \
