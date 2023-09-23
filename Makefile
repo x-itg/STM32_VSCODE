@@ -178,8 +178,8 @@ md5current := $(shell md5sum $(BUILD_DIR)/$(TARGET).bin | cut -d ' ' -f 1)
 md5lasttim := $(shell md5sum $(BUILD_DIR)/$(TARGET)_backup.bin | cut -d ' ' -f 1)
 
 git: 
-	@echo -e "$(GREEN)Last Timemd5sum: $(md5lasttim)$(NC)"; \
-	echo -e "$(GREEN)Current  md5sum: $(md5current)$(NC)"; \
+	@echo -e "$(GREEN)LastTim  MD5SUM: $(md5lasttim)$(NC)"; \
+	echo -e "$(GREEN)Current  MD5SUM: $(md5current)$(NC)"; \
 	if [ -n "$(findstring dirty,$(shell git describe --dirty --long --always))" ]; then \
 		echo -e "$(YELLOW)code update, building$(NC)"; \
 		cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin; \
@@ -187,25 +187,25 @@ git:
 		echo -e "$(YELLOW)code update, builded$(NC)"; \
 		if diff -q $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin >/dev/null; then \
 			echo -e "$(RED)bin no change,code changed$(NC),$(GREEN)keep dirty$(NC)"; \
-			echo -e "$(RED)bin no change,code changed$(NC),$(GREEN)Current   commit:$$(git log -1 --pretty=%B)$(NC)"; \
-			echo -e "$(RED)bin no change,code changed$(NC),$(GREEN)Last Time md5sum: $(md5lasttim)$(NC)"; \
-			echo -e "$(RED)bin no change,code changed$(NC),$(GREEN)Current   md5sum: $(md5current)$(NC)"; \
+			echo -e "$(RED)bin no change,code changed$(NC),$(GREEN)Current   Commit:$$(git log -1 --pretty=%B)$(NC)"; \
+			echo -e "$(RED)bin no change,code changed$(NC),$(GREEN)Last Time MD5SUM: $(md5lasttim)$(NC)"; \
+			echo -e "$(RED)bin no change,code changed$(NC),$(GREEN)Current   MD5SUM: $(md5current)$(NC)"; \
 		else \
 		    cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(COMMIT_INFO)_$(md5current).bin; \
 			rm -f build/*.elf build/*.hex build/*.d build/*.map build/*.o build/*.d build/*.lst; \
 			git add .; \
 			git commit -am $(BUILDTIME); \
 			git push -q origin main; \
-			echo -e "$(YELLOW)bin changed,code changed$(NC),$(GREEN)commit and push success$(NC)"; \
+			echo -e "$(YELLOW)bin changed,code changed$(NC),$(GREEN)  COMMIT PUSH SUCCESSFULL$(NC)"; \
 			echo -e "$(YELLOW)bin changed,code changed$(NC),$(GREEN)  BIN   Created: $(COMMIT_INFO).bin$(NC)"; \
 			echo -e "$(YELLOW)bin changed,code changed$(NC),$(GREEN)  NEW    Commit: $$(git log -1 --pretty=%B)$(NC)"; \
-			echo -e "$(YELLOW)bin changed,code changed$(NC),$(GREEN)LastTime md5sum: $(md5lasttim)$(NC)"; \
-			echo -e "$(YELLOW)bin changed,code changed$(NC),$(GREEN)Current  md5sum: $(md5current)$(NC)"; \
+			echo -e "$(YELLOW)bin changed,code changed$(NC),$(GREEN)LastTime MD5SUM: $(md5lasttim)$(NC)"; \
+			echo -e "$(YELLOW)bin changed,code changed$(NC),$(GREEN)Current  MD5SUM: $(md5current)$(NC)"; \
 		fi; \
 	else \
-		echo -e "$(GREEN)code no change lastcommit: $$(git log -1 --pretty=%B)$(NC)"; \
-		echo -e "$(GREEN)code no Last Time  md5sum: $(md5lasttim)$(NC)"; \
-		echo -e "$(GREEN)code no Current    md5sum: $(md5current)$(NC)"; \
+		echo -e "$(GREEN)code no change LastCommit: $$(git log -1 --pretty=%B)$(NC)"; \
+		echo -e "$(GREEN)code no Last Time  MD5SUM: $(md5lasttim)$(NC)"; \
+		echo -e "$(GREEN)code no Current    MD5SUM: $(md5current)$(NC)"; \
 	fi;
 #######################################
 # build the application
