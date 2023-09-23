@@ -6,7 +6,67 @@
 
 ##### 二、编译指令
 
-`make`
+`make g`
+
+```makefile
+g:
+	@if [ ! -f $(BUILD_DIR)/$(TARGET)_backup.bin ]; then \
+	    make -s;\
+		cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin; \
+		echo -e "$(RED)$(TARGET)_backup.bin 不存在，现在创建并复制$(NC)"; \
+	fi; \
+	if [ ! -f $(BUILD_DIR)/$(TARGET).bin ]; then \
+	    make -s;\
+		cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin; \
+		echo -e "$(RED)$(TARGET).bin 不存在，现在创建并复制$(NC)"; \
+	fi; \
+	if git diff --quiet --exit-code $(HFILES) && git diff --quiet --exit-code $(C_SOURCES); then \
+		echo -e "$(GREEN)没有更改的.H和.C文件，我们根据仓库的状态选择是否自动提交更新到其他文件。$(NC)"; \
+		if [ -n "$(findstring dirty,$(shell git describe --dirty --long --always))" ]; then \
+			rm -f build/*.elf build/*.hex build/*.d build/*.map build/*.o build/*.d build/*.lst; \
+			echo -e "$(YELLOW)仓库是脏的，必须清理: $(shell git describe --dirty --long --always)! $(NC)"; \
+			echo -e "$(YELLOW)正在清理脏文件..............................$(NC)"; \
+			git add .; \
+			git commit -am $(BUILDTIME); \
+			git push -q origin main; \
+			make readdirty; \
+		else \
+			echo -e "$(YELLOW)仓库本身是干净的: $(shell git describe --dirty --long --always)$(NC)"; \
+		fi; \
+		echo -e "$(GREEN)代码没有更改，上次提交: $$(git log -1 --pretty=%B)$(NC)"; \
+		echo -e "$(GREEN)代码没有更改，上次时间 MD5SUM: $(md5lasttim)$(NC)"; \
+		echo -e "$(GREEN)代码没有更改，当前时间 MD5SUM: $(md5current)$(NC)"; \
+	else \
+		if ! git diff --quiet --exit-code $(HFILES); then \
+			echo "$(YELLOW).H文件已更改$(NC)"; \
+		fi; \
+		if ! git diff --quiet --exit-code $(C_SOURCES); then \
+			echo "$(YELLOW).C文件已更改$(NC)"; \
+		fi; \
+		echo -e "$(YELLOW)代码已更新，正在构建$(NC)"; \
+		cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin; \
+		make -s; \
+		echo -e "$(YELLOW)代码已更新，已构建$(NC)"; \
+		if diff -q $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin >/dev/null; then \
+			echo -e "$(RED)bin文件没有更改，代码已更改$(NC)，$(GREEN)保留脏文件$(NC)"; \
+			echo -e "$(RED)bin文件没有更改，代码已更改$(NC)，$(GREEN)当前提交: $$(git log -1 --pretty=%B)$(NC)"; \
+			echo -e "$(RED)bin文件没有更改，代码已更改$(NC)，$(GREEN)上次时间 MD5SUM: $(md5lasttim)$(NC)"; \
+			echo -e "$(RED)bin文件没有更改，代码已更改$(NC)，$(GREEN)当前时间 MD5SUM: $(md5current)$(NC)"; \
+		else \
+		    cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(COMMIT_INFO)_$(md5current).bin; \
+			rm -f build/*.elf build/*.hex build/*.d build/*.map build/*.o build/*.d build/*.lst; \
+			git add .; \
+			git commit -am $(BUILDTIME); \
+			git push -q origin main; \
+			echo -e "$(YELLOW)bin文件已更改，代码已更改$(NC)，$(GREEN)提交成功$(NC)"; \
+			echo -e "$(YELLOW)bin文件已更改，代码已更改$(NC)，$(GREEN)已创建BIN文件: $(COMMIT_INFO).bin$(NC)"; \
+			echo -e "$(YELLOW)bin文件已更改，代码已更改$(NC)，$(GREEN)新提交: $$(git log -1 --pretty=%B)$(NC)"; \
+			echo -e "$(YELLOW)bin文件已更改，代码已更改$(NC)，$(GREEN)上次时间 MD5SUM: $(md5lasttim)$(NC)"; \
+			echo -e "$(YELLOW)bin文件已更改，代码已更改$(NC)，$(GREEN)当前时间 MD5SUM: $(md5current)$(NC)"; \
+		fi; \
+	fi
+```
+
 
 ##### 三、烧入指令
 
@@ -349,4 +409,3 @@ rossrv show beginner_tutorials/AddTwoInts
 - sudo echo xfce4-session > ~/.xsession
 - sudo nano /etc/xrdp/sesman.ini   #将 `KillDisconnected`的值修改为 `true`,保存退出
 - sudo systemctl restart xrdp
--
