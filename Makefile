@@ -203,7 +203,7 @@ git:
 			echo -e "$(YELLOW)bin changed,code changed$(NC),$(GREEN)Current  md5sum: $(md5current)$(NC)"; \
 		fi; \
 	else \
-		echo -e "$(GREEN)code no change lastcommit:$$(git log -1 --pretty=%B)$(NC)"; \
+		echo -e "$(GREEN)code no change lastcommit: $$(git log -1 --pretty=%B)$(NC)"; \
 		echo -e "$(GREEN)code no Last Time  md5sum: $(md5lasttim)$(NC)"; \
 		echo -e "$(GREEN)code no Current    md5sum: $(md5current)$(NC)"; \
 	fi;
