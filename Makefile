@@ -176,10 +176,10 @@ g:
 	@if git diff --quiet --exit-code $(HFILES) && git diff --quiet --exit-code $(C_SOURCES); then \
 		echo -e "$(GREEN)No changes in .H and .C files IF dirty because of Others Changed$(NC)"; \
 		if [ -n "$(findstring dirty,$(shell git describe --dirty --long --always))" ]; then \
-			echo -e "$(YELLOW) DIRTY STATUS:$(shell git describe --dirty --long --always)$(NC)"; \
 			git add .; \
 			git commit -am $(BUILDTIME); \
 			git push -q origin main; \
+			echo -e "$(YELLOW) DIRTY STATUS:$(shell git describe --dirty --long --always)$(NC)"; \
 			make readdirty; \
 		else \
 			echo -e "$(GREEN) CLEAN STATUS:$(shell git describe --dirty --long --always)$(NC)"; \
