@@ -186,6 +186,7 @@ git:
 			echo -e "$(GREEN)bin changed created:$(COMMIT_INFO).bin$(NC)"; \
 			md5sum $(BUILD_DIR)/$(TARGET).bin| awk '{print $1}' > $(BUILD_DIR)/md5.txt; \
 			read -r md5 < $(BUILD_DIR)/md5.txt; \
+			echo -e "$(GREEN)md5sum:$(md5)$(NC)"; \
 		    cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(COMMIT_INFO).bin; \
 			rm -f build/*.elf build/*.hex build/*.d build/*.map build/*.o build/*.d build/*.lst; \
 			git add .; \
