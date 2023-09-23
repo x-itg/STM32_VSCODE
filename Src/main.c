@@ -63,8 +63,6 @@ static void MX_USART3_UART_Init(void);
 static void MX_I2C1_Init(void);
 /* USER CODE BEGIN PFP */
 #include "ec20.h"
-const char Version[100] = "F1.1_1_" _BUILDCOMMITID "\r\n\0";
-unsigned int mstrlen = 0;
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -117,7 +115,6 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
     PollFun(); // stm32f103rb
-    mstrlen = strlen(Version);
   }
   /* USER CODE END 3 */
 }

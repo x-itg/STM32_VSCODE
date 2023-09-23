@@ -87,6 +87,7 @@ const unsigned char *SendList[] = {
     "AT+QGPSCFG=\"outport\",\"uartdebug\"\r\n\0", // 13  设置gnss的端口----------------------------------------
     "AT+QGPS=1\r\n\0",                            // 14开启GNNS功能   使用串口发送
     "AT+QGPSLOC=0\r\n\0",                         // 15读取位置信息发送
+    "F2.2_2_" _BUILDCOMMITID "\r\n\0",            // 16
 
 };
 
