@@ -174,7 +174,7 @@ all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET
 dif:
 	diff $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin -a
 
-md5 := $(shell md5sum $(BUILD_DIR)/$(TARGET).bin | awk '{print $1}')
+md5 := $(shell md5sum $(BUILD_DIR)/$(TARGET).bin | cut -d ' ' -f 1)
 
 git: 
 	@if [ -n "$(findstring dirty,$(shell git describe --dirty --long --always))" ]; then \
