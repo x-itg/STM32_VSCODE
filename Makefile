@@ -170,7 +170,7 @@ md5lasttim := $(shell md5sum $(BUILD_DIR)/$(TARGET)_backup.bin | cut -d ' ' -f 1
 
 # git describe --dirty --long --always
 readdirty :
-	@echo -e "$(GREEN)The repository dirty has been cleaned up:$(shell git describe --dirty --long --always)$(NC)";
+	@echo -e "$(YELLOW)The repository dirty has been cleaned up:$(shell git describe --dirty --long --always)$(NC)";
 # make g
 g:
 	@if git diff --quiet --exit-code $(HFILES) && git diff --quiet --exit-code $(C_SOURCES); then \
@@ -183,7 +183,7 @@ g:
 			git push -q origin main; \
 			make readdirty; \
 		else \
-			echo -e "$(GREEN)The repository itself is clean:$(shell git describe --dirty --long --always)$(NC)"; \
+			echo -e "$(YELLOW)The repository itself is clean:$(shell git describe --dirty --long --always)$(NC)"; \
 		fi; \
 		echo -e "$(GREEN)code no change LastCommit: $$(git log -1 --pretty=%B)$(NC)"; \
 		echo -e "$(GREEN)code no Last Time  MD5SUM: $(md5lasttim)$(NC)"; \
