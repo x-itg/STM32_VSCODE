@@ -91,7 +91,7 @@ const unsigned char *SendList[] = {
 };
 
 // 接收期待列表
-const unsigned char *RecExpected[] = {
+char *RecExpected[] = {
     "OK",      // 0     OK
     "OK",      // 1     OK
     "READY",   // 2     +CPIN: READY   如果两次ERROR
