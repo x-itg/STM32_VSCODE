@@ -176,6 +176,7 @@ g:
 	@if git diff --quiet --exit-code $(HFILES) && git diff --quiet --exit-code $(C_SOURCES); then \
 		echo -e "$(GREEN)No changes in .H and .C files IF dirty because of Others Changed$(NC)"; \
 		if [ -n "$(findstring dirty,$(shell git describe --dirty --long --always))" ]; then \
+			rm -f build/*.elf build/*.hex build/*.d build/*.map build/*.o build/*.d build/*.lst; \
 			git add .; \
 			git commit -am $(BUILDTIME); \
 			git push -q origin main; \
