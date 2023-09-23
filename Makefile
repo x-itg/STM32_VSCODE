@@ -180,7 +180,7 @@ g:
 			git add .; \
 			git commit -am $(BUILDTIME); \
 			git push -q origin main; \
-			echo -e "$(YELLOW) The repository is dirty, and we have to resubmit it:$(shell git describe --dirty --long --always)pushing...$(NC)"; \
+			echo -e "$(YELLOW) The repository is dirty, and we have to resubmit it:$(shell git describe --dirty --long --always)! pushing...$(NC)"; \
 			make readdirty; \
 		else \
 			echo -e "$(GREEN) The repository itself is clean:$(shell git describe --dirty --long --always)$(NC)"; \
