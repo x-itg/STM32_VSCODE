@@ -87,7 +87,7 @@ char *SendList[] = {
     "AT+QGPSCFG=\"outport\",\"uartdebug\"\r\n", // 13  设置gnss的端口----------------------------------------
     "AT+QGPS=1\r\n",                            // 14开启GNNS功能   使用串口发送
     "AT+QGPSLOC=0\r\n",                         // 15读取位置信息发送
-    "F2.0.9" _BUILDCOMMITID "\r\n",             // 16
+    "F2.1.0" _BUILDCOMMITID "\r\n",             // 16
 };
 
 // 接收期待列表
