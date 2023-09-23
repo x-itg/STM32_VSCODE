@@ -188,7 +188,8 @@ git:
 		else \
 			echo -e "$(GREEN)bin changed created:$(COMMIT_INFO).bin$(NC)"; \
 			echo -e "$(GREEN)md5sum: $(md5)$(NC)"; \
-		    cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(COMMIT_INFO).bin; \
+			cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_$(md5).bin; \
+		    cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(COMMIT_INFO)_$(md5).bin; \
 			rm -f build/*.elf build/*.hex build/*.d build/*.map build/*.o build/*.d build/*.lst; \
 			git add .; \
 			git commit -am $(BUILDTIME); \
