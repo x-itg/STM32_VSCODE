@@ -4,3 +4,4 @@
 ./build/*.hex
 ./build/*.lst
 ./build/*.d
+./build/*temp.bin
