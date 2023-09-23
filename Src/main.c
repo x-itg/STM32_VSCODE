@@ -42,7 +42,7 @@
 /* Private variables ---------------------------------------------------------*/
 I2C_HandleTypeDef hi2c1;
 
-UART_HandleTypeDef h1uart1;
+UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
 UART_HandleTypeDef huart3;
 DMA_HandleTypeDef hdma_usart1_rx;
@@ -63,8 +63,7 @@ static void MX_USART3_UART_Init(void);
 static void MX_I2C1_Init(void);
 /* USER CODE BEGIN PFP */
 #include "ec20.h"
-
-const char Version[100] = "V2.0.1" BUILDCOMMITID;
+const char Version[100] = "F1.1_1_" _BUILDCOMMITID "\r\n\0";
 unsigned int mstrlen = 0;
 /* USER CODE END PFP */
 
@@ -107,7 +106,7 @@ int main(void)
   MX_USART3_UART_Init();
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
-  mstrlen = strlen(Version);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -118,6 +117,7 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
     PollFun(); // stm32f103rb
+    mstrlen = strlen(Version);
   }
   /* USER CODE END 3 */
 }
