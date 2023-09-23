@@ -183,27 +183,29 @@ git:
 	if [ -n "$(findstring dirty,$(shell git describe --dirty --long --always))" ]; then \
 		echo -e "$(YELLOW)code update, building$(NC)"; \
 		cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin; \
-		echo -e "$(GREEN)preBuild Last Time md5sum: $(md5lasttim)$(NC)"; \
-		echo -e "$(GREEN)preBuild Current   md5sum: $(md5current)$(NC)"; \
 		make -s; \
 		echo -e "$(YELLOW)code update, builded$(NC)"; \
 		if diff -q $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin >/dev/null; then \
 			echo -e "$(RED)bin no change,code changed,keep dirty$(NC)"; \
-			echo -e "$(RED)current commit:$$(git log -1 --pretty=%B)$(NC)"; \
+			echo -e "$(RED)bin no change,code changed,Current   commit:$$(git log -1 --pretty=%B)$(NC)"; \
+			echo -e "$(RED)bin no change,code changed,Last Time md5sum: $(md5lasttim)$(NC)"; \
+			echo -e "$(RED)bin no change,code changed,Current   md5sum: $(md5current)$(NC)"; \
 		else \
-			echo -e "$(GREEN)bin changed created:$(COMMIT_INFO).bin$(NC)"; \
 		    cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(COMMIT_INFO)_$(md5current).bin; \
 			rm -f build/*.elf build/*.hex build/*.d build/*.map build/*.o build/*.d build/*.lst; \
 			git add .; \
 			git commit -am $(BUILDTIME); \
-			echo -e "$(YELLOW)new commit:$$(git log -1 --pretty=%B)$(NC)"; \
 			git push -q origin main; \
-			echo -e "$(GREEN)bin changed,code changed,commit and push success$(NC)"; \
+			echo -e "$(YELLOW)bin changed,code changed,commit and push success$(NC)"; \
+			echo -e "$(YELLOW)bin changed,code changed,  BIN   Created:$(COMMIT_INFO).bin$(NC)"; \
+			echo -e "$(YELLOW)bin changed,code changed,  NEW    Commit:$$(git log -1 --pretty=%B)$(NC)"; \
+			echo -e "$(YELLOW)bin changed,code changed,LastTime md5sum: $(md5lasttim)$(NC)"; \
+			echo -e "$(YELLOW)bin changed,code changed,Current  md5sum: $(md5current)$(NC)"; \
 		fi; \
 	else \
-		echo -e "$(GREEN)code no Last Time md5sum: $(md5lasttim)$(NC)"; \
-		echo -e "$(GREEN)code no Current   md5sum: $(md5current)$(NC)"; \
-		echo -e "$(GREEN)code no change latcommit:$$(git log -1 --pretty=%B)$(NC)"; \
+		echo -e "$(GREEN)code no change lastcommit:$$(git log -1 --pretty=%B)$(NC)"; \
+		echo -e "$(GREEN)code no Last Time  md5sum: $(md5lasttim)$(NC)"; \
+		echo -e "$(GREEN)code no Current    md5sum: $(md5current)$(NC)"; \
 	fi;
 #######################################
 # build the application
