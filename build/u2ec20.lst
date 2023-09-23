@@ -1,0 +1,357 @@
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc9uFqlR.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.arch armv7-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"u2ec20.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.u2Conf,"ax",%progbits
+  18              		.align	1
+  19              		.global	u2Conf
+  20              		.syntax unified
+  21              		.thumb
+  22              		.thumb_func
+  24              	u2Conf:
+  25              	.LFB68:
+  26              		.file 1 "Src/u2ec20.c"
+   1:Src/u2ec20.c  **** #include"ec20.h"
+   2:Src/u2ec20.c  **** 
+   3:Src/u2ec20.c  **** //串口初始化EC20连着uart2  PA2、PA3
+   4:Src/u2ec20.c  **** void u2Conf(void)
+   5:Src/u2ec20.c  **** {
+  27              		.loc 1 5 1
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 1, uses_anonymous_args = 0
+  31 0000 80B5     		push	{r7, lr}
+  32              	.LCFI0:
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 7, -8
+  35              		.cfi_offset 14, -4
+  36 0002 00AF     		add	r7, sp, #0
+  37              	.LCFI1:
+  38              		.cfi_def_cfa_register 7
+   6:Src/u2ec20.c  ****   HAL_UART_Receive_DMA(&huart2, RxBufferDMA, DMARXBUFFERSIZE);  
+  39              		.loc 1 6 3
+  40 0004 6422     		movs	r2, #100
+  41 0006 0749     		ldr	r1, .L2
+  42 0008 0748     		ldr	r0, .L2+4
+  43 000a FFF7FEFF 		bl	HAL_UART_Receive_DMA
+   7:Src/u2ec20.c  ****   __HAL_UART_ENABLE_IT(&huart2, UART_IT_IDLE); 
+  44              		.loc 1 7 3
+  45 000e 064B     		ldr	r3, .L2+4
+  46 0010 1B68     		ldr	r3, [r3]
+  47 0012 DA68     		ldr	r2, [r3, #12]
+  48 0014 044B     		ldr	r3, .L2+4
+  49 0016 1B68     		ldr	r3, [r3]
+  50 0018 42F01002 		orr	r2, r2, #16
+  51 001c DA60     		str	r2, [r3, #12]
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc9uFqlR.s 			page 2
+
+
+   8:Src/u2ec20.c  **** }
+  52              		.loc 1 8 1
+  53 001e 00BF     		nop
+  54 0020 80BD     		pop	{r7, pc}
+  55              	.L3:
+  56 0022 00BF     		.align	2
+  57              	.L2:
+  58 0024 00000000 		.word	RxBufferDMA
+  59 0028 00000000 		.word	huart2
+  60              		.cfi_endproc
+  61              	.LFE68:
+  63              		.section	.text.u2rxitProcess,"ax",%progbits
+  64              		.align	1
+  65              		.global	u2rxitProcess
+  66              		.syntax unified
+  67              		.thumb
+  68              		.thumb_func
+  70              	u2rxitProcess:
+  71              	.LFB69:
+   9:Src/u2ec20.c  **** 
+  10:Src/u2ec20.c  **** //这个函数放串口接收空闲中断中
+  11:Src/u2ec20.c  **** void u2rxitProcess(void)
+  12:Src/u2ec20.c  **** {
+  72              		.loc 1 12 1
+  73              		.cfi_startproc
+  74              		@ args = 0, pretend = 0, frame = 8
+  75              		@ frame_needed = 1, uses_anonymous_args = 0
+  76 0000 80B5     		push	{r7, lr}
+  77              	.LCFI2:
+  78              		.cfi_def_cfa_offset 8
+  79              		.cfi_offset 7, -8
+  80              		.cfi_offset 14, -4
+  81 0002 82B0     		sub	sp, sp, #8
+  82              	.LCFI3:
+  83              		.cfi_def_cfa_offset 16
+  84 0004 00AF     		add	r7, sp, #0
+  85              	.LCFI4:
+  86              		.cfi_def_cfa_register 7
+  13:Src/u2ec20.c  ****   if((__HAL_UART_GET_FLAG(&huart2,UART_FLAG_IDLE)!=RESET))//空闲中断
+  87              		.loc 1 13 7
+  88 0006 284B     		ldr	r3, .L9
+  89 0008 1B68     		ldr	r3, [r3]
+  90 000a 1B68     		ldr	r3, [r3]
+  91 000c 03F01003 		and	r3, r3, #16
+  92              		.loc 1 13 5
+  93 0010 102B     		cmp	r3, #16
+  94 0012 44D1     		bne	.L8
+  95              	.LBB2:
+  96              	.LBB3:
+  14:Src/u2ec20.c  ****   {
+  15:Src/u2ec20.c  ****     __HAL_UART_CLEAR_IDLEFLAG(&huart2);
+  97              		.loc 1 15 5
+  98 0014 0023     		movs	r3, #0
+  99 0016 3B60     		str	r3, [r7]
+ 100 0018 234B     		ldr	r3, .L9
+ 101 001a 1B68     		ldr	r3, [r3]
+ 102 001c 1B68     		ldr	r3, [r3]
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc9uFqlR.s 			page 3
+
+
+ 103 001e 3B60     		str	r3, [r7]
+ 104 0020 214B     		ldr	r3, .L9
+ 105 0022 1B68     		ldr	r3, [r3]
+ 106 0024 5B68     		ldr	r3, [r3, #4]
+ 107 0026 3B60     		str	r3, [r7]
+ 108 0028 3B68     		ldr	r3, [r7]
+ 109              	.LBE3:
+  16:Src/u2ec20.c  ****     HAL_UART_DMAStop(&huart2);
+ 110              		.loc 1 16 5
+ 111 002a 1F48     		ldr	r0, .L9
+ 112 002c FFF7FEFF 		bl	HAL_UART_DMAStop
+  17:Src/u2ec20.c  ****     DMARxLenU2=DMARXBUFFERSIZE-huart2.hdmarx->Instance->CNDTR;//NDTR;//接收到的字节长度
+ 113              		.loc 1 17 38
+ 114 0030 1D4B     		ldr	r3, .L9
+ 115 0032 9B6B     		ldr	r3, [r3, #56]
+ 116              		.loc 1 17 45
+ 117 0034 1B68     		ldr	r3, [r3]
+ 118              		.loc 1 17 55
+ 119 0036 5B68     		ldr	r3, [r3, #4]
+ 120              		.loc 1 17 31
+ 121 0038 9BB2     		uxth	r3, r3
+ 122 003a C3F16403 		rsb	r3, r3, #100
+ 123 003e 9AB2     		uxth	r2, r3
+ 124              		.loc 1 17 15
+ 125 0040 1A4B     		ldr	r3, .L9+4
+ 126 0042 1A80     		strh	r2, [r3]	@ movhi
+  18:Src/u2ec20.c  ****     HAL_UART_DMAStop(&huart2);
+ 127              		.loc 1 18 5
+ 128 0044 1848     		ldr	r0, .L9
+ 129 0046 FFF7FEFF 		bl	HAL_UART_DMAStop
+  19:Src/u2ec20.c  ****     rsPackFlag=1;//正在接收
+ 130              		.loc 1 19 15
+ 131 004a 194B     		ldr	r3, .L9+8
+ 132 004c 0122     		movs	r2, #1
+ 133 004e 1A70     		strb	r2, [r3]
+  20:Src/u2ec20.c  ****     rsRxTime=0;
+ 134              		.loc 1 20 13
+ 135 0050 184B     		ldr	r3, .L9+12
+ 136 0052 0022     		movs	r2, #0
+ 137 0054 1A60     		str	r2, [r3]
+  21:Src/u2ec20.c  ****     unsigned short i=rsRxIndexLen;//继续收集
+ 138              		.loc 1 21 20
+ 139 0056 184B     		ldr	r3, .L9+16
+ 140 0058 1B68     		ldr	r3, [r3]
+ 141 005a FB80     		strh	r3, [r7, #6]	@ movhi
+  22:Src/u2ec20.c  ****     for(i=rsRxIndexLen;i<rsRxIndexLen+DMARxLenU2;i++)
+ 142              		.loc 1 22 10
+ 143 005c 164B     		ldr	r3, .L9+16
+ 144 005e 1B68     		ldr	r3, [r3]
+ 145 0060 FB80     		strh	r3, [r7, #6]	@ movhi
+ 146              		.loc 1 22 5
+ 147 0062 0BE0     		b	.L6
+ 148              	.L7:
+  23:Src/u2ec20.c  ****     {
+  24:Src/u2ec20.c  ****       rsRxBuf[i]=RxBufferDMA[i-rsRxIndexLen];
+ 149              		.loc 1 24 31 discriminator 3
+ 150 0064 FA88     		ldrh	r2, [r7, #6]
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc9uFqlR.s 			page 4
+
+
+ 151 0066 144B     		ldr	r3, .L9+16
+ 152 0068 1B68     		ldr	r3, [r3]
+ 153 006a D21A     		subs	r2, r2, r3
+ 154              		.loc 1 24 14 discriminator 3
+ 155 006c FB88     		ldrh	r3, [r7, #6]
+ 156              		.loc 1 24 29 discriminator 3
+ 157 006e 1349     		ldr	r1, .L9+20
+ 158 0070 895C     		ldrb	r1, [r1, r2]	@ zero_extendqisi2
+ 159              		.loc 1 24 17 discriminator 3
+ 160 0072 134A     		ldr	r2, .L9+24
+ 161 0074 D154     		strb	r1, [r2, r3]
+  22:Src/u2ec20.c  ****     for(i=rsRxIndexLen;i<rsRxIndexLen+DMARxLenU2;i++)
+ 162              		.loc 1 22 51 discriminator 3
+ 163 0076 FB88     		ldrh	r3, [r7, #6]
+ 164 0078 0133     		adds	r3, r3, #1
+ 165 007a FB80     		strh	r3, [r7, #6]	@ movhi
+ 166              	.L6:
+  22:Src/u2ec20.c  ****     for(i=rsRxIndexLen;i<rsRxIndexLen+DMARxLenU2;i++)
+ 167              		.loc 1 22 25 discriminator 1
+ 168 007c FA88     		ldrh	r2, [r7, #6]
+  22:Src/u2ec20.c  ****     for(i=rsRxIndexLen;i<rsRxIndexLen+DMARxLenU2;i++)
+ 169              		.loc 1 22 38 discriminator 1
+ 170 007e 0B4B     		ldr	r3, .L9+4
+ 171 0080 1B88     		ldrh	r3, [r3]
+ 172 0082 1946     		mov	r1, r3
+ 173 0084 0C4B     		ldr	r3, .L9+16
+ 174 0086 1B68     		ldr	r3, [r3]
+ 175 0088 0B44     		add	r3, r3, r1
+  22:Src/u2ec20.c  ****     for(i=rsRxIndexLen;i<rsRxIndexLen+DMARxLenU2;i++)
+ 176              		.loc 1 22 5 discriminator 1
+ 177 008a 9A42     		cmp	r2, r3
+ 178 008c EAD3     		bcc	.L7
+  25:Src/u2ec20.c  ****     }
+  26:Src/u2ec20.c  ****     rsRxIndexLen=rsRxIndexLen+DMARxLenU2;//长度
+ 179              		.loc 1 26 30
+ 180 008e 074B     		ldr	r3, .L9+4
+ 181 0090 1B88     		ldrh	r3, [r3]
+ 182 0092 1A46     		mov	r2, r3
+ 183 0094 084B     		ldr	r3, .L9+16
+ 184 0096 1B68     		ldr	r3, [r3]
+ 185 0098 1344     		add	r3, r3, r2
+ 186              		.loc 1 26 17
+ 187 009a 074A     		ldr	r2, .L9+16
+ 188 009c 1360     		str	r3, [r2]
+ 189              	.L8:
+ 190              	.LBE2:
+  27:Src/u2ec20.c  ****   }
+  28:Src/u2ec20.c  ****   
+  29:Src/u2ec20.c  **** }
+ 191              		.loc 1 29 1
+ 192 009e 00BF     		nop
+ 193 00a0 0837     		adds	r7, r7, #8
+ 194              	.LCFI5:
+ 195              		.cfi_def_cfa_offset 8
+ 196 00a2 BD46     		mov	sp, r7
+ 197              	.LCFI6:
+ 198              		.cfi_def_cfa_register 13
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc9uFqlR.s 			page 5
+
+
+ 199              		@ sp needed
+ 200 00a4 80BD     		pop	{r7, pc}
+ 201              	.L10:
+ 202 00a6 00BF     		.align	2
+ 203              	.L9:
+ 204 00a8 00000000 		.word	huart2
+ 205 00ac 00000000 		.word	DMARxLenU2
+ 206 00b0 00000000 		.word	rsPackFlag
+ 207 00b4 00000000 		.word	rsRxTime
+ 208 00b8 00000000 		.word	rsRxIndexLen
+ 209 00bc 00000000 		.word	RxBufferDMA
+ 210 00c0 00000000 		.word	rsRxBuf
+ 211              		.cfi_endproc
+ 212              	.LFE69:
+ 214              		.section	.text.SendTxBuf,"ax",%progbits
+ 215              		.align	1
+ 216              		.global	SendTxBuf
+ 217              		.syntax unified
+ 218              		.thumb
+ 219              		.thumb_func
+ 221              	SendTxBuf:
+ 222              	.LFB70:
+  30:Src/u2ec20.c  **** 
+  31:Src/u2ec20.c  **** 
+  32:Src/u2ec20.c  **** //EC20字符串发送
+  33:Src/u2ec20.c  **** void SendTxBuf( unsigned char *p)
+  34:Src/u2ec20.c  **** {
+ 223              		.loc 1 34 1
+ 224              		.cfi_startproc
+ 225              		@ args = 0, pretend = 0, frame = 16
+ 226              		@ frame_needed = 1, uses_anonymous_args = 0
+ 227 0000 80B5     		push	{r7, lr}
+ 228              	.LCFI7:
+ 229              		.cfi_def_cfa_offset 8
+ 230              		.cfi_offset 7, -8
+ 231              		.cfi_offset 14, -4
+ 232 0002 84B0     		sub	sp, sp, #16
+ 233              	.LCFI8:
+ 234              		.cfi_def_cfa_offset 24
+ 235 0004 00AF     		add	r7, sp, #0
+ 236              	.LCFI9:
+ 237              		.cfi_def_cfa_register 7
+ 238 0006 7860     		str	r0, [r7, #4]
+  35:Src/u2ec20.c  ****   unsigned short len=strlen((char const *)p);
+ 239              		.loc 1 35 22
+ 240 0008 7868     		ldr	r0, [r7, #4]
+ 241 000a FFF7FEFF 		bl	strlen
+ 242 000e 0346     		mov	r3, r0
+ 243              		.loc 1 35 18
+ 244 0010 FB81     		strh	r3, [r7, #14]	@ movhi
+  36:Src/u2ec20.c  ****   HAL_UART_Transmit(&huart2,p,len,100);
+ 245              		.loc 1 36 3
+ 246 0012 FA89     		ldrh	r2, [r7, #14]
+ 247 0014 6423     		movs	r3, #100
+ 248 0016 7968     		ldr	r1, [r7, #4]
+ 249 0018 0348     		ldr	r0, .L12
+ 250 001a FFF7FEFF 		bl	HAL_UART_Transmit
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc9uFqlR.s 			page 6
+
+
+  37:Src/u2ec20.c  **** }...
+ 251              		.loc 1 37 1
+ 252 001e 00BF     		nop
+ 253 0020 1037     		adds	r7, r7, #16
+ 254              	.LCFI10:
+ 255              		.cfi_def_cfa_offset 8
+ 256 0022 BD46     		mov	sp, r7
+ 257              	.LCFI11:
+ 258              		.cfi_def_cfa_register 13
+ 259              		@ sp needed
+ 260 0024 80BD     		pop	{r7, pc}
+ 261              	.L13:
+ 262 0026 00BF     		.align	2
+ 263              	.L12:
+ 264 0028 00000000 		.word	huart2
+ 265              		.cfi_endproc
+ 266              	.LFE70:
+ 268              		.text
+ 269              	.Letext0:
+ 270              		.file 2 "c:\\program files\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\machine\\_defa
+ 271              		.file 3 "c:\\program files\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\sys\\_stdint.h
+ 272              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 273              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h"
+ 274              		.file 6 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 275              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 276              		.file 8 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
+ 277              		.file 9 "Inc/ec20.h"
+ARM GAS  C:\Users\57298\AppData\Local\Temp\cc9uFqlR.s 			page 7
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 u2ec20.c
+C:\Users\57298\AppData\Local\Temp\cc9uFqlR.s:18     .text.u2Conf:00000000 $t
+C:\Users\57298\AppData\Local\Temp\cc9uFqlR.s:24     .text.u2Conf:00000000 u2Conf
+C:\Users\57298\AppData\Local\Temp\cc9uFqlR.s:58     .text.u2Conf:00000024 $d
+C:\Users\57298\AppData\Local\Temp\cc9uFqlR.s:64     .text.u2rxitProcess:00000000 $t
+C:\Users\57298\AppData\Local\Temp\cc9uFqlR.s:70     .text.u2rxitProcess:00000000 u2rxitProcess
+C:\Users\57298\AppData\Local\Temp\cc9uFqlR.s:204    .text.u2rxitProcess:000000a8 $d
+C:\Users\57298\AppData\Local\Temp\cc9uFqlR.s:215    .text.SendTxBuf:00000000 $t
+C:\Users\57298\AppData\Local\Temp\cc9uFqlR.s:221    .text.SendTxBuf:00000000 SendTxBuf
+C:\Users\57298\AppData\Local\Temp\cc9uFqlR.s:264    .text.SendTxBuf:00000028 $d
+
+UNDEFINED SYMBOLS
+HAL_UART_Receive_DMA
+RxBufferDMA
+huart2
+HAL_UART_DMAStop
+DMARxLenU2
+rsPackFlag
+rsRxTime
+rsRxIndexLen
+rsRxBuf
+strlen
+HAL_UART_Transmit
