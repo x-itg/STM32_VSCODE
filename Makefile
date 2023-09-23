@@ -170,7 +170,6 @@ md5lasttim := $(shell md5sum $(BUILD_DIR)/$(TARGET)_backup.bin | cut -d ' ' -f 1
 
 # git describe --dirty --long --always
 readdirty :
-	@echo -n "Current commit: "
 	@git describe --dirty --long --always
 # make g
 g:
@@ -183,6 +182,7 @@ g:
 			git push -q origin main; \
 		fi; \
 		make readdirty; \
+		echo -e "$(GREEN)$(shell git describe --dirty --long --always)$(NC)"; \
 		echo -e "$(GREEN)code no change LastCommit: $$(git log -1 --pretty=%B)$(NC)"; \
 		echo -e "$(GREEN)code no Last Time  MD5SUM: $(md5lasttim)$(NC)"; \
 		echo -e "$(GREEN)code no Current    MD5SUM: $(md5current)$(NC)"; \
