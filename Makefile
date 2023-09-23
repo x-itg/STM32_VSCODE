@@ -185,7 +185,7 @@ git:
 		cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin; \
 		echo -e "$(GREEN)preBuild Last Time md5sum: $(md5lasttim)$(NC)"; \
 		echo -e "$(GREEN)preBuild Current   md5sum: $(md5current)$(NC)"; \
-		make -s -w; \
+		make -s; \
 		echo -e "$(GREEN)aftBuild Last Time md5sum: $(md5lasttim)$(NC)"; \
 		echo -e "$(GREEN)aftBuild Current   md5sum: $(md5current)$(NC)"; \
 		echo -e "$(YELLOW)code update, builded$(NC)"; \
