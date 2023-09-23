@@ -168,18 +168,21 @@ HFILES := $(shell find Inc Drivers/STM32F1xx_HAL_Driver/Inc Drivers/STM32F1xx_HA
 md5current := $(shell md5sum $(BUILD_DIR)/$(TARGET).bin | cut -d ' ' -f 1)
 md5lasttim := $(shell md5sum $(BUILD_DIR)/$(TARGET)_backup.bin | cut -d ' ' -f 1)
 
+# git describe --dirty --long --always
+readdirty :
+	@git describe --dirty --long --always
 
 # make g
 g:
 	@if git diff --quiet --exit-code $(HFILES) && git diff --quiet --exit-code $(C_SOURCES); then \
-		echo -e "$(GREEN)No changes in .H and .C files IF dirty because of $(NC)"; \
-		echo -e "$(GREEN)Others Changed,Current git describe:$(NC)$(YELLOW)$(shell git describe --dirty --long --always)$(NC)"; \
+		echo -e "$(GREEN)No changes in .H and .C files IF dirty because of Others Changed$(NC)"; \
+		make readdirty; \
 		if [ -n "$(findstring dirty,$(shell git describe --dirty --long --always))" ]; then \
 			git add .; \
 			git commit -am $(BUILDTIME); \
 			git push -q origin main; \
 		fi; \
-		echo -e "$(GREEN)Others Changed,Current git describe:$(NC)$(YELLOW)$(shell git describe --dirty --long --always)$(NC)"; \
+		make readdirty; \
 		echo -e "$(GREEN)code no change LastCommit: $$(git log -1 --pretty=%B)$(NC)"; \
 		echo -e "$(GREEN)code no Last Time  MD5SUM: $(md5lasttim)$(NC)"; \
 		echo -e "$(GREEN)code no Current    MD5SUM: $(md5current)$(NC)"; \
