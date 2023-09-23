@@ -179,7 +179,12 @@ g:
 	@if [ ! -f $(BUILD_DIR)/$(TARGET)_backup.bin ]; then \
 	    make -s;\
 		cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin; \
-		echo -e "$(YELLOW)$(TARGET)_backup none$(NC)"; \
+		echo -e "$(RED)$(TARGET)_backup.bin absent,NOW CREATING & COPYING$(NC)"; \
+	fi; \
+	if [ ! -f $(BUILD_DIR)/$(TARGET).bin ]; then \
+	    make -s;\
+		cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin; \
+		echo -e "$(RED)$(TARGET).bin absent,NOW CREATING & COPYING$(NC)"; \
 	fi; \
 	if git diff --quiet --exit-code $(HFILES) && git diff --quiet --exit-code $(C_SOURCES); then \
 		echo -e "$(GREEN)No changes in .H and .C files We choose whether to automatically$(NC)"; \
