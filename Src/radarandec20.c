@@ -66,7 +66,7 @@ unsigned int POLLTime = NORMARLTIME;
 #define SendRecButNotExpCnt 10 // 发送EC20有响应但是接收到数据跟预期内容不符合
 #define SendRecButGpsNotExp 3  // gps数据不在预期范围的计数
 // 发送列表
-const unsigned char *SendList[] = {
+char *SendList[] = {
     "AT\r\n",                // 0
     "ATE0\r\n",              // 1  回显关闭
     "AT+CPIN?\r\n",          // 2 读卡测试
