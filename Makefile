@@ -172,7 +172,8 @@ md5lasttim := $(shell md5sum $(BUILD_DIR)/$(TARGET)_backup.bin | cut -d ' ' -f 1
 # make g
 g:
 	@if git diff --quiet --exit-code $(HFILES) && git diff --quiet --exit-code $(C_SOURCES); then \
-		echo "No changes in .H and .C files"; \
+		echo -e "$(GREEN)No changes in .H and .C files IF dirty because of $(NC)"; \
+		echo -e "$(GREEN)Others Changed,Current git describe:$(NC)$(YELLOW)$(shell git describe --dirty --long --always)$(NC)"; \
 		echo -e "$(GREEN)code no change LastCommit: $$(git log -1 --pretty=%B)$(NC)"; \
 		echo -e "$(GREEN)code no Last Time  MD5SUM: $(md5lasttim)$(NC)"; \
 		echo -e "$(GREEN)code no Current    MD5SUM: $(md5current)$(NC)"; \
