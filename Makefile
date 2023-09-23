@@ -201,7 +201,9 @@ git:
 			echo -e "$(GREEN)bin changed,code changed,commit and push success$(NC)"; \
 		fi; \
 	else \
-		echo -e "$(GREEN)code no change commit:$$(git log -1 --pretty=%B)$(NC)"; \
+		echo -e "$(GREEN)code no Last Time md5sum: $(md5lasttim)$(NC)"; \
+		echo -e "$(GREEN)code no Current   md5sum: $(md5current)$(NC)"; \
+		echo -e "$(GREEN)code no change latcommit:$$(git log -1 --pretty=%B)$(NC)"; \
 	fi;
 #######################################
 # build the application
