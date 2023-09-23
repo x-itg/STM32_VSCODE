@@ -182,17 +182,17 @@ git:
 		echo -e "$(YELLOW)code update, building$(NC)"; \
 		cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin; \
 		cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup_$(md5lasttim).bin; \
+		echo -e "$(GREEN)preBuild Last Time md5sum: $(md5lasttim)$(NC)"; \
+		echo -e "$(GREEN)preBuild Current   md5sum: $(md5current)$(NC)"; \
 		make -s; \
+		echo -e "$(GREEN)aftBuild Last Time md5sum: $(md5lasttim)$(NC)"; \
+		echo -e "$(GREEN)aftBuild Current   md5sum: $(md5current)$(NC)"; \
 		echo -e "$(YELLOW)code update, builded$(NC)"; \
 		if diff -q $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin >/dev/null; then \
 			echo -e "$(RED)bin no change,code changed,keep dirty$(NC)"; \
 			echo -e "$(RED)current commit:$$(git log -1 --pretty=%B)$(NC)"; \
-			echo -e "$(GREEN)Last Time md5sum: $(md5lasttim)$(NC)"; \
-			echo -e "$(GREEN)Current   md5sum: $(md5current)$(NC)"; \
 		else \
 			echo -e "$(GREEN)bin changed created:$(COMMIT_INFO).bin$(NC)"; \
-			echo -e "$(GREEN)Last Time md5sum: $(md5lasttim)$(NC)"; \
-			echo -e "$(GREEN)Current   md5sum: $(md5current)$(NC)"; \
 			cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_$(md5current).bin; \
 		    cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(COMMIT_INFO)_$(md5current).bin; \
 			rm -f build/*.elf build/*.hex build/*.d build/*.map build/*.o build/*.d build/*.lst; \
