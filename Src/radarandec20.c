@@ -110,6 +110,7 @@ char *RecExpected[] = {
     "QGPSLOC", // 15
     "ERROR"};
 //
+//
 // Çå³ý»º´æ
 void Clear_Buffer(void) // Çå¿Õ»º´æ
 {
