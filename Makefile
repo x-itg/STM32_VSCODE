@@ -178,13 +178,9 @@ g:
 		echo -e "$(GREEN)code no Last Time  MD5SUM: $(md5lasttim)$(NC)"; \
 		echo -e "$(GREEN)code no Current    MD5SUM: $(md5current)$(NC)"; \
 		if [ -n "$(findstring dirty,$(shell git describe --dirty --long --always))" ]; then \
+			git add .; \
 			git commit -am $(BUILDTIME); \
 			git push -q origin main; \
-			echo -e "$(GREEN)No changes in .H and .C files IF dirty because of $(NC)"; \
-			echo -e "$(GREEN)Others Changed,Current git describe:$(NC)$(YELLOW)$(shell git describe --dirty --long --always)$(NC)"; \
-			echo -e "$(GREEN)code no change LastCommit: $$(git log -1 --pretty=%B)$(NC)"; \
-			echo -e "$(GREEN)code no Last Time  MD5SUM: $(md5lasttim)$(NC)"; \
-			echo -e "$(GREEN)code no Current    MD5SUM: $(md5current)$(NC)"; \
 		fi; \
 	else \
 		if ! git diff --quiet --exit-code $(HFILES); then \
