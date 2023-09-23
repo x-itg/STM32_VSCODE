@@ -389,7 +389,7 @@ void ec20ProcessFun(void)
         else
         {
           SendTxBuf((unsigned char *)SendList[ProSta]);
-          psend = SendList[ProSta];
+          psend = (const unsigned char *)SendList[ProSta];
         }
 
         if (ProSta == ATCodeLastNum)
