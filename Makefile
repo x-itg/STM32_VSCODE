@@ -173,12 +173,15 @@ md5lasttim := $(shell md5sum $(BUILD_DIR)/$(TARGET)_backup.bin | cut -d ' ' -f 1
 readdirty :
 	@echo -e "$(YELLOW)The repository dirty has been cleaned up:$(shell git describe --dirty --long --always)$(NC)";
 # make first make and cp a backup.bin
-f:
-	@make -s;\
-	cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin; 
-# make g
+ 
+# make g 先判断_backup.bin是否存在，不存在则先执行f
 g:
-	@if git diff --quiet --exit-code $(HFILES) && git diff --quiet --exit-code $(C_SOURCES); then \
+	@if [ -f $(BUILD_DIR)/$(TARGET)_backup.bin ]; then \
+	    make -s;\
+		cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin; \
+		echo -e "$(YELLOW)$(TARGET)_backup none$(NC)"; \
+	fi; \
+	if git diff --quiet --exit-code $(HFILES) && git diff --quiet --exit-code $(C_SOURCES); then \
 		echo -e "$(GREEN)No changes in .H and .C files We choose whether to automatically$(NC)"; \
 		echo -e "$(GREEN)submit updates to other files based on the repository's status.$(NC)"; \
 		if [ -n "$(findstring dirty,$(shell git describe --dirty --long --always))" ]; then \
