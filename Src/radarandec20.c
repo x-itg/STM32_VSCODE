@@ -182,6 +182,7 @@ void delay_ms(unsigned int n)
     ;
 }
 //
+//
 // 开关EC20的电源连着三极管控制开关电源
 void ec20power(unsigned char onoffflag)
 {

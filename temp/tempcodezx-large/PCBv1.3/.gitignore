@@ -1,0 +1,6 @@
+/Project Logs for radar/*
+/__Previews/*
+/History/**/**/*
+/History/**/*
+/History/*
+!.gitignore
