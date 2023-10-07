@@ -174,9 +174,9 @@ readdirty :
 	@echo -e "$(YELLOW)The repository dirty has been cleaned up:$(shell git describe --dirty --long --always)$(NC)";
 # make first make and cp a backup.bin
  
-# make g 先判断_backup.bin是否存在，不存在则先执行f
+# make g 先判断_backup.bin是否存在，不存在就先make再cp一个备份
 # .c .h 文件比对是否发生改变如果改变就make
-#  make后比对bin文件 bin文件发生变化就打tag 并往远程推送
+#  make前cp一个备份再make后比对bin文件 bin文件发生变化就打tag 并往远程推送
 # 判断仓库是否dirty如果dirty则进行推送（此时不打tag）
 g:
 	@if [ ! -f $(BUILD_DIR)/$(TARGET)_backup.bin ]; then \
