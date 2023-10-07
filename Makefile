@@ -175,31 +175,27 @@ readdirty :
 # make first make and cp a backup.bin
  
 # make g 先判断_backup.bin是否存在，不存在则先执行f
+# .c .h 文件比对是否发生改变如果改变就make
+#  make后比对bin文件 bin文件发生变化就打tag 并往远程推送
+# 判断仓库是否dirty如果dirty则进行推送（此时不打tag）
 g:
 	@if [ ! -f $(BUILD_DIR)/$(TARGET)_backup.bin ]; then \
 	    make -s;\
 		cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin; \
+		cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(COMMIT_INFO).bin; \
+		echo -e "$(RED)$(TARGET)_backup.bin absent,make..................$(NC)"; \
 		echo -e "$(RED)$(TARGET)_backup.bin absent,NOW CREATING & COPYING$(NC)"; \
 	fi; \
 	if [ ! -f $(BUILD_DIR)/$(TARGET).bin ]; then \
 	    make -s;\
 		cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET)_backup.bin; \
+		cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(COMMIT_INFO).bin; \
+		echo -e "$(RED)$(TARGET).bin absent,make..................$(NC)"; \
 		echo -e "$(RED)$(TARGET).bin absent,NOW CREATING & COPYING$(NC)"; \
 	fi; \
 	if git diff --quiet --exit-code $(HFILES) && git diff --quiet --exit-code $(C_SOURCES); then \
 		echo -e "$(GREEN)No changes in .H and .C files We choose whether to automatically$(NC)"; \
 		echo -e "$(GREEN)submit updates to other files based on the repository's status.$(NC)"; \
-		if [ -n "$(findstring dirty,$(shell git describe --dirty --long --always))" ]; then \
-			echo -e "$(YELLOW)The repository is dirty, have to clean:$(shell git describe --dirty --long --always)! $(NC)"; \
-			echo -e "$(YELLOW)Now clearing this dirty..............................$(NC)"; \
-			git add .; \
-			git rm --cached build/*.elf build/*.hex build/*.d build/*.map build/*.o build/*.d build/*.lst; \
-			git commit -am ".C.H NO CHANGE FakeVersion @ "$(BUILDTIME); \
-			git push -q origin main; \
-			make readdirty; \
-		else \
-			echo -e "$(YELLOW)The repository itself is clean:$(shell git describe --dirty --long --always)$(NC)"; \
-		fi; \
 		echo -e "$(GREEN)code no change LastCommit: $$(git log -1 --pretty=%B)$(NC)"; \
 		echo -e "$(GREEN)code no Last Time  MD5SUM: $(md5lasttim)$(NC)"; \
 		echo -e "$(GREEN)code no Current    MD5SUM: $(md5current)$(NC)"; \
@@ -220,18 +216,38 @@ g:
 			echo -e "$(RED)bin no change,Invalid code modification$(NC),$(GREEN)Last Time MD5SUM: $(md5lasttim)$(NC)"; \
 			echo -e "$(RED)bin no change,Invalid code modification$(NC),$(GREEN)Current   MD5SUM: $(md5current)$(NC)"; \
 		else \
-		    cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(COMMIT_INFO)_$(md5current).bin; \
+		    cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(COMMIT_INFO).bin; \
 			git add .; \
 			git rm --cached build/*.elf build/*.hex build/*.d build/*.map build/*.o build/*.d build/*.lst; \
-			git commit -am "bin Changed Version @ 2.1.3_"$(BUILDTIME); \
-			git push -q origin main; \
+			git commit -am "TV"$(BUILDTIME); \
+			git tag v2.0.2c_"$(BUILDTIME)"; \
+			git push -q origin master; \
+			git push -q o2 master; \
+			git push origin --tags; \
+			git push o2 --tags; \
 			echo -e "$(YELLOW)bin changed,code changed$(NC),$(GREEN)  COMMIT PUSH SUCCESSFULL$(NC)"; \
 			echo -e "$(YELLOW)bin changed,code changed$(NC),$(GREEN)  BIN   Created: $(COMMIT_INFO).bin$(NC)"; \
 			echo -e "$(YELLOW)bin changed,code changed$(NC),$(GREEN)  NEW    Commit: $$(git log -1 --pretty=%B)$(NC)"; \
 			echo -e "$(YELLOW)bin changed,code changed$(NC),$(GREEN)LastTime MD5SUM: $(md5lasttim)$(NC)"; \
 			echo -e "$(YELLOW)bin changed,code changed$(NC),$(GREEN)Current  MD5SUM: $(md5current)$(NC)"; \
 		fi; \
-	fi
+	fi; \
+	if [ -n "$(findstring dirty,$(shell git describe --dirty --long --always))" ]; then \
+		echo -e "$(YELLOW)The repository is dirty, have to clean:$(shell git describe --dirty --long --always)! $(NC)"; \
+		echo -e "$(YELLOW)Now clearing this dirty..............................$(NC)"; \
+		echo -e "$(YELLOW)Now Add COMMIT and PUSH to origin and o2.............$(NC)"; \
+		git add .; \
+		git rm --cached build/*.elf build/*.hex build/*.d build/*.map build/*.o build/*.d build/*.lst; \
+		git commit -am "FV"$(BUILDTIME); \
+		echo -e "$(YELLOW)git push -q origin master$(NC)"; \
+		git push -q origin master; \
+		echo -e "$(YELLOW)git push -q origin o2$(NC)"; \
+		git push -q o2 master; \
+		make readdirty; \
+	else \
+		echo -e "$(YELLOW)The repository itself is clean:$(shell git describe --dirty --long --always)$(NC)"; \
+	fi;
+
 
 #######################################
 # build the application
