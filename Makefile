@@ -223,8 +223,8 @@ g:
 			git rm --cached build/*.elf build/*.hex build/*.d build/*.map build/*.o build/*.d build/*.lst; \
 			git commit -am "TV"$(BUILDTIME); \
 			git tag v2.0.2c_"$(BUILDTIME)"; \
-			git push -q origin master; \
-			git push -q o2 master; \
+			git push -q origin mian; \
+			git push -q o2 mian; \
 			git push origin --tags; \
 			git push o2 --tags; \
 			echo -e "$(YELLOW)bin changed,code changed$(NC),$(GREEN)  COMMIT PUSH SUCCESSFULL$(NC)"; \
@@ -241,10 +241,10 @@ g:
 		git add .; \
 		git rm --cached build/*.elf build/*.hex build/*.d build/*.map build/*.o build/*.d build/*.lst; \
 		git commit -am "FV"$(BUILDTIME); \
-		echo -e "$(YELLOW)git push -q origin master$(NC)"; \
-		git push -q origin master; \
+		echo -e "$(YELLOW)git push -q origin mian$(NC)"; \
+		git push -q origin mian; \
 		echo -e "$(YELLOW)git push -q origin o2$(NC)"; \
-		git push -q o2 master; \
+		git push -q o2 mian; \
 		make readdirty; \
 	else \
 		echo -e "$(YELLOW)The repository itself is clean:$(shell git describe --dirty --long --always)$(NC)"; \
