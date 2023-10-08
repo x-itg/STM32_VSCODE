@@ -219,7 +219,7 @@ g:
 			echo -e "$(RED)bin no change,Invalid code modification$(NC),$(GREEN)Current   MD5SUM: $(md5current)$(NC)"; \
 		else \
 		    cp $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(COMMIT_INFO).bin; \
-			git add .; \
+			git add -A; \
 			git rm --cached build/*.elf build/*.hex build/*.d build/*.map build/*.o build/*.d build/*.lst; \
 			git commit -am "TV"$(BUILDTIME); \
 			git tag v2.0.2c_"$(BUILDTIME)"; \
@@ -236,7 +236,7 @@ g:
 		echo -e "$(YELLOW)The repository is dirty, have to clean:$(shell git describe --dirty --long --always)! $(NC)"; \
 		echo -e "$(YELLOW)Now clearing this dirty..............................$(NC)"; \
 		echo -e "$(YELLOW)Now Add COMMIT and PUSH to origin and o2.............$(NC)"; \
-		git add .; \
+		git add -A; \
 		git rm --cached build/*.elf build/*.hex build/*.d build/*.map build/*.o build/*.d build/*.lst; \
 		git commit -am "FV"$(BUILDTIME); \
 		echo -e "$(YELLOW)git push -q origin mian$(NC)"; \
