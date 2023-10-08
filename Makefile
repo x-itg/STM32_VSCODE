@@ -241,7 +241,6 @@ g:
 		git commit -am "FV"$(BUILDTIME); \
 		echo -e "$(YELLOW)git push -q origin mian$(NC)"; \
 		git push -q origin mian; \
-		echo -e "$(YELLOW)git push -q origin o2$(NC)"; \
 		make readdirty; \
 	else \
 		echo -e "$(YELLOW)The repository itself is clean:$(shell git describe --dirty --long --always)$(NC)"; \
