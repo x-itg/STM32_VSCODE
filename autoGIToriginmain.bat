@@ -10,11 +10,14 @@ if %errorlevel% equ 0 (
     git status | findstr /C:"Untracked files:" > nul
     if %errorlevel% equ 0 (
         echo 仅有已修改的文件存在
+        git add .
+        git commit -m "%COMPUTERNAME%:modified"
     ) else (
         echo 仅有未跟踪的文件存在
+        git add .
+        git commit -m "%COMPUTERNAME%:Untracked"
     )
-    git add .
-    git commit -m "Commit Untracked or Modified:%errorlevel%"
+    
 ) else (
     echo 本地工作目录下文件未变更
     echo 不存在未跟踪或已修改的文件未提交的情况
