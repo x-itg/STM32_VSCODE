@@ -235,7 +235,7 @@ g:
 	if [ -n "$(findstring dirty,$(shell git describe --dirty --long --always))" ]; then \
 		echo -e "$(YELLOW)The repository is dirty, have to clean:$(shell git describe --dirty --long --always)! $(NC)"; \
 		echo -e "$(YELLOW)Now clearing this dirty..............................$(NC)"; \
-		echo -e "$(YELLOW)Now Add COMMIT and PUSH to origin and o2.............$(NC)"; \
+		echo -e "$(YELLOW)Now Add COMMIT and PUSH to origin and origin.............$(NC)"; \
 		git add -A; \
 		git rm --cached build/*.elf build/*.hex build/*.d build/*.map build/*.o build/*.d build/*.lst; \
 		git commit -am "FV"$(BUILDTIME); \

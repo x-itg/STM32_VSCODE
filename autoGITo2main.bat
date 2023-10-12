@@ -26,18 +26,18 @@ if %errorlevel% equ 0 (
  
 
 REM 获取远程仓库和本地仓库的提交数量
-for /f "tokens=*" %%i in ('git rev-list --count origin/main') do set "remote_count=%%i"
+for /f "tokens=*" %%i in ('git rev-list --count o2/main') do set "remote_count=%%i"
 for /f "tokens=*" %%i in ('git rev-list --count main') do set "local_count=%%i"
 
 REM 比较远程仓库和本地仓库的提交数量
 IF %remote_count% gtr %local_count% (
   REM 远程仓库的提交数量较多，拉取远程仓库并合并到本地仓库
-  git pull origin main -f
+  git pull o2 main -f
   echo 远程仓库已更新并合并到本地仓库
 ) else if %remote_count% lss %local_count% (
   REM 本地仓库的提交数量较多，推送本地仓库到远程仓库
   git commit -am "count:%local_count%@%COMPUTERNAME%"
-  git push origin main
+  git push o2 main
   echo 本地仓库已更新并推送到远程仓库
 ) else (
   REM 远程仓库和本地仓库的提交数量相同，无需操作
