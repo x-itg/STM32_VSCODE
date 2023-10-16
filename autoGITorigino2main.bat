@@ -2,7 +2,7 @@ bat
 @echo off
 chcp 65001
 setlocal enabledelayedexpansion
-git fetch origin main:fetchmain
+git fetch -q origin main:fetchmain
 for /f "tokens=*" %%i in ('git rev-list --count origin/main') do set "remote_count=%%i"
 for /f "tokens=*" %%i in ('git rev-list --count main') do set "local_count=%%i"
 IF %remote_count% gtr %local_count% (
