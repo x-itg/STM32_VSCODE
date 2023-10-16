@@ -16,6 +16,65 @@
 # 判断仓库是否dirty如果dirty则进行推送（此时不打tag）
 ```
 
+`autoGITorigino2main.bat`
+```bat
+# 事先建立本地分支main和远程主机origin
+# 获取远程仓库并比较远程仓库和本地仓库的提交数
+# 本地仓库提交数多或一样多的话提送本地到远程仓库
+# 远程仓库提交数多的话用远程仓库的内容替换本地仓库的内容
+@echo off
+chcp 65001
+setlocal enabledelayedexpansion
+git fetch -q origin main:fetchmain
+for /f "tokens=*" %%i in ('git rev-list --count origin/main') do set "rcnt=%%i"
+for /f "tokens=*" %%i in ('git rev-list --count main') do set "lcnt=%%i"
+IF %rcnt% gtr %lcnt% (
+  echo ==============================
+  git log -1 --pretty=format:"%%s"
+  echo 远程提交数%rcnt%大于本提交数%lcnt% 
+  echo 用远程仓库的内容替换本地仓库的内容
+  git add .
+  git checkout -f fetchmain
+  git branch -D main
+  git branch -m main
+  git log -1 --pretty=format:"%%s"
+  echo ==============================
+)else  (
+  echo ==============================
+  git log -1 --pretty=format:"%%s"
+  set /a Change=0
+  git status | findstr /C:"Untracked files:"> nul
+  if not errorlevel 1 (
+    set Change=1
+    echo 存在未跟踪的文件 准备重新添加推送
+  )  
+  git status | findstr /C:"modified:"> nul
+  if not errorlevel 1 (
+    set Change=1
+    echo 存在修改的文件 准备推送 !Change!
+  ) 
+  git status | findstr /C:"deleted:"> nul
+  if not errorlevel 1 (
+    set Change=1
+    echo 存在删除的文件 准备推送 !Change!
+  )
+  if "!Change!"=="0" (
+    echo 本地仓库无变化，不推送 !Change!
+    git log -1 --pretty=format:"%%s"
+    echo ==============================
+  )
+  if "!Change!"=="1" (
+    echo 本地仓库有变化，推送 !Change!
+    git add .
+    git commit -am "count:%lcnt%@%COMPUTERNAME%"
+    git push -q o2 main
+    git push -q origin main
+    git log -1 --pretty=format:"%%s"
+    echo ==============================
+  )
+  git branch -D -q fetchmain
+)
+```
 
 ##### 三、烧入指令
 
