@@ -7,8 +7,8 @@ for /f "tokens=*" %%i in ('git rev-list --count main') do set "local_count=%%i"
 IF %remote_count% gtr %local_count% (
   echo ==============================
   git log -1 --pretty=format:"%%s"
-  echo 远程仓库的提交数量较多，拉取
-  echo echo 通过拉取远程仓库保持同步
+  echo 远程提交数%remote_count%大于本提交数%local_count% 
+  echo 用远程仓库的内容替换本地仓库的内容
   git add .
   git checkout -f fetchmain
   git branch -D main
