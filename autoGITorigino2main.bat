@@ -3,14 +3,15 @@ bat
 chcp 65001
 setlocal enabledelayedexpansion
 git fetch o2 main:fetchmain
-for /f "tokens=*" %%i in ('git rev-list --count o2/main') do set "remote_count=%%i"
+for /f "tokens=*" %%i in ('git rev-list --count origin/main') do set "remote_count=%%i"
 for /f "tokens=*" %%i in ('git rev-list --count main') do set "local_count=%%i"
 IF %remote_count% gtr %local_count% (
   echo ==============================
   echo 远程仓库的提交数量较多，拉取
   echo ==============================
-  git pull o2 main -f
+  git pull origin main -f
   echo echo 通过拉取远程仓库保持同步
+  git push o2 main
   echo ------------------------------
 )else  (
   echo ==============================
@@ -40,6 +41,7 @@ IF %remote_count% gtr %local_count% (
     git add .
     git commit -am "count:%local_count%@%COMPUTERNAME%"
     git push o2 main
+    git push origin main
   )
 )
 git branch -D fetchmain
