@@ -1,4 +1,3 @@
-bat
 @echo off
 chcp 65001
 setlocal enabledelayedexpansion
@@ -9,7 +8,7 @@ IF %remote_count% gtr %local_count% (
   echo ==============================
   git log -1 --pretty=format:"%%s"
   echo 远程仓库的提交数量较多，拉取
-  git add .
+  echo echo 通过拉取远程仓库保持同步
   git checkout -f fetchmain
   git branch -D main
   git branch -m main
