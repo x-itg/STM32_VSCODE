@@ -35,6 +35,7 @@ IF %remote_count% gtr %local_count% (
   )
   if "!Change!"=="0" (
     echo 本地仓库无变化，不推送 !Change!
+    git log -1 --pretty=format:"%%s"
     echo ==============================
   )
   if "!Change!"=="1" (
