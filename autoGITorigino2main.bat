@@ -2,12 +2,12 @@
 chcp 65001
 setlocal enabledelayedexpansion
 git fetch -q origin main:fetchmain
-for /f "tokens=*" %%i in ('git rev-list --count origin/main') do set "remote_count=%%i"
-for /f "tokens=*" %%i in ('git rev-list --count main') do set "local_count=%%i"
-IF %remote_count% gtr %local_count% (
+for /f "tokens=*" %%i in ('git rev-list --count origin/main') do set "rcnt=%%i"
+for /f "tokens=*" %%i in ('git rev-list --count main') do set "lcnt=%%i"
+IF %rcnt% gtr %lcnt% (
   echo ==============================
   git log -1 --pretty=format:"%%s"
-  echo 远程提交数%remote_count%大于本提交数%local_count% 
+  echo 远程提交数%rcnt%大于本提交数%lcnt% 
   echo 用远程仓库的内容替换本地仓库的内容
   git add .
   git checkout -f fetchmain
@@ -42,7 +42,7 @@ IF %remote_count% gtr %local_count% (
   if "!Change!"=="1" (
     echo 本地仓库有变化，推送 !Change!
     git add .
-    git commit -am "count:%local_count%@%COMPUTERNAME%"
+    git commit -am "count:%lcnt%@%COMPUTERNAME%"
     git push -q o2 main
     git push -q origin main
     git log -1 --pretty=format:"%%s"
