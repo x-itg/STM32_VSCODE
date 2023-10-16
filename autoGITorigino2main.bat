@@ -11,7 +11,9 @@ IF %remote_count% gtr %local_count% (
   echo 远程仓库的提交数量较多，拉取
   git pull -q origin main -f
   echo echo 通过拉取远程仓库保持同步
-  git push -q o2 main
+  git checkout -f fetchmain
+  git branch -D main
+  git branch -m main
   git log -1 --pretty=format:"%%s"
   echo ==============================
 )else  (
@@ -47,6 +49,6 @@ IF %remote_count% gtr %local_count% (
     git log -1 --pretty=format:"%%s"
     echo ==============================
   )
+  git branch -D -q fetchmain
 )
-git branch -D -q fetchmain
 pause
