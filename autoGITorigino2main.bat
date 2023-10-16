@@ -24,19 +24,19 @@ IF %remote_count% gtr %local_count% (
   git status | findstr /C:"modified:"> nul
   if not errorlevel 1 (
     set Change=1
-    echo 存在修改的文件 准备推送 %Change% 
+    echo 存在修改的文件 准备推送 !Change!
   ) 
   git status | findstr /C:"deleted:"> nul
   if not errorlevel 1 (
     set Change=1
-    echo 存在删除的文件 准备推送 %Change% 
+    echo 存在删除的文件 准备推送 !Change!
   )
   if "!Change!"=="0" (
-    echo 本地仓库无变化，不推送 %Change%
+    echo 本地仓库无变化，不推送 !Change!
     echo ==============================
   )
   if "!Change!"=="1" (
-    echo 本地仓库有变化，推送 %Change% 
+    echo 本地仓库有变化，推送 !Change!
     echo ==============================
     git add .
     git commit -am "count:%local_count%@%COMPUTERNAME%"
