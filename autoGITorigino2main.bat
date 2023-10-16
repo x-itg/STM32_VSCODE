@@ -2,19 +2,21 @@ bat
 @echo off
 chcp 65001
 setlocal enabledelayedexpansion
-git fetch o2 main:fetchmain
+git fetch origin main:fetchmain
 for /f "tokens=*" %%i in ('git rev-list --count origin/main') do set "remote_count=%%i"
 for /f "tokens=*" %%i in ('git rev-list --count main') do set "local_count=%%i"
 IF %remote_count% gtr %local_count% (
   echo ==============================
+  git log -1 --pretty=format:"%%s"
   echo 远程仓库的提交数量较多，拉取
-  echo ==============================
   git pull origin main -f
   echo echo 通过拉取远程仓库保持同步
-  git push o2 main
-  echo ------------------------------
+  git push -q o2 main
+  git log -1 --pretty=format:"%%s"
+  echo ==============================
 )else  (
   echo ==============================
+  git log -1 --pretty=format:"%%s"
   set /a Change=0
   git status | findstr /C:"Untracked files:"> nul
   if not errorlevel 1 (
@@ -37,12 +39,13 @@ IF %remote_count% gtr %local_count% (
   )
   if "!Change!"=="1" (
     echo 本地仓库有变化，推送 !Change!
-    echo ==============================
     git add .
     git commit -am "count:%local_count%@%COMPUTERNAME%"
-    git push o2 main
-    git push origin main
+    git push -q o2 main
+    git push -q origin main
+    git log -1 --pretty=format:"%%s"
+    echo ==============================
   )
 )
-git branch -D fetchmain
+git branch -D -q fetchmain
 pause
