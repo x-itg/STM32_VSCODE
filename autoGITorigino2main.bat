@@ -49,4 +49,3 @@ IF %remote_count% gtr %local_count% (
   )
   git branch -D -q fetchmain
 )
-pause
