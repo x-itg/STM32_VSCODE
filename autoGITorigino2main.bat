@@ -9,7 +9,7 @@ IF %remote_count% gtr %local_count% (
   echo ==============================
   git log -1 --pretty=format:"%%s"
   echo 远程仓库的提交数量较多，拉取
-  git pull origin main -f
+  git pull -q origin main -f
   echo echo 通过拉取远程仓库保持同步
   git push -q o2 main
   git log -1 --pretty=format:"%%s"
