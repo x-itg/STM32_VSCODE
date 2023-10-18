@@ -1,20 +1,19 @@
+bat
 @echo off
 chcp 65001
 setlocal enabledelayedexpansion
-git fetch -q origin main:fetchmain
-for /f "tokens=*" %%i in ('git rev-list --count origin/main') do set "rcnt=%%i"
-for /f "tokens=*" %%i in ('git rev-list --count main') do set "lcnt=%%i"
-IF %rcnt% gtr %lcnt% (
+git fetch -q gitee master:fetchmaster
+for /f "tokens=*" %%i in ('git rev-list --count gitee/master') do set "remote_count=%%i"
+for /f "tokens=*" %%i in ('git rev-list --count master') do set "local_count=%%i"
+IF %remote_count% gtr %local_count% (
   echo ==============================
   git log -1 --pretty=format:"%%s"
-  echo 远程提交数%rcnt%大于本提交数%lcnt% 
-  echo 用远程仓库的内容替换本地仓库的内容
-  git add .
-  git checkout -f fetchmain
-  git branch -D main
-  git branch -m main
-  git log -1 --pretty=format:"%%s"
+  echo 远程仓库的提交数量较多，拉取
   echo ==============================
+  git pull gitee master -f
+  echo echo 通过拉取远程仓库保持同步
+  git log -1 --pretty=format:"%%s"
+  echo ------------------------------
 )else  (
   echo ==============================
   git log -1 --pretty=format:"%%s"
@@ -27,12 +26,12 @@ IF %rcnt% gtr %lcnt% (
   git status | findstr /C:"modified:"> nul
   if not errorlevel 1 (
     set Change=1
-    echo 存在修改的文件 准备推送 !Change!
+    echo 存在修改的文件 准备推送 !Change! 
   ) 
   git status | findstr /C:"deleted:"> nul
   if not errorlevel 1 (
     set Change=1
-    echo 存在删除的文件 准备推送 !Change!
+    echo 存在删除的文件 准备推送 !Change! 
   )
   if "!Change!"=="0" (
     echo 本地仓库无变化，不推送 !Change!
@@ -42,11 +41,13 @@ IF %rcnt% gtr %lcnt% (
   if "!Change!"=="1" (
     echo 本地仓库有变化，推送 !Change!
     git add .
-    git commit -am "count:%lcnt%@%COMPUTERNAME%"
-    git push -q o2 main
-    git push -q origin main
+    git commit -am "count:%local_count%@%COMPUTERNAME%"
+    git push -q gitee master
     git log -1 --pretty=format:"%%s"
     echo ==============================
+
   )
-  git branch -D -q fetchmain
+  
 )
+git branch -D -q fetchmaster
+pause
