@@ -5,16 +5,15 @@ git fetch -q origin master:fetchmaster
 for /f "tokens=*" %%i in ('git rev-list --count origin/master') do set "remote_count=%%i"
 for /f "tokens=*" %%i in ('git rev-list --count master') do set "local_count=%%i"
 IF %remote_count% gtr %local_count% (
-  echo ==============================
+  echo TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
   git log -1 --pretty=format:"%%s"
   echo 远程仓库的提交数量较多，拉取
-  echo ==============================
   git pull origin master -f
   echo echo 通过拉取远程仓库保持同步
   git log -1 --pretty=format:"%%s"
-  echo ------------------------------
+  echo LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
 )else  (
-  echo ==============================
+  echo TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
   git log -1 --pretty=format:"%%s"
   set /a Change=0
   git status | findstr /C:"Untracked files:"> nul
@@ -35,7 +34,7 @@ IF %remote_count% gtr %local_count% (
   if "!Change!"=="0" (
     echo 本地仓库无变化，不推送 !Change!
     git log -1 --pretty=format:"%%s"
-    echo ==============================
+    echo LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
   )
   if "!Change!"=="1" (
     echo 本地仓库有变化，推送 !Change!
@@ -43,7 +42,7 @@ IF %remote_count% gtr %local_count% (
     git commit -am "count:%local_count%@%COMPUTERNAME%"
     git push -q origin master
     git log -1 --pretty=format:"%%s"
-    echo ==============================
+    echo LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
 
   )
   
