@@ -1,4 +1,3 @@
-bat
 @echo off
 chcp 65001
 setlocal enabledelayedexpansion
