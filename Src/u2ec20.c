@@ -1,37 +1,35 @@
-#include"ec20.h"
+#include "ec20.h"
 
-//´®¿Ú³õÊ¼»¯EC20Á¬×Åuart2  PA2¡¢PA3
+// ä¸²å£åˆå§‹åŒ–EC20è¿ç€uart2  PA2ã€PA3
 void u2Conf(void)
 {
-  HAL_UART_Receive_DMA(&huart2, RxBufferDMA, DMARXBUFFERSIZE);  
-  __HAL_UART_ENABLE_IT(&huart2, UART_IT_IDLE); 
+  HAL_UART_Receive_DMA(&huart2, RxBufferDMA, DMARXBUFFERSIZE);
+  __HAL_UART_ENABLE_IT(&huart2, UART_IT_IDLE);
 }
 
-//Õâ¸öº¯Êı·Å´®¿Ú½ÓÊÕ¿ÕÏĞÖĞ¶ÏÖĞ
+// è¿™ä¸ªå‡½æ•°æ”¾ä¸²å£æ¥æ”¶ç©ºé—²ä¸­æ–­ä¸­
 void u2rxitProcess(void)
 {
-  if((__HAL_UART_GET_FLAG(&huart2,UART_FLAG_IDLE)!=RESET))//¿ÕÏĞÖĞ¶Ï
+  if ((__HAL_UART_GET_FLAG(&huart2, UART_FLAG_IDLE) != RESET)) // ç©ºé—²ä¸­æ–­
   {
     __HAL_UART_CLEAR_IDLEFLAG(&huart2);
     HAL_UART_DMAStop(&huart2);
-    DMARxLenU2=DMARXBUFFERSIZE-huart2.hdmarx->Instance->CNDTR;//NDTR;//½ÓÊÕµ½µÄ×Ö½Ú³¤¶È
+    DMARxLenU2 = DMARXBUFFERSIZE - huart2.hdmarx->Instance->CNDTR; // NDTR;//æ¥æ”¶åˆ°çš„å­—èŠ‚é•¿åº¦
     HAL_UART_DMAStop(&huart2);
-    rsPackFlag=1;//ÕıÔÚ½ÓÊÕ
-    rsRxTime=0;
-    unsigned short i=rsRxIndexLen;//¼ÌĞøÊÕ¼¯
-    for(i=rsRxIndexLen;i<rsRxIndexLen+DMARxLenU2;i++)
+    rsPackFlag = 1; // æ­£åœ¨æ¥æ”¶
+    rsRxTime = 0;
+    unsigned short i = rsRxIndexLen; // ç»§ç»­æ”¶é›†
+    for (i = rsRxIndexLen; i < rsRxIndexLen + DMARxLenU2; i++)
     {
-      rsRxBuf[i]=RxBufferDMA[i-rsRxIndexLen];
+      rsRxBuf[i] = RxBufferDMA[i - rsRxIndexLen];
     }
-    rsRxIndexLen=rsRxIndexLen+DMARxLenU2;//³¤¶È
+    rsRxIndexLen = rsRxIndexLen + DMARxLenU2; // é•¿åº¦
   }
-  
 }
 
-
-//EC20×Ö·û´®·¢ËÍ
-void SendTxBuf( unsigned char *p)
+// EC20å­—ç¬¦ä¸²å‘é€
+void SendTxBuf(unsigned char *p)
 {
-  unsigned short len=strlen((char const *)p);
-  HAL_UART_Transmit(&huart2,p,len,100);
+  unsigned short len = strlen((char const *)p);
+  HAL_UART_Transmit(&huart2, p, len, 100);
 }
