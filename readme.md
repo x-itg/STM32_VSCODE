@@ -64,6 +64,7 @@ sudo apt-get install libtool libsysfs-dev
   
   - 本地USB服务器含有物理USB：
 ```
+  sudo apt install usbip
   usbipd list （本地windows安装usbipd-win后powershell里运行查看usb）
   usbipd bind --force -b 2-1（把本地usb分享出去）
   ssh -Nf -R 3240:localhost:3240 ubuntu@XXX.XXX.XXX.XXX （创建SSH隧道）
