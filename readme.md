@@ -72,7 +72,7 @@ sudo apt-get install libtool libsysfs-dev
   modprobe usbip-core
   modprobe usbip-host
   modprobe usbip-vudc  # 服务端非必须
-  modprobe vhci-hcd
+  modprobe vhci-hcd #必须
   modprobe usbip-host
   usbip list --remote 127.0.0.1(远程查看端口有没有打通)
   sudo usbip attach -r 127.0.0.1 -b 2-1 （载入与detach命令对应相反）usbip attach --remote=127.0.0.1 --busid=2-2
