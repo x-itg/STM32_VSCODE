@@ -50,9 +50,23 @@ sudo apt-get install libtool libsysfs-dev
 - powershell下：usbipd wsl list
 - powershell下连接usb连到wsl：usbipd wsl attach --busid 2-1
 - powershell下连接usb断开wsl：usbipd wsl detach --busid 2-1
-- ubuntu下查看：lsusb
   
+  ubuntu下查看：lsusb
   
+  ## 远程ubuntu用本地windows的usb（安装usbipd-win）
+  - 本地：
+  
+  - usbipd list （本地windows安装usbipd-win后powershell里运行查看usb）
+  
+  - usbipd bind --force -b 2-1（把本地usb分享出去）
+  
+  - ssh -Nf -R 3240:localhost:3240 ubuntu@XXX.XXX.XXX.XXX （创建SSH隧道）
+  
+  - 远程：
+  
+  - usbip list --remote 127.0.0.1(远程查看端口有没有打通)
+  
+  - sudo usbip attach -r 127.0.0.1 -b 2-1 （载入）
 
 # 端口转发
 
@@ -182,8 +196,6 @@ source [find /usr/local/share/openocd/scripts/target/stm32f1x.cfg]
 - sudo echo xfce4-session > ~/.xsession
 - sudo nano /etc/xrdp/sesman.ini   #将 `KillDisconnected`的值修改为 `true`,保存退出
 - sudo systemctl restart xrdp
-
-
 
 # UBUNTU ssh server
 
