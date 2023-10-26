@@ -17,63 +17,12 @@
 ```
 
 `autoGITorigino2main.bat`
+
 ```bat
 # 事先建立本地分支main和远程主机origin
 # 获取远程仓库并比较远程仓库和本地仓库的提交数
 # 本地仓库提交数多或一样多的话提送本地到远程仓库
 # 远程仓库提交数多的话用远程仓库的内容替换本地仓库的内容
-@echo off
-chcp 65001
-setlocal enabledelayedexpansion
-git fetch -q origin main:fetchmain
-for /f "tokens=*" %%i in ('git rev-list --count origin/main') do set "rcnt=%%i"
-for /f "tokens=*" %%i in ('git rev-list --count main') do set "lcnt=%%i"
-IF %rcnt% gtr %lcnt% (
-  echo ==============================
-  git log -1 --pretty=format:"%%s"
-  echo 远程提交数%rcnt%大于本提交数%lcnt% 
-  echo 用远程仓库的内容替换本地仓库的内容
-  git add .
-  git checkout -f fetchmain
-  git branch -D main
-  git branch -m main
-  git log -1 --pretty=format:"%%s"
-  echo ==============================
-)else  (
-  echo ==============================
-  git log -1 --pretty=format:"%%s"
-  set /a Change=0
-  git status | findstr /C:"Untracked files:"> nul
-  if not errorlevel 1 (
-    set Change=1
-    echo 存在未跟踪的文件 准备重新添加推送
-  )  
-  git status | findstr /C:"modified:"> nul
-  if not errorlevel 1 (
-    set Change=1
-    echo 存在修改的文件 准备推送 !Change!
-  ) 
-  git status | findstr /C:"deleted:"> nul
-  if not errorlevel 1 (
-    set Change=1
-    echo 存在删除的文件 准备推送 !Change!
-  )
-  if "!Change!"=="0" (
-    echo 本地仓库无变化，不推送 !Change!
-    git log -1 --pretty=format:"%%s"
-    echo ==============================
-  )
-  if "!Change!"=="1" (
-    echo 本地仓库有变化，推送 !Change!
-    git add .
-    git commit -am "count:%lcnt%@%COMPUTERNAME%"
-    git push -q o2 main
-    git push -q origin main
-    git log -1 --pretty=format:"%%s"
-    echo ==============================
-  )
-  git branch -D -q fetchmain
-)
 ```
 
 ##### 三、烧入指令
@@ -102,11 +51,22 @@ sudo apt-get install libtool libsysfs-dev
 - powershell下连接usb连到wsl：usbipd wsl attach --busid 2-1
 - powershell下连接usb断开wsl：usbipd wsl detach --busid 2-1
 - ubuntu下查看：lsusb
+  
+  
+
+# 端口转发
+
+- 查看wls中ubuntu的ip：
+- wsl ubuntu查看ip地址：ip addr show eth0
+- windows宿主机器powershell：
+- netsh interface portproxy add v4tov4 listenport=3390 listenaddress=0.0.0.0 connectport=3390 connectaddress=192.168.92.156 protocol=tcp
+- netsh interface portproxy add v4tov4 listenport=2222 listenaddress=0.0.0.0 connectport=2222 connectaddress=192.168.92.156
+- netsh interface portproxy add v4tov4 listenport=22 listenaddress=0.0.0.0 connectport=22 connectaddress=192.168.92.156
+- netsh interface portproxy show all
 
 ## 下载armgccgdb添加环境变量vscode安装cortex-debug插件
 
 ```
-
 ubuntu下安装stm32cubeclt之前有安装过的可以卸载掉：https://www.st.com/en/development-tools/stm32cubeclt.html
 
 下载好后 sudo bash stm32cubeclt.sh 安装
@@ -123,7 +83,7 @@ arm-none-eabi-gcc -v
     // See https://go.microsoft.com/fwlink/?LinkId=733558
     // for the documentation about the tasks.json format
     "version": "0.2.0",
-  
+
     "configurations": [
         {
             "name": "wsl-ubuntu1804-stm32f1-openocd", //调试入口显示的名字，随便起
@@ -160,7 +120,6 @@ arm-none-eabi-gcc -v
 ## 下载openocd源码 使能stlink 默认没有的
 
 ```
-
 根据这篇文章 安装openocd：https://blog.csdn.net/daoshengtianxia/article/details/115038674
 git clone https://gitee.com/daoshengtianxia/openocd.git
 下载openocd及其子模块后编译安装
@@ -176,9 +135,9 @@ sudo make install
 
 ```
 update:
-	openocd -f openocd.cfg -c init -c halt -c "program $(BUILD_DIR)/$(TARGET).hex verify reset exit"
+    openocd -f openocd.cfg -c init -c halt -c "program $(BUILD_DIR)/$(TARGET).hex verify reset exit"
 reset:
-	openocd -f openocd.cfg -c init -c halt -reset -c shutdown
+    openocd -f openocd.cfg -c init -c halt -reset -c shutdown
 ```
 
 ### 在工作目录下添加openocd.cfg文件，内容：## stlink-v2.cfg 不对劲直接使用 stlink.cfg
@@ -224,26 +183,16 @@ source [find /usr/local/share/openocd/scripts/target/stm32f1x.cfg]
 - sudo nano /etc/xrdp/sesman.ini   #将 `KillDisconnected`的值修改为 `true`,保存退出
 - sudo systemctl restart xrdp
 
-# windows端口转发
 
-- 查看wls中ubuntu的ip：
-- ip addr show eth0
-- windows宿主机器powershell：
-- netsh interface portproxy add v4tov4 listenport=3390 listenaddress=0.0.0.0 connectport=3390 connectaddress=192.168.92.156 protocol=tcp
-- netsh interface portproxy add v4tov4 listenport=2222 listenaddress=0.0.0.0 connectport=2222 connectaddress=192.168.92.156
-- netsh interface portproxy add v4tov4 listenport=22 listenaddress=0.0.0.0 connectport=22 connectaddress=192.168.92.156
-- netsh interface portproxy show all
 
 # UBUNTU ssh server
 
 1. 查看是否安装SSHServer：ps -e|grep ssh
 2. 安装SSHServer：sudo apt-get install openssh-server
 3. 修改sshd_config: sudo nano /etc/ssh/sshd_config
-
 - port 22
 - PermitRootLogin prohibit-password
 - PermitRootLogin yes
-
 4. 启动SSH：/etc/init.d/ssh start
 5. 设置开机自启SSH：sudo systemctl enable ssh
 
@@ -337,7 +286,7 @@ rostopic pub /turtle1/cmd_vel geometry_msgs/Twist -r 1 -- '[2.0, 0.0, 0.0]' '[0.
 rosrun rqt_plot rqt_plot # rqt_plot命令可以在滚动时间图上显示发布到某个话题上的数据。这里我们将使用rqt_plot命令来绘制正被发布到/
 rosrun rqt_console rqt_console #连接到了ROS的日志框架
 rosrun rqt_logger_level rqt_logger_level #节点运行时改变输出信息的详细级别
- 
+
 rosservice list #服务
 rosservice call /clear #调用/call服务
 
@@ -394,7 +343,6 @@ generate_messages(
 )
 #查看服务
 rossrv show beginner_tutorials/AddTwoInts
-
 ```
 
 ## 5.2图形界面
