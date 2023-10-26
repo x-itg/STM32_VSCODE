@@ -57,21 +57,16 @@ sudo apt-get install libtool libsysfs-dev
 - powershell下连接usb断开wsl：usbipd wsl detach --busid 2-1
   
   ubuntu下查看：lsusb
-  
-  ## 远程ubuntu用本地windows的usb（安装usbipd-win）
-  
-  - 参考：https://cloud.tencent.com/document/product/213/43016
-  
-  - 本地USB服务器含有物理USB：
+## 远程ubuntu用本地windows的usb（安装usbipd-win）
+参考：https://cloud.tencent.com/document/product/213/43016
+### 本地USB服务器含有物理USB：
 ```
   sudo apt install usbip
   usbipd list （本地windows安装usbipd-win后powershell里运行查看usb）
   usbipd bind --force -b 2-1（把本地usb分享出去）
   ssh -Nf -R 3240:localhost:3240 ubuntu@XXX.XXX.XXX.XXX （创建SSH隧道）
 ```
-  
-  
-  - 远程USB客户端物理USB：
+### 远程USB客户端物理USB：
   
   ```
   modprobe usbip-core
