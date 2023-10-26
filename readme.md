@@ -45,16 +45,23 @@ sudo apt-get install libtool libsysfs-dev
 # WSL USB驱动 我用wsl下的ubuntu
 
 - 安装usb驱动： https://kgithub.com/dorssel/usbipd-win
+
 - ubunutu下安装：sudo apt install linux-tools-generic hwdata
+
 - ubunutu下安装：sudo update-alternatives --install /usr/local/bin/usbip usbip /usr/lib/linux-tools/*-generic/usbip 20
+
 - powershell下：usbipd wsl list
+
 - powershell下连接usb连到wsl：usbipd wsl attach --busid 2-1
+
 - powershell下连接usb断开wsl：usbipd wsl detach --busid 2-1
   
   ubuntu下查看：lsusb
   
   ## 远程ubuntu用本地windows的usb（安装usbipd-win）
+  
   - 参考：https://cloud.tencent.com/document/product/213/43016
+  
   - 本地：
   
   - usbipd list （本地windows安装usbipd-win后powershell里运行查看usb）
@@ -67,7 +74,15 @@ sudo apt-get install libtool libsysfs-dev
   
   - usbip list --remote 127.0.0.1(远程查看端口有没有打通)
   
-  - sudo usbip attach -r 127.0.0.1 -b 2-1 （载入）
+  - sudo usbip attach -r 127.0.0.1 -b 2-1 （载入与detach命令对应相反）
+  
+  - lsusb（查看已经对接上的USB）
+  
+  - sudo mknod /dev/ttyUSB0 c 1A86 7523
+  
+  - dmesg | grep tty
+  
+  - sudo chmod 777 /dev/ttyUSB0
 
 # 端口转发
 
