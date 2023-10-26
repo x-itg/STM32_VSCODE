@@ -60,7 +60,7 @@ sudo apt-get install libtool libsysfs-dev
   
   ubuntu下查看：lsusb
   
-  ## 远程ubuntu用本地windows的usb（安装usbipd-win）
+  ## 【没试出来】远程ubuntu用本地windows的usb（安装usbipd-win）
   
   参考：https://cloud.tencent.com/document/product/213/43016
   
