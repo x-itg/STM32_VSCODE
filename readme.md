@@ -62,27 +62,30 @@ sudo apt-get install libtool libsysfs-dev
   
   - 参考：https://cloud.tencent.com/document/product/213/43016
   
-  - 本地：
+  - 本地USB服务器含有物理USB：
+```
+  usbipd list （本地windows安装usbipd-win后powershell里运行查看usb）
+  usbipd bind --force -b 2-1（把本地usb分享出去）
+  ssh -Nf -R 3240:localhost:3240 ubuntu@XXX.XXX.XXX.XXX （创建SSH隧道）
+  usbip list --remote 127.0.0.1(远程查看端口有没有打通)
+```
   
-  - usbipd list （本地windows安装usbipd-win后powershell里运行查看usb）
   
-  - usbipd bind --force -b 2-1（把本地usb分享出去）
+  - 远程USB客户端物理USB：
   
-  - ssh -Nf -R 3240:localhost:3240 ubuntu@XXX.XXX.XXX.XXX （创建SSH隧道）
-  
-  - 远程：
-  
-  - usbip list --remote 127.0.0.1(远程查看端口有没有打通)
-  
-  - sudo usbip attach -r 127.0.0.1 -b 2-1 （载入与detach命令对应相反）
-  
-  - lsusb（查看已经对接上的USB）
-  
-  - sudo mknod /dev/ttyUSB0 c 1A86 7523
-  
-  - dmesg | grep tty
-  
-  - sudo chmod 777 /dev/ttyUSB0
+  ```
+  modprobe usbip-core
+  modprobe usbip-host
+  modprobe usbip-vudc  # 服务端非必须
+  modprobe vhci-hcd
+  modprobe usbip-host
+  usbip list --remote 127.0.0.1(远程查看端口有没有打通)
+  sudo usbip attach -r 127.0.0.1 -b 2-1 （载入与detach命令对应相反）usbip attach --remote=127.0.0.1 --busid=2-2
+  lsusb（查看已经对接上的USB）
+  sudo mknod /dev/ttyUSB0 c 1A86 7523
+  dmesg | grep tty
+  sudo chmod 777 /dev/ttyUSB0
+  ```
 
 # 端口转发
 
