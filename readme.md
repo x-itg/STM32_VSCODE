@@ -106,6 +106,32 @@ ps aux | grep minicom
 sudo kill PID
 ```
 
+### win10 ssh 上传密钥过程
+
+```
+ssh-keygen -t rsa #生成密钥
+
+powershell下运行： 
+function ssh-copy-id([string]$userAtMachine, $args){   
+    $publicKey = "$ENV:USERPROFILE" + "/.ssh/id_rsa.pub"
+    if (!(Test-Path "$publicKey")){
+        Write-Error "ERROR: failed to open ID file '$publicKey': No such file"            
+    }
+    else {
+        & cat "$publicKey" | ssh $args $userAtMachine "umask 077; test -d .ssh || mkdir .ssh ; cat >> .ssh/authorized_keys || exit 1"      
+    }
+}
+powershell下运行
+ssh-copy-id ubuntu@152.32.133.216
+修改C:\Users\mason\.ssh\config
+Host 152.32.133.216
+  HostName 152.32.133.216
+  User ubuntu
+  IdentityFile C:/Users/mason/.ssh/id_rsa
+```
+
+
+
 ## 下载armgccgdb添加环境变量vscode安装cortex-debug插件
 
 ```

@@ -1,0 +1,6 @@
+Host 152.32.133.216
+  HostName 152.32.133.216
+  User ubuntu
+  IdentityFile C:/Users/mason/.ssh/id_rsa
+ 
+  
