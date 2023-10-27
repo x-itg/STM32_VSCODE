@@ -104,8 +104,6 @@ ps aux | grep minicom
 sudo kill PID
 ```
 
-# 
-
 ## 下载armgccgdb添加环境变量vscode安装cortex-debug插件
 
 ```
