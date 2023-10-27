@@ -106,10 +106,11 @@ ps aux | grep minicom
 sudo kill PID
 ```
 
-### win10 ssh 上传密钥过程
+## SSH自动登录
 
 ```
-ssh-keygen -t rsa #生成密钥
+生成密钥：
+ssh-keygen -t rsa 
 
 powershell下运行： 
 function ssh-copy-id([string]$userAtMachine, $args){   
@@ -121,13 +122,20 @@ function ssh-copy-id([string]$userAtMachine, $args){
         & cat "$publicKey" | ssh $args $userAtMachine "umask 077; test -d .ssh || mkdir .ssh ; cat >> .ssh/authorized_keys || exit 1"      
     }
 }
-powershell下运行
+
+powershell下运行(上传公钥):
 ssh-copy-id ubuntu@IP地址
+
 修改C:\Users\mason\.ssh\config
+```
 Host 001
   HostName 远程IP地址
   User ubuntu
   IdentityFile C:/Users/mason/.ssh/id_rsa
+```
+
+登录
+ssh 001
 ```
 
 ## 下载armgccgdb添加环境变量vscode安装cortex-debug插件
