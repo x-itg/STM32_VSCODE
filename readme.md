@@ -122,15 +122,13 @@ function ssh-copy-id([string]$userAtMachine, $args){
     }
 }
 powershell下运行
-ssh-copy-id ubuntu@152.32.133.216
+ssh-copy-id ubuntu@IP地址
 修改C:\Users\mason\.ssh\config
-Host 152.32.133.216
-  HostName 152.32.133.216
+Host 001
+  HostName 远程IP地址
   User ubuntu
   IdentityFile C:/Users/mason/.ssh/id_rsa
 ```
-
-
 
 ## 下载armgccgdb添加环境变量vscode安装cortex-debug插件
 
