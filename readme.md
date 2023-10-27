@@ -100,6 +100,8 @@ sudo usbip attach -r 127.0.0.1 -b 2-1 （载入与detach命令对应相反）usb
 sudo lsusb（查看已经对接上的USB）# sudo mknod /dev/ttyUSB0 c 1A86 7523
 dmesg | grep tty
 sudo minicom -s #设置下波特率 就可以收发com数据了 
+ps aux | grep minicom
+sudo kill PID
 ```
 
 # 
