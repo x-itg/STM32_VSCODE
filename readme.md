@@ -111,7 +111,7 @@ sudo kill PID
 ```
 生成密钥：
 ssh-keygen -t rsa 
-
+------------------------------
 powershell下运行： 
 function ssh-copy-id([string]$userAtMachine, $args){   
     $publicKey = "$ENV:USERPROFILE" + "/.ssh/id_rsa.pub"
@@ -122,18 +122,16 @@ function ssh-copy-id([string]$userAtMachine, $args){
         & cat "$publicKey" | ssh $args $userAtMachine "umask 077; test -d .ssh || mkdir .ssh ; cat >> .ssh/authorized_keys || exit 1"      
     }
 }
-
+-------------------------------
 powershell下运行(上传公钥):
 ssh-copy-id ubuntu@IP地址
-
+-------------------------------
 修改C:\Users\mason\.ssh\config
-```
 Host 001
-  HostName 远程IP地址
-  User ubuntu
-  IdentityFile C:/Users/mason/.ssh/id_rsa
-```
-
+ HostName 远程IP地址
+ User ubuntu
+ IdentityFile C:/Users/mason/.ssh/id_rsa
+-------------------------------
 登录
 ssh 001
 ```
