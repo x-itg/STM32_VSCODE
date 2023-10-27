@@ -72,28 +72,30 @@ netsh interface portproxy show all
 netsh interface portproxy reset #删除所有端口转发
 ```
 
-# 远程ubuntu用本地windows的usb 
+# 远程ubuntu用本地windows的usb
+
 本地windows电脑使用usbipd-win做usbip的服务器
 远程ubuntu使用usbip做usbip的客户端  
 利用ssh将远程ubuntu的3240端口转发到本地主机的3240端口
 参考：
 [云服务器 Linux 系统使用 USB/IP 远程共享 USB 设备-最佳实践-文档中心-腾讯云](https://cloud.tencent.com/document/product/213/43016)
 [安装usbipd-win](https://github.com/dorssel/usbipd-win)
+
 ## 本地USB服务器含有物理USB,：
-  
+
 ```
 usbipd list （本地windows安装usbipd-win后powershell里运行查看usb）
 usbipd bind --force -b 2-1（把本地usb分享出去）
 ssh -Nf -R 3240:localhost:3240 ubuntu@XXX.XXX.XXX.XXX （创建SSH隧道）
 ```
-  
+
 ## 远程USB客户端物理USB：
-  
+
 ```
 sudo modprobe usbip-core
 sudo modprobe usbip-host
 sudo modprobe usbip-vudc  # 服务端非必须
-sudo modprobe vhci-hcd #必须
+sudo modprobe vhci-hcd #必须attach失败就再试这条
 sudo modprobe usbip-host
 sudo usbip list --remote 127.0.0.1(远程查看端口有没有打通)
 sudo usbip attach -r 127.0.0.1 -b 2-1 （载入与detach命令对应相反）usbip attach --remote=127.0.0.1 --busid=2-2
