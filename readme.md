@@ -42,62 +42,67 @@ sudo apt-get install build-essential pkg-config autoconf automake libtool libusb
 sudo apt-get install libtool libsysfs-dev  
 ```
 
-# WSL USB驱动 我用wsl下的ubuntu
+# WSL UBUNTU使用WINDOWS的USB口
 
-- 参考：[连接 USB 设备 | Microsoft Learn](https://learn.microsoft.com/zh-cn/windows/wsl/connect-usb)
+参考：
+[连接 USB 设备 | Microsoft Learn](https://learn.microsoft.com/zh-cn/windows/wsl/connect-usb) 
+[安装usbipd-win：](https://github.com/dorssel/usbipd-win)
 
-- [安装usb驱动：](https://github.com/dorssel/usbipd-win)https://github.com/dorssel/usbipd-win
+```
+wsl ubuntu:
+sudo apt install linux-tools-generic hwdata(ubunutu下安装)
+sudo update-alternatives --install /usr/local/bin/usbip usbip /usr/lib/linux-tools/*-generic/usbip 20
+---------------------------------
+windows powershell:
+usbipd wsl list
+usbipd wsl attach --busid 2-1(powershell下连接usb连到wsl：)
+usbipd wsl detach --busid 2-1(powershell下连接usb断开wsl：)
+---------------------------------
+wsl ubuntu:
+lsusb
+----------------------------------
+将wsl端口共享到局域网，端口转发：
+wsl ubuntu 
+ip addr show eth0
+windows powershell：
+netsh interface portproxy add v4tov4 listenport=3390 listenaddress=0.0.0.0 connectport=3390 connectaddress=192.168.92.156 protocol=tcp
+netsh interface portproxy add v4tov4 listenport=2222 listenaddress=0.0.0.0 connectport=2222 connectaddress=192.168.92.156
+netsh interface portproxy add v4tov4 listenport=22 listenaddress=0.0.0.0 connectport=22 connectaddress=192.168.92.156
+netsh interface portproxy show all
+netsh interface portproxy reset #删除所有端口转发
+```
 
-- ubunutu下安装：sudo apt install linux-tools-generic hwdata
-
-- ubunutu下安装：sudo update-alternatives --install /usr/local/bin/usbip usbip /usr/lib/linux-tools/*-generic/usbip 20
-
-- powershell下：usbipd wsl list
-
-- powershell下连接usb连到wsl：usbipd wsl attach --busid 2-1
-
-- powershell下连接usb断开wsl：usbipd wsl detach --busid 2-1
+# 远程ubuntu用本地windows的usb 
+本地windows电脑使用usbipd-win做usbip的服务器
+远程ubuntu使用usbip做usbip的客户端  
+利用ssh将远程ubuntu的3240端口转发到本地主机的3240端口
+参考：
+[云服务器 Linux 系统使用 USB/IP 远程共享 USB 设备-最佳实践-文档中心-腾讯云](https://cloud.tencent.com/document/product/213/43016)
+[安装usbipd-win](https://github.com/dorssel/usbipd-win)
+## 本地USB服务器含有物理USB,：
   
-  ubuntu下查看：lsusb
+```
+usbipd list （本地windows安装usbipd-win后powershell里运行查看usb）
+usbipd bind --force -b 2-1（把本地usb分享出去）
+ssh -Nf -R 3240:localhost:3240 ubuntu@XXX.XXX.XXX.XXX （创建SSH隧道）
+```
   
-  ## 【没试出来】远程ubuntu用本地windows的usb（安装usbipd-win）
+## 远程USB客户端物理USB：
   
-  参考：https://cloud.tencent.com/document/product/213/43016
-  
-  ### 本地USB服务器含有物理USB：
-  
-  ```
-  sudo apt install usbip
-  usbipd list （本地windows安装usbipd-win后powershell里运行查看usb）
-  usbipd bind --force -b 2-1（把本地usb分享出去）
-  ssh -Nf -R 3240:localhost:3240 ubuntu@XXX.XXX.XXX.XXX （创建SSH隧道）
-  ```
-  
-  ### 远程USB客户端物理USB：
-  
-  ```
-  modprobe usbip-core
-  modprobe usbip-host
-  modprobe usbip-vudc  # 服务端非必须
-  modprobe vhci-hcd #必须
-  modprobe usbip-host
-  usbip list --remote 127.0.0.1(远程查看端口有没有打通)
-  sudo usbip attach -r 127.0.0.1 -b 2-1 （载入与detach命令对应相反）usbip attach --remote=127.0.0.1 --busid=2-2
-  lsusb（查看已经对接上的USB）
-  sudo mknod /dev/ttyUSB0 c 1A86 7523
-  dmesg | grep tty
-  sudo chmod 777 /dev/ttyUSB0
-  ```
+```
+sudo modprobe usbip-core
+sudo modprobe usbip-host
+sudo modprobe usbip-vudc  # 服务端非必须
+sudo modprobe vhci-hcd #必须
+sudo modprobe usbip-host
+sudo usbip list --remote 127.0.0.1(远程查看端口有没有打通)
+sudo usbip attach -r 127.0.0.1 -b 2-1 （载入与detach命令对应相反）usbip attach --remote=127.0.0.1 --busid=2-2
+sudo lsusb（查看已经对接上的USB）# sudo mknod /dev/ttyUSB0 c 1A86 7523
+dmesg | grep tty
+sudo minicom -s #设置下波特率 就可以收发com数据了 
+```
 
-# 端口转发
-
-- 查看wls中ubuntu的ip：
-- wsl ubuntu查看ip地址：ip addr show eth0
-- windows宿主机器powershell：
-- netsh interface portproxy add v4tov4 listenport=3390 listenaddress=0.0.0.0 connectport=3390 connectaddress=192.168.92.156 protocol=tcp
-- netsh interface portproxy add v4tov4 listenport=2222 listenaddress=0.0.0.0 connectport=2222 connectaddress=192.168.92.156
-- netsh interface portproxy add v4tov4 listenport=22 listenaddress=0.0.0.0 connectport=22 connectaddress=192.168.92.156
-- netsh interface portproxy show all
+# 
 
 ## 下载armgccgdb添加环境变量vscode安装cortex-debug插件
 
