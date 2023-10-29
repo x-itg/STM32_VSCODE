@@ -224,7 +224,7 @@ netsh interface portproxy show all
 netsh interface portproxy reset #删除所有端口转发
 ```
 
-# 七、WSL 图形界面
+## 七、WSL 图形界面
 
 - https://learn.microsoft.com/zh-cn/windows/wsl/install-manual#step-4--download-the-linux-kernel-update-package
 - 管理员运行powershell：dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
