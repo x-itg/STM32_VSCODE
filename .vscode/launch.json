@@ -6,15 +6,15 @@
         {
             "name": "wsl-ubuntu1804-stm32f1-openocd", //调试入口显示的名字，随便起
             "cwd": "${workspaceRoot}", //工作目录，根路径
-            "armToolchainPath": "${config:cortex-debug.armToolchainPath}",
-            "gdbPath": "${config:cortex-debug.gdbPath}",
+            "armToolchainPath": "/opt/st/stm32cubeclt/GNU-tools-for-STM32/bin/arm-none-eabi-gcc",
+            "gdbPath": "/opt/st/stm32cubeclt/GNU-tools-for-STM32/bin/arm-none-eabi-gdb",
             "executable": "${workspaceFolder}/build/EC20103RB.elf", //调试文件
             "request": "launch",
             "runToMain": true,
             "type": "cortex-debug", //配置为使用插件调试
             "servertype": "openocd", //映射openocd
             "configFiles": [
-                "${workspaceRoot}/openocd.cfg"
+                "${workspaceRoot}/openocd_lnx.cfg"
             ], //openocd配置
             "postDebugTask": "Reset" //同上，调试结束执行的任务
         },
