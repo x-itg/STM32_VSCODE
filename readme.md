@@ -1,10 +1,104 @@
-##### 一、工程搭建
+## 一、ubuntu下编译调试stm32f1
 
-- makefile文件由stm32cube生成后修改
-- 事先安装的软件：vscode cortex-debug插件；tup-latest、 openocd 、arm-gdb/gcc 、GNU MCU Eclipse安装到C:\Program Files文件夹，它们的bin文件夹路径加入到path环境变量当中。
-- 修改的stm32f1discovery.cfg文件放到C:\Program Files\OpenOCD\0.10.0-13\scripts\board的文件夹；这个make upload烧入的时候用到
+```
+---------------------下载安装stm32cubeclt------------------------
 
-##### 二、编译指令
+ubuntu下安装stm32cubeclt之前有安装过的可以卸载掉：https://www.st.com/en/development-tools/stm32cubeclt.html
+下载好后 sudo bash stm32cubeclt.sh 安装
+
+---------------------launch.json文件修改------------------------
+
+.vscode文件夹下launch.json:
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "wsl-ubuntu1804-stm32f1-openocd", //调试入口显示的名字，随便起
+            "cwd": "${workspaceRoot}", //工作目录，根路径
+            "armToolchainPath": "/opt/st/stm32cubeclt/GNU-tools-for-STM32/bin/arm-none-eabi-gcc",
+            "gdbPath": "/opt/st/stm32cubeclt/GNU-tools-for-STM32/bin/arm-none-eabi-gdb",
+            "executable": "${workspaceFolder}/build/EC20103RB.elf", //调试文件
+            "request": "launch",
+            "type": "cortex-debug", //配置为使用插件调试
+            "servertype": "openocd", //映射openocd
+            "configFiles": [
+                "${workspaceRoot}/openocd_lnx.cfg"
+            ], //openocd配置
+            "postDebugTask": "Reset", //同上，调试结束执行的任务
+
+        },
+        {
+            // For the Cortex-Debug extension
+            "name": "win-ST-Link",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "request": "launch",
+            "executable": "${workspaceRoot}/build/EC20103RB.elf",
+            "configFiles": [
+                "C:/Program Files/OpenOCD/0.10.0-13/scripts/interface/stlink-v2.cfg",
+                "C:/Program Files/OpenOCD/0.10.0-13/scripts/target/stm32f1x_stlink.cfg",
+            ],
+            "cwd": "${workspaceRoot}"
+        }
+    ]
+}
+
+---------------------下载安装openocd--------------
+
+根据这篇文章 安装openocd：https://blog.csdn.net/daoshengtianxia/article/details/115038674
+git clone https://gitee.com/daoshengtianxia/openocd.git
+下载openocd及其子模块后编译安装
+sudo ./bootstrap
+./configure --enable-stlink
+sudo make
+sudo make install
+安装在了/usr/local/bin
+配置文件在 /usr/local/share/openocd/scripts
+
+--------------------补充 可能需要另外安装的软件-------------------------
+sudo apt-get install libncurses5
+sudo apt-get install lsb-core
+sudo apt-get install build-essential pkg-config autoconf automake libtool libusb-dev libusb-1.0-0-dev libhidapi-dev
+sudo apt-get install libtool libsysfs-dev  
+
+
+--------------------补充 可能需要拷贝的文件------------------------------
+sudo cp stm32f1discovery.cfg /usr/local/share/openocd/scripts/board 
+
+--------------------makefile文件修改-------------
+upload: build/$(PROJECT).bin
+	openocd -f board/stm32f1discovery.cfg -c "reset_config trst_only combined" -c "program build/$(PROJECT).elf verify reset exit"
+ifeq ($(OS),Windows_NT)
+debug-start:
+	openocd -f openocd_win.cfg
+reset:
+	openocd -f openocd_win.cfg -c init -c halt -reset -c shutdown
+else
+debug-start:
+	openocd -f openocd_lnx.cfg
+reset:
+	openocd -f openocd_lnx.cfg -c init -c halt -reset -c shu
+
+
+在工作目录下添加openocd.cfg文件，内容：
+
+source [find /usr/local/share/openocd/scripts/interface/stlink.cfg]
+source [find /usr/local/share/openocd/scripts/target/stm32f1x.cfg]### 
+```
+
+
+## 二、windows下工程搭建(参考)[https://blog.csdn.net/gjy_skyblue/article/details/119669725?spm=1001.2014.3001.5502]
+
+- 安装的软件：
+- - vscode cortex-debug插件；
+- - tup-latest
+- - openocd 
+- - arm-gdb/gcc 
+- - GNU MCU Eclipse安装到C:\Program Files文件夹，它们的bin文件夹路径加入到path环境变量当中。
+
+## 三、编译与版本控制
 
 `make g`
 
@@ -25,24 +119,80 @@
 # 远程仓库提交数多的话用远程仓库的内容替换本地仓库的内容
 ```
 
-##### 三、烧入指令
+## 四、SSH自动登录
+ 
+```
+--------------ubuntu开启ssh----------------------------
+1. 查看是否安装SSHServer：ps -e|grep ssh
+2. 安装SSHServer：sudo apt-get install openssh-server
+3. 修改sshd_config: sudo nano /etc/ssh/sshd_config
+- port 22
+- PermitRootLogin prohibit-password
+- PermitRootLogin yes
+4. 启动SSH：/etc/init.d/ssh start
+5. 设置开机自启SSH：sudo systemctl enable ssh
 
-`make upload`
+生成密钥：
+ssh-keygen -t rsa 
+------------------------------
+powershell下运行： 
+function ssh-copy-id([string]$userAtMachine, $args){   
+    $publicKey = "$ENV:USERPROFILE" + "/.ssh/id_rsa.pub"
+    if (!(Test-Path "$publicKey")){
+        Write-Error "ERROR: failed to open ID file '$publicKey': No such file"            
+    }
+    else {
+        & cat "$publicKey" | ssh $args $userAtMachine "umask 077; test -d .ssh || mkdir .ssh ; cat >> .ssh/authorized_keys || exit 1"      
+    }
+}
+-------------------------------
+powershell下运行(上传公钥):
+ssh-copy-id ubuntu@IP地址
+-------------------------------
+修改C:\Users\mason\.ssh\config
+Host 001
+ HostName 远程IP地址
+ User ubuntu
+ IdentityFile C:/Users/mason/.ssh/id_rsa
+-------------------------------
+登录
+ssh 001
+```
+## 五、远程ubuntu用本地windows的usb
 
-##### 四、进入调试
+本地windows电脑使用usbipd-win做usbip的服务器
+远程ubuntu使用usbip做usbip的客户端  
+利用ssh将远程ubuntu的3240端口转发到本地主机的3240端口
+参考：
+[云服务器 Linux 系统使用 USB/IP 远程共享 USB 设备-最佳实践-文档中心-腾讯云](https://cloud.tencent.com/document/product/213/43016)
+[安装usbipd-win](https://github.com/dorssel/usbipd-win)
 
-`Fn+F5`
----
-
-## 事先安装这些软件
+#### 本地USB服务器含有物理USB,：
 
 ```
-sudo apt-get install lsb-core
-sudo apt-get install build-essential pkg-config autoconf automake libtool libusb-dev libusb-1.0-0-dev libhidapi-dev
-sudo apt-get install libtool libsysfs-dev  
+usbipd list （本地windows安装usbipd-win后powershell里运行查看usb）
+usbipd bind --force -b 2-1（把本地usb分享出去）
+ssh -Nf -R 3240:localhost:3240 ubuntu@XXX.XXX.XXX.XXX （创建SSH隧道）
 ```
 
-# WSL UBUNTU使用WINDOWS的USB口
+#### 远程USB客户端物理USB：
+
+```
+sudo modprobe usbip-core
+sudo modprobe usbip-host
+sudo modprobe usbip-vudc  # 服务端非必须
+sudo modprobe vhci-hcd #必须attach失败就再试这条
+sudo modprobe usbip-host
+sudo usbip list --remote 127.0.0.1(远程查看端口有没有打通)
+sudo usbip attach -r 127.0.0.1 -b 2-1 （载入与detach命令对应相反）usbip attach --remote=127.0.0.1 --busid=2-2
+sudo lsusb（查看已经对接上的USB）# sudo mknod /dev/ttyUSB0 c 1A86 7523
+dmesg | grep tty
+sudo minicom -s #设置下波特率 就可以收发com数据了 
+ps aux | grep minicom
+sudo kill PID
+```
+
+## 六、WSL UBUNTU使用WINDOWS的USB口
 
 参考：
 [连接 USB 设备 | Microsoft Learn](https://learn.microsoft.com/zh-cn/windows/wsl/connect-usb) 
@@ -72,154 +222,8 @@ netsh interface portproxy show all
 netsh interface portproxy reset #删除所有端口转发
 ```
 
-# 远程ubuntu用本地windows的usb
 
-本地windows电脑使用usbipd-win做usbip的服务器
-远程ubuntu使用usbip做usbip的客户端  
-利用ssh将远程ubuntu的3240端口转发到本地主机的3240端口
-参考：
-[云服务器 Linux 系统使用 USB/IP 远程共享 USB 设备-最佳实践-文档中心-腾讯云](https://cloud.tencent.com/document/product/213/43016)
-[安装usbipd-win](https://github.com/dorssel/usbipd-win)
-
-## 本地USB服务器含有物理USB,：
-
-```
-usbipd list （本地windows安装usbipd-win后powershell里运行查看usb）
-usbipd bind --force -b 2-1（把本地usb分享出去）
-ssh -Nf -R 3240:localhost:3240 ubuntu@XXX.XXX.XXX.XXX （创建SSH隧道）
-```
-
-## 远程USB客户端物理USB：
-
-```
-sudo modprobe usbip-core
-sudo modprobe usbip-host
-sudo modprobe usbip-vudc  # 服务端非必须
-sudo modprobe vhci-hcd #必须attach失败就再试这条
-sudo modprobe usbip-host
-sudo usbip list --remote 127.0.0.1(远程查看端口有没有打通)
-sudo usbip attach -r 127.0.0.1 -b 2-1 （载入与detach命令对应相反）usbip attach --remote=127.0.0.1 --busid=2-2
-sudo lsusb（查看已经对接上的USB）# sudo mknod /dev/ttyUSB0 c 1A86 7523
-dmesg | grep tty
-sudo minicom -s #设置下波特率 就可以收发com数据了 
-ps aux | grep minicom
-sudo kill PID
-```
-
-## SSH自动登录
-
-```
-生成密钥：
-ssh-keygen -t rsa 
-------------------------------
-powershell下运行： 
-function ssh-copy-id([string]$userAtMachine, $args){   
-    $publicKey = "$ENV:USERPROFILE" + "/.ssh/id_rsa.pub"
-    if (!(Test-Path "$publicKey")){
-        Write-Error "ERROR: failed to open ID file '$publicKey': No such file"            
-    }
-    else {
-        & cat "$publicKey" | ssh $args $userAtMachine "umask 077; test -d .ssh || mkdir .ssh ; cat >> .ssh/authorized_keys || exit 1"      
-    }
-}
--------------------------------
-powershell下运行(上传公钥):
-ssh-copy-id ubuntu@IP地址
--------------------------------
-修改C:\Users\mason\.ssh\config
-Host 001
- HostName 远程IP地址
- User ubuntu
- IdentityFile C:/Users/mason/.ssh/id_rsa
--------------------------------
-登录
-ssh 001
-```
-
-## 下载armgccgdb添加环境变量vscode安装cortex-debug插件
-
-```
-ubuntu下安装stm32cubeclt之前有安装过的可以卸载掉：https://www.st.com/en/development-tools/stm32cubeclt.html
-
-下载好后 sudo bash stm32cubeclt.sh 安装
-
-arm-none-eabi-gcc -v
-.vscode文件夹下settings.json：
-{
-    "cortex-debug.armToolchainPath": "/opt/st/stm32cubeclt_1.12.1/GNU-tools-for-STM32/bin/arm-none-eabi-gcc",
-    "cortex-debug.gdbPath": "/opt/st/stm32cubeclt_1.12.1/GNU-tools-for-STM32/bin/arm-none-eabi-gdb" 
-}
-
-.vscode文件夹下launch.json:
-{
-    // See https://go.microsoft.com/fwlink/?LinkId=733558
-    // for the documentation about the tasks.json format
-    "version": "0.2.0",
-
-    "configurations": [
-        {
-            "name": "wsl-ubuntu1804-stm32f1-openocd", //调试入口显示的名字，随便起
-            "cwd": "${workspaceRoot}", //工作目录，根路径
-            "armToolchainPath": "${config:cortex-debug.armToolchainPath}",  
-            "gdbPath": "${config:cortex-debug.gdbPath}",
-            "executable": "${workspaceFolder}/build/EC20103RB.elf", //调试文件
-            "request": "launch",
-            "runToMain": true,
-            "type": "cortex-debug", //配置为使用插件调试
-            "servertype": "openocd", //映射openocd
-            "configFiles": [
-                "${workspaceRoot}/openocd.cfg"
-            ], //openocd配置
-            "postDebugTask": "Reset" //同上，调试结束执行的任务
-        }
-        ,{
-            // For the Cortex-Debug extension
-            "type": "cortex-debug",
-            "servertype": "openocd-openocd",
-            "request": "launch",
-            "name": "windows-stm32f1",
-            "executable": "${workspaceRoot}/build/EC20103RB.elf",
-            "configFiles": [
-                "C:/Program Files/OpenOCD/0.10.0-13/scripts/interface/stlink-v2.cfg",
-                "C:/Program Files/OpenOCD/0.10.0-13/scripts/target/stm32f1x_stlink.cfg",
-            ],
-            "cwd": "${workspaceRoot}"
-        }
-    ]
-}
-```
-
-## 下载openocd源码 使能stlink 默认没有的
-
-```
-根据这篇文章 安装openocd：https://blog.csdn.net/daoshengtianxia/article/details/115038674
-git clone https://gitee.com/daoshengtianxia/openocd.git
-下载openocd及其子模块后编译安装
-sudo ./bootstrap
-./configure --enable-stlink
-sudo make
-sudo make install
-安装在了/usr/local/bin
-配置文件在 /usr/local/share/openocd/scripts
-```
-
-### Makefile文件中 添加 可以使用make update命令烧入代码
-
-```
-update:
-    openocd -f openocd.cfg -c init -c halt -c "program $(BUILD_DIR)/$(TARGET).hex verify reset exit"
-reset:
-    openocd -f openocd.cfg -c init -c halt -reset -c shutdown
-```
-
-### 在工作目录下添加openocd.cfg文件，内容：## stlink-v2.cfg 不对劲直接使用 stlink.cfg
-
-```
-source [find /usr/local/share/openocd/scripts/interface/stlink.cfg]
-source [find /usr/local/share/openocd/scripts/target/stm32f1x.cfg]
-```
-
-# WSL 图形界面
+# 七、WSL 图形界面
 
 - https://learn.microsoft.com/zh-cn/windows/wsl/install-manual#step-4--download-the-linux-kernel-update-package
 - 管理员运行powershell：dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
@@ -230,15 +234,31 @@ source [find /usr/local/share/openocd/scripts/target/stm32f1x.cfg]
 - 管理员运行powershell：Add-AppxPackage .\Ubuntu_1804.2019.522.0_x64.appx
 - 双击安装Ubuntu_1804.2019.522.0_x64.appx
 
-## wsl2应用程序直接打开gui
-
+#### wsl2 应用程序直接打开gui远程桌面连接
+```
 - windows下载VxSrv安装时注意勾选Disable access control:    https://nchc.dl.sourceforge.net/project/vcxsrv/vcxsrv/1.20.14.0/vcxsrv-64.1.20.14.0.installer.exe
 - sudo apt install -y x11-apps
 - echo 'export DISPLAY=172.23.80.1:0' >> ~/.bashrc
 - source ~/.bashrc
-
-## 远程桌面连接
-
+- [(14条消息) 超详细Windows10/Windows11 子系统（WSL2）安装Ubuntu20.04（带桌面环境）_萌褚的博客-CSDN博客_wsl ubuntu 桌面](https://blog.csdn.net/m0_60028455/article/details/125316625)
+- [(14条消息) wsl安装xrdp（可视化界面并远程），解决闪退、黑屏_xrdp闪退_daboluo520的博客-CSDN博客](https://blog.csdn.net/guorong520/article/details/124749625)
+- [(14条消息) WSL（Ubuntu20.04）与其图形界面安装配置_sandonz的博客-CSDN博客_wsl ubuntu图形界面](https://blog.csdn.net/sandonz/article/details/120854876?spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EOPENSEARCH%7ERate-1-120854876-blog-113616883.pc_relevant_vip_default&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EOPENSEARCH%7ERate-1-120854876-blog-113616883.pc_relevant_vip_default&utm_relevant_index=2)
+- git clone https://github.com/DamionGans/ubuntu-wsl2-systemd-script.git
+- cd ubuntu-wsl2-systemd-script/
+- bash ubuntu-wsl2-systemd-script.sh --force
+- wsl --shutdown  #去windows cmd下重启wsl
+- wsl #启动ubuntu
+- systemctl
+- sudo apt update
+- sudo apt install -y xubuntu-desktop
+- sudo apt install -y xrdp
+- sudo adduser xrdp ssl-cert
+- sudo ufw allow 3390
+- sudo sed -i 's/port=3389/port=3390/g' /etc/xrdp/xrdp.ini
+- sudo echo xfce4-session > ~/.xsession
+- sudo nano /etc/xrdp/sesman.ini   #将 `KillDisconnected`的值修改为 `true`,保存退出
+- sudo systemctl restart xrdp
+-----------------------------------------------------------------------------------
 - ubuntu安装SYSTEMCTL：git clone https://github.com/DamionGans/ubuntu-wsl2-systemd-script.git
 - ubuntu安装SYSTEMCTL：cd ubuntu-wsl2-systemd-script/
 - ubuntu安装SYSTEMCTL：bash ubuntu-wsl2-systemd-script.sh --force
@@ -254,30 +274,18 @@ source [find /usr/local/share/openocd/scripts/target/stm32f1x.cfg]
 - sudo echo xfce4-session > ~/.xsession
 - sudo nano /etc/xrdp/sesman.ini   #将 `KillDisconnected`的值修改为 `true`,保存退出
 - sudo systemctl restart xrdp
+```
 
-# UBUNTU ssh server
 
-1. 查看是否安装SSHServer：ps -e|grep ssh
-2. 安装SSHServer：sudo apt-get install openssh-server
-3. 修改sshd_config: sudo nano /etc/ssh/sshd_config
-- port 22
-- PermitRootLogin prohibit-password
-- PermitRootLogin yes
-4. 启动SSH：/etc/init.d/ssh start
-5. 设置开机自启SSH：sudo systemctl enable ssh
 
-# git ssh密钥
 
-1. ssh-keygen -C “572981033@qq.com” -t rsa
-2. git config --global credential. Helper store
-
-#### 1、Python
+## 八、ROS、Python
 
 把pip的安装源设置为国内的清华源
 
 pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple/
 
-#### 2、WSL2 下 ROS 添加ROS官方源添加密钥
+#### 8.1 WSL2 下 ROS 添加ROS官方源添加密钥
 
 [(14条消息) win10 wsl2 + ubuntu20.04 配置 ROS-Noetic_lainegates的博客-CSDN博客_wsl2 rosnoetic](https://blog.csdn.net/LaineGates/article/details/120910628)
 
@@ -288,7 +296,7 @@ echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 ```
 
-##### 3、安装配套工具初始化rosdep开机自动进行ROS环境配置
+#### 8.2 安装配套工具初始化rosdep开机自动进行ROS环境配置
 
 ```
 sudo apt install python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential
@@ -333,7 +341,7 @@ rosrun beginner_tutorials listener
 rosrun beginner_tutorials talker
 ```
 
-#### 创建Catkin工作空间
+#### 8.3 创建Catkin工作空间
 
 ```
 cd ~/catkin_ws/
@@ -415,23 +423,3 @@ generate_messages(
 rossrv show beginner_tutorials/AddTwoInts
 ```
 
-## 5.2图形界面
-
-- [(14条消息) 超详细Windows10/Windows11 子系统（WSL2）安装Ubuntu20.04（带桌面环境）_萌褚的博客-CSDN博客_wsl ubuntu 桌面](https://blog.csdn.net/m0_60028455/article/details/125316625)
-- [(14条消息) wsl安装xrdp（可视化界面并远程），解决闪退、黑屏_xrdp闪退_daboluo520的博客-CSDN博客](https://blog.csdn.net/guorong520/article/details/124749625)
-- [(14条消息) WSL（Ubuntu20.04）与其图形界面安装配置_sandonz的博客-CSDN博客_wsl ubuntu图形界面](https://blog.csdn.net/sandonz/article/details/120854876?spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EOPENSEARCH%7ERate-1-120854876-blog-113616883.pc_relevant_vip_default&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EOPENSEARCH%7ERate-1-120854876-blog-113616883.pc_relevant_vip_default&utm_relevant_index=2)
-- git clone https://github.com/DamionGans/ubuntu-wsl2-systemd-script.git
-- cd ubuntu-wsl2-systemd-script/
-- bash ubuntu-wsl2-systemd-script.sh --force
-- wsl --shutdown  #去windows cmd下重启wsl
-- wsl #启动ubuntu
-- systemctl
-- sudo apt update
-- sudo apt install -y xubuntu-desktop
-- sudo apt install -y xrdp
-- sudo adduser xrdp ssl-cert
-- sudo ufw allow 3390
-- sudo sed -i 's/port=3389/port=3390/g' /etc/xrdp/xrdp.ini
-- sudo echo xfce4-session > ~/.xsession
-- sudo nano /etc/xrdp/sesman.ini   #将 `KillDisconnected`的值修改为 `true`,保存退出
-- sudo systemctl restart xrdp
