@@ -290,12 +290,15 @@ clean:
 # Program
 upload: build/$(PROJECT).bin
 	openocd -f board/stm32f1discovery.cfg -c "reset_config trst_only combined" -c "program build/$(PROJECT).elf verify reset exit"
-
+ifeq ($(OS),Windows_NT)
 debug-start:
-	openocd -f stm32-bv_openocd.cfg
-
-update:
-	openocd -f openocd.cfg -c init -c halt -c "program $(BUILD_DIR)/$(TARGET).hex verify reset exit"
+	openocd -f openocd_win.cfg
 reset:
-	openocd -f openocd.cfg -c init -c halt -reset -c shutdown
+	openocd -f openocd_win.cfg -c init -c halt -reset -c shutdown
+else
+debug-start:
+	openocd -f openocd_lnx.cfg
+reset:
+	openocd -f openocd_lnx.cfg -c init -c halt -reset -c shutdown
+endif
 # *** EOF ***

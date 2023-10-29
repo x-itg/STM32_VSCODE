@@ -1,0 +1,4109 @@
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.arch armv7-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"radarandec20.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.global	CpuID
+  18              		.section	.bss.CpuID,"aw",%nobits
+  19              		.align	2
+  22              	CpuID:
+  23 0000 00000000 		.space	12
+  23      00000000 
+  23      00000000 
+  24              		.global	SendID
+  25              		.section	.bss.SendID,"aw",%nobits
+  26              		.align	2
+  29              	SendID:
+  30 0000 00000000 		.space	4
+  31              		.global	GpsRecFlag
+  32              		.section	.bss.GpsRecFlag,"aw",%nobits
+  35              	GpsRecFlag:
+  36 0000 00       		.space	1
+  37              		.global	gspdata
+  38              		.section	.bss.gspdata,"aw",%nobits
+  39              		.align	2
+  42              	gspdata:
+  43 0000 00000000 		.space	498
+  43      00000000 
+  43      00000000 
+  43      00000000 
+  43      00000000 
+  44              		.global	GSMinit
+  45              		.section	.bss.GSMinit,"aw",%nobits
+  46              		.align	2
+  49              	GSMinit:
+  50 0000 00000000 		.space	35
+  50      00000000 
+  50      00000000 
+  50      00000000 
+  50      00000000 
+  51              		.global	CloudtriggerFlag
+  52              		.section	.bss.CloudtriggerFlag,"aw",%nobits
+  55              	CloudtriggerFlag:
+  56 0000 00       		.space	1
+  57              		.global	CloudtriggerTime
+  58              		.section	.bss.CloudtriggerTime,"aw",%nobits
+  59              		.align	2
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 2
+
+
+  62              	CloudtriggerTime:
+  63 0000 00000000 		.space	4
+  64              		.global	PollTimeCnt
+  65              		.section	.bss.PollTimeCnt,"aw",%nobits
+  66              		.align	1
+  69              	PollTimeCnt:
+  70 0000 0000     		.space	2
+  71              		.global	RxBufferDMA
+  72              		.section	.bss.RxBufferDMA,"aw",%nobits
+  73              		.align	2
+  76              	RxBufferDMA:
+  77 0000 00000000 		.space	100
+  77      00000000 
+  77      00000000 
+  77      00000000 
+  77      00000000 
+  78              		.global	DMARxLenU2
+  79              		.section	.bss.DMARxLenU2,"aw",%nobits
+  80              		.align	1
+  83              	DMARxLenU2:
+  84 0000 0000     		.space	2
+  85              		.global	rsRxBuf
+  86              		.section	.bss.rsRxBuf,"aw",%nobits
+  87              		.align	2
+  90              	rsRxBuf:
+  91 0000 00000000 		.space	200
+  91      00000000 
+  91      00000000 
+  91      00000000 
+  91      00000000 
+  92              		.global	rsRxIndexLen
+  93              		.section	.bss.rsRxIndexLen,"aw",%nobits
+  94              		.align	2
+  97              	rsRxIndexLen:
+  98 0000 00000000 		.space	4
+  99              		.global	rsRxLen
+ 100              		.section	.bss.rsRxLen,"aw",%nobits
+ 101              		.align	2
+ 104              	rsRxLen:
+ 105 0000 00000000 		.space	4
+ 106              		.global	rsRxTime
+ 107              		.section	.bss.rsRxTime,"aw",%nobits
+ 108              		.align	2
+ 111              	rsRxTime:
+ 112 0000 00000000 		.space	4
+ 113              		.global	rsPackFlag
+ 114              		.section	.bss.rsPackFlag,"aw",%nobits
+ 117              	rsPackFlag:
+ 118 0000 00       		.space	1
+ 119              		.global	rsRecFlag
+ 120              		.section	.bss.rsRecFlag,"aw",%nobits
+ 123              	rsRecFlag:
+ 124 0000 00       		.space	1
+ 125              		.global	ProSta
+ 126              		.section	.bss.ProSta,"aw",%nobits
+ 129              	ProSta:
+ 130 0000 00       		.space	1
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 3
+
+
+ 131              		.global	linkflagSta
+ 132              		.section	.bss.linkflagSta,"aw",%nobits
+ 135              	linkflagSta:
+ 136 0000 00       		.space	1
+ 137              		.global	CurStaSendCnt
+ 138              		.section	.bss.CurStaSendCnt,"aw",%nobits
+ 141              	CurStaSendCnt:
+ 142 0000 00       		.space	1
+ 143              		.global	SendCntRecClear
+ 144              		.section	.bss.SendCntRecClear,"aw",%nobits
+ 145              		.align	2
+ 148              	SendCntRecClear:
+ 149 0000 00000000 		.space	4
+ 150              		.global	SendGPSCnt
+ 151              		.section	.bss.SendGPSCnt,"aw",%nobits
+ 152              		.align	2
+ 155              	SendGPSCnt:
+ 156 0000 00000000 		.space	4
+ 157              		.global	GPSStatFlag
+ 158              		.section	.bss.GPSStatFlag,"aw",%nobits
+ 161              	GPSStatFlag:
+ 162 0000 00       		.space	1
+ 163              		.global	ec20send
+ 164              		.section	.bss.ec20send,"aw",%nobits
+ 165              		.align	2
+ 168              	ec20send:
+ 169 0000 00000000 		.space	70
+ 169      00000000 
+ 169      00000000 
+ 169      00000000 
+ 169      00000000 
+ 170              		.global	pec20
+ 171              		.section	.bss.pec20,"aw",%nobits
+ 172              		.align	2
+ 175              	pec20:
+ 176 0000 00000000 		.space	4
+ 177              		.global	ec20heart
+ 178              		.section	.bss.ec20heart,"aw",%nobits
+ 179              		.align	2
+ 182              	ec20heart:
+ 183 0000 00000000 		.space	8
+ 183      00000000 
+ 184              		.global	pech20
+ 185              		.section	.bss.pech20,"aw",%nobits
+ 186              		.align	2
+ 189              	pech20:
+ 190 0000 00000000 		.space	4
+ 191              		.global	u3rx
+ 192              		.section	.bss.u3rx,"aw",%nobits
+ 193              		.align	2
+ 196              	u3rx:
+ 197 0000 00000000 		.space	100
+ 197      00000000 
+ 197      00000000 
+ 197      00000000 
+ 197      00000000 
+ 198              		.global	RxLenU3
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 4
+
+
+ 199              		.section	.bss.RxLenU3,"aw",%nobits
+ 200              		.align	1
+ 203              	RxLenU3:
+ 204 0000 0000     		.space	2
+ 205              		.global	last_Res_6
+ 206              		.section	.bss.last_Res_6,"aw",%nobits
+ 209              	last_Res_6:
+ 210 0000 00       		.space	1
+ 211              		.global	radar_ID
+ 212              		.section	.bss.radar_ID,"aw",%nobits
+ 215              	radar_ID:
+ 216 0000 00       		.space	1
+ 217              		.global	frame_num
+ 218              		.section	.bss.frame_num,"aw",%nobits
+ 221              	frame_num:
+ 222 0000 00       		.space	1
+ 223              		.global	warning_cfg
+ 224              		.section	.bss.warning_cfg,"aw",%nobits
+ 227              	warning_cfg:
+ 228 0000 00       		.space	1
+ 229              		.global	msint
+ 230              		.section	.bss.msint,"aw",%nobits
+ 231              		.align	2
+ 234              	msint:
+ 235 0000 00000000 		.space	4
+ 236              		.global	trigger_order
+ 237              		.section	.data.trigger_order,"aw"
+ 240              	trigger_order:
+ 241 0000 01       		.byte	1
+ 242              		.global	lifetime_count
+ 243              		.section	.bss.lifetime_count,"aw",%nobits
+ 244              		.align	2
+ 247              	lifetime_count:
+ 248 0000 00000000 		.space	4
+ 249              		.global	danger_keep
+ 250              		.section	.bss.danger_keep,"aw",%nobits
+ 253              	danger_keep:
+ 254 0000 00       		.space	1
+ 255              		.global	ready_2_warning
+ 256              		.section	.bss.ready_2_warning,"aw",%nobits
+ 259              	ready_2_warning:
+ 260 0000 00       		.space	1
+ 261              		.global	waringtimeflag
+ 262              		.section	.bss.waringtimeflag,"aw",%nobits
+ 265              	waringtimeflag:
+ 266 0000 00       		.space	1
+ 267              		.global	waringspeedflag
+ 268              		.section	.bss.waringspeedflag,"aw",%nobits
+ 271              	waringspeedflag:
+ 272 0000 00       		.space	1
+ 273              		.global	waringtime
+ 274              		.section	.bss.waringtime,"aw",%nobits
+ 275              		.align	2
+ 278              	waringtime:
+ 279 0000 00000000 		.space	4
+ 280              		.global	warning_ID
+ 281              		.section	.bss.warning_ID,"aw",%nobits
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 5
+
+
+ 284              	warning_ID:
+ 285 0000 00       		.space	1
+ 286              		.global	ms10
+ 287              		.section	.bss.ms10,"aw",%nobits
+ 288              		.align	1
+ 291              	ms10:
+ 292 0000 0000     		.space	2
+ 293              		.global	warmSend
+ 294              		.section	.bss.warmSend,"aw",%nobits
+ 295              		.align	2
+ 298              	warmSend:
+ 299 0000 00000000 		.space	4
+ 300              		.global	sendbuf
+ 301              		.section	.bss.sendbuf,"aw",%nobits
+ 302              		.align	2
+ 305              	sendbuf:
+ 306 0000 00000000 		.space	255
+ 306      00000000 
+ 306      00000000 
+ 306      00000000 
+ 306      00000000 
+ 307              		.global	warmnobeep
+ 308              		.section	.bss.warmnobeep,"aw",%nobits
+ 311              	warmnobeep:
+ 312 0000 00       		.space	1
+ 313              		.global	linkflag
+ 314              		.section	.bss.linkflag,"aw",%nobits
+ 317              	linkflag:
+ 318 0000 00       		.space	1
+ 319              		.global	sendingflag
+ 320              		.section	.bss.sendingflag,"aw",%nobits
+ 323              	sendingflag:
+ 324 0000 00       		.space	1
+ 325              		.global	simCnt
+ 326              		.section	.bss.simCnt,"aw",%nobits
+ 327              		.align	2
+ 330              	simCnt:
+ 331 0000 00000000 		.space	4
+ 332              		.global	psend
+ 333              		.section	.bss.psend,"aw",%nobits
+ 334              		.align	2
+ 337              	psend:
+ 338 0000 00000000 		.space	4
+ 339              		.global	readsxtioflag
+ 340              		.section	.bss.readsxtioflag,"aw",%nobits
+ 343              	readsxtioflag:
+ 344 0000 00       		.space	1
+ 345              		.global	POLLTime
+ 346              		.section	.data.POLLTime,"aw"
+ 347              		.align	2
+ 350              	POLLTime:
+ 351 0000 20030000 		.word	800
+ 352              		.global	SendList
+ 353              		.section	.rodata
+ 354              		.align	2
+ 355              	.LC0:
+ 356 0000 41540D0A 		.ascii	"AT\015\012\000"
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 6
+
+
+ 356      00
+ 357 0005 000000   		.align	2
+ 358              	.LC1:
+ 359 0008 41544530 		.ascii	"ATE0\015\012\000"
+ 359      0D0A00
+ 360 000f 00       		.align	2
+ 361              	.LC2:
+ 362 0010 41542B43 		.ascii	"AT+CPIN?\015\012\000"
+ 362      50494E3F 
+ 362      0D0A00
+ 363 001b 00       		.align	2
+ 364              	.LC3:
+ 365 001c 41542B43 		.ascii	"AT+CSQ\015\012\000"
+ 365      53510D0A 
+ 365      00
+ 366 0025 000000   		.align	2
+ 367              	.LC4:
+ 368 0028 41542B43 		.ascii	"AT+CREG?\015\012\000"
+ 368      5245473F 
+ 368      0D0A00
+ 369 0033 00       		.align	2
+ 370              	.LC5:
+ 371 0034 41542B43 		.ascii	"AT+CGATT?\015\012\000"
+ 371      47415454 
+ 371      3F0D0A00 
+ 372              		.align	2
+ 373              	.LC6:
+ 374 0040 41542B51 		.ascii	"AT+QIACT=1\015\012\000"
+ 374      49414354 
+ 374      3D310D0A 
+ 374      00
+ 375 004d 000000   		.align	2
+ 376              	.LC7:
+ 377 0050 41542B51 		.ascii	"AT+QIACT?\015\012\000"
+ 377      49414354 
+ 377      3F0D0A00 
+ 378              		.align	2
+ 379              	.LC8:
+ 380 005c 41542B51 		.ascii	"AT+QIDEACT=1\015\012\000"
+ 380      49444541 
+ 380      43543D31 
+ 380      0D0A00
+ 381 006b 00       		.align	2
+ 382              	.LC9:
+ 383 006c 41542B51 		.ascii	"AT+QICLOSE=0,2000\015\012\000"
+ 383      49434C4F 
+ 383      53453D30 
+ 383      2C323030 
+ 383      300D0A00 
+ 384              		.align	2
+ 385              	.LC10:
+ 386 0080 41542B51 		.ascii	"AT+QIOPEN=1,0,\"TCP\",\"139.198.162.94\",999\015\012"
+ 386      494F5045 
+ 386      4E3D312C 
+ 386      302C2254 
+ 386      4350222C 
+ 387 00aa 00       		.ascii	"\000"
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 7
+
+
+ 388 00ab 00       		.align	2
+ 389              	.LC11:
+ 390 00ac 41542B51 		.ascii	"AT+QISENDEX=0,\"313233343536373839\"\015\012\000"
+ 390      4953454E 
+ 390      4445583D 
+ 390      302C2233 
+ 390      31333233 
+ 391 00d1 000000   		.align	2
+ 392              	.LC12:
+ 393 00d4 41542B51 		.ascii	"AT+QIRD=0,1500\015\012\000"
+ 393      4952443D 
+ 393      302C3135 
+ 393      30300D0A 
+ 393      00
+ 394 00e5 000000   		.align	2
+ 395              	.LC13:
+ 396 00e8 41542B51 		.ascii	"AT+QGPSCFG=\"outport\",\"uartdebug\"\015\012\000"
+ 396      47505343 
+ 396      46473D22 
+ 396      6F757470 
+ 396      6F727422 
+ 397 010b 00       		.align	2
+ 398              	.LC14:
+ 399 010c 41542B51 		.ascii	"AT+QGPS=1\015\012\000"
+ 399      4750533D 
+ 399      310D0A00 
+ 400              		.align	2
+ 401              	.LC15:
+ 402 0118 41542B51 		.ascii	"AT+QGPSLOC=0\015\012\000"
+ 402      4750534C 
+ 402      4F433D30 
+ 402      0D0A00
+ 403 0127 00       		.align	2
+ 404              	.LC16:
+ 405 0128 46322E31 		.ascii	"F2.1.620231027_163611_39b8746_230\015\012\000"
+ 405      2E363230 
+ 405      32333130 
+ 405      32375F31 
+ 405      36333631 
+ 406              		.section	.data.SendList,"aw"
+ 407              		.align	2
+ 410              	SendList:
+ 411 0000 00000000 		.word	.LC0
+ 412 0004 08000000 		.word	.LC1
+ 413 0008 10000000 		.word	.LC2
+ 414 000c 1C000000 		.word	.LC3
+ 415 0010 28000000 		.word	.LC4
+ 416 0014 34000000 		.word	.LC5
+ 417 0018 40000000 		.word	.LC6
+ 418 001c 50000000 		.word	.LC7
+ 419 0020 5C000000 		.word	.LC8
+ 420 0024 6C000000 		.word	.LC9
+ 421 0028 80000000 		.word	.LC10
+ 422 002c AC000000 		.word	.LC11
+ 423 0030 D4000000 		.word	.LC12
+ 424 0034 E8000000 		.word	.LC13
+ 425 0038 0C010000 		.word	.LC14
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 8
+
+
+ 426 003c 18010000 		.word	.LC15
+ 427 0040 28010000 		.word	.LC16
+ 428              		.global	RecExpected
+ 429              		.section	.rodata
+ 430              		.align	2
+ 431              	.LC17:
+ 432 014c 4F4B00   		.ascii	"OK\000"
+ 433 014f 00       		.align	2
+ 434              	.LC18:
+ 435 0150 52454144 		.ascii	"READY\000"
+ 435      5900
+ 436 0156 0000     		.align	2
+ 437              	.LC19:
+ 438 0158 43535100 		.ascii	"CSQ\000"
+ 439              		.align	2
+ 440              	.LC20:
+ 441 015c 302C3100 		.ascii	"0,1\000"
+ 442              		.align	2
+ 443              	.LC21:
+ 444 0160 3100     		.ascii	"1\000"
+ 445 0162 0000     		.align	2
+ 446              	.LC22:
+ 447 0164 4F00     		.ascii	"O\000"
+ 448 0166 0000     		.align	2
+ 449              	.LC23:
+ 450 0168 0D00     		.ascii	"\015\000"
+ 451 016a 0000     		.align	2
+ 452              	.LC24:
+ 453 016c 2B514952 		.ascii	"+QIRD\000"
+ 453      4400
+ 454 0172 0000     		.align	2
+ 455              	.LC25:
+ 456 0174 51475053 		.ascii	"QGPSLOC\000"
+ 456      4C4F4300 
+ 457              		.align	2
+ 458              	.LC26:
+ 459 017c 4552524F 		.ascii	"ERROR\000"
+ 459      5200
+ 460              		.section	.data.RecExpected,"aw"
+ 461              		.align	2
+ 464              	RecExpected:
+ 465 0000 4C010000 		.word	.LC17
+ 466 0004 4C010000 		.word	.LC17
+ 467 0008 50010000 		.word	.LC18
+ 468 000c 58010000 		.word	.LC19
+ 469 0010 5C010000 		.word	.LC20
+ 470 0014 60010000 		.word	.LC21
+ 471 0018 64010000 		.word	.LC22
+ 472 001c 4C010000 		.word	.LC17
+ 473 0020 4C010000 		.word	.LC17
+ 474 0024 68010000 		.word	.LC23
+ 475 0028 68010000 		.word	.LC23
+ 476 002c 4C010000 		.word	.LC17
+ 477 0030 6C010000 		.word	.LC24
+ 478 0034 68010000 		.word	.LC23
+ 479 0038 68010000 		.word	.LC23
+ 480 003c 74010000 		.word	.LC25
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 9
+
+
+ 481 0040 7C010000 		.word	.LC26
+ 482              		.section	.text.Clear_Buffer,"ax",%progbits
+ 483              		.align	1
+ 484              		.global	Clear_Buffer
+ 485              		.syntax unified
+ 486              		.thumb
+ 487              		.thumb_func
+ 489              	Clear_Buffer:
+ 490              	.LFB68:
+ 491              		.file 1 "Src/radarandec20.c"
+   1:Src/radarandec20.c **** #include "ec20.h"
+   2:Src/radarandec20.c **** #include "oled.h"
+   3:Src/radarandec20.c **** #pragma pack(1)
+   4:Src/radarandec20.c **** 
+   5:Src/radarandec20.c **** unsigned int CpuID[3];
+   6:Src/radarandec20.c **** unsigned int SendID;
+   7:Src/radarandec20.c **** unsigned char GpsRecFlag = 0;
+   8:Src/radarandec20.c **** GPS_DATA gspdata;
+   9:Src/radarandec20.c **** GSM_init GSMinit;
+  10:Src/radarandec20.c **** unsigned char CloudtriggerFlag = 0;
+  11:Src/radarandec20.c **** unsigned int CloudtriggerTime = 0;
+  12:Src/radarandec20.c **** // EC20
+  13:Src/radarandec20.c **** unsigned short PollTimeCnt = 0;             // 在毫秒中断中加加
+  14:Src/radarandec20.c **** unsigned char RxBufferDMA[DMARXBUFFERSIZE]; // DMA接收到的缓存
+  15:Src/radarandec20.c **** unsigned short DMARxLenU2 = 0;              // DMA缓存接收长度
+  16:Src/radarandec20.c **** unsigned char rsRxBuf[LASTSZIE];            // 最后的数据
+  17:Src/radarandec20.c **** unsigned int rsRxIndexLen = 0;              // 这个长度会在DMA空闲中断中更新
+  18:Src/radarandec20.c **** unsigned int rsRxLen = 0;                   // 最终长度
+  19:Src/radarandec20.c **** unsigned int rsRxTime = 0;                  // 超时时间计数
+  20:Src/radarandec20.c **** unsigned char rsPackFlag = 0;               // 正在接收的标记
+  21:Src/radarandec20.c **** unsigned char rsRecFlag = 0;                // 接收标志
+  22:Src/radarandec20.c **** unsigned char ProSta = 0;
+  23:Src/radarandec20.c **** unsigned char linkflagSta = 0;
+  24:Src/radarandec20.c **** unsigned char CurStaSendCnt = 0;
+  25:Src/radarandec20.c **** unsigned int SendCntRecClear = 0;
+  26:Src/radarandec20.c **** unsigned int SendGPSCnt = 0;
+  27:Src/radarandec20.c **** unsigned char GPSStatFlag = 0;
+  28:Src/radarandec20.c **** Ec20SendData ec20send, *pec20;
+  29:Src/radarandec20.c **** Ec20HEART ec20heart, *pech20;
+  30:Src/radarandec20.c **** // radar
+  31:Src/radarandec20.c **** unsigned char u3rx[u3mx];
+  32:Src/radarandec20.c **** unsigned short RxLenU3;
+  33:Src/radarandec20.c **** 
+  34:Src/radarandec20.c **** unsigned char last_Res_6 = 0;
+  35:Src/radarandec20.c **** unsigned char radar_ID = 0;
+  36:Src/radarandec20.c **** unsigned char frame_num = 0;
+  37:Src/radarandec20.c **** unsigned char warning_cfg = 0;
+  38:Src/radarandec20.c **** unsigned int msint = 0;
+  39:Src/radarandec20.c **** char trigger_order = 0x01;
+  40:Src/radarandec20.c **** unsigned char lifetime_count[4];
+  41:Src/radarandec20.c **** unsigned char danger_keep = 0;
+  42:Src/radarandec20.c **** unsigned char ready_2_warning = 0;
+  43:Src/radarandec20.c **** unsigned char waringtimeflag = 0;
+  44:Src/radarandec20.c **** unsigned char waringspeedflag = 0;
+  45:Src/radarandec20.c **** unsigned int waringtime = 0;
+  46:Src/radarandec20.c **** unsigned char warning_ID = 0;
+  47:Src/radarandec20.c **** unsigned short ms10 = 0;
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 10
+
+
+  48:Src/radarandec20.c **** 
+  49:Src/radarandec20.c **** unsigned char warmSend[4] = {0, 0, 0, 0};
+  50:Src/radarandec20.c **** unsigned char sendbuf[255];
+  51:Src/radarandec20.c **** unsigned char warmnobeep = 0;
+  52:Src/radarandec20.c **** unsigned char linkflag = 0;
+  53:Src/radarandec20.c **** unsigned char sendingflag = 0;
+  54:Src/radarandec20.c **** unsigned int simCnt = 0;
+  55:Src/radarandec20.c **** const unsigned char *psend;
+  56:Src/radarandec20.c **** GPIO_PinState readsxtioflag = GPIO_PIN_RESET; // 摄像头触发状态
+  57:Src/radarandec20.c **** unsigned int POLLTime = NORMARLTIME;
+  58:Src/radarandec20.c **** 
+  59:Src/radarandec20.c **** #define InitEC2Index 0         // 从头开始初始化
+  60:Src/radarandec20.c **** #define InitTCPIndex 6         // 从连接TCP开始初始化
+  61:Src/radarandec20.c **** #define ATCodeSnd 11           // 发送TCP内容的那条AT指令序号
+  62:Src/radarandec20.c **** #define ATTcpReadIndex 12      // TCP读取的AT指令序号序号
+  63:Src/radarandec20.c **** #define ATCodeLastNum 12       // 最后一条读取GPS数据的AT指令序号  15
+  64:Src/radarandec20.c **** #define ATCodeNum 12           // 整个流程AT指令条数 16
+  65:Src/radarandec20.c **** #define SendButNoRecCnt 50     // 发送但是EC20没有响应
+  66:Src/radarandec20.c **** #define SendRecButNotExpCnt 10 // 发送EC20有响应但是接收到数据跟预期内容不符合
+  67:Src/radarandec20.c **** #define SendRecButGpsNotExp 3  // gps数据不在预期范围的计数
+  68:Src/radarandec20.c **** // 发送列表
+  69:Src/radarandec20.c **** char *SendList[] = {
+  70:Src/radarandec20.c ****     "AT\r\n",                // 0
+  71:Src/radarandec20.c ****     "ATE0\r\n",              // 1  回显关闭
+  72:Src/radarandec20.c ****     "AT+CPIN?\r\n",          // 2 读卡测试
+  73:Src/radarandec20.c ****     "AT+CSQ\r\n",            // 3 信号质量查询
+  74:Src/radarandec20.c ****     "AT+CREG?\r\n",          // 4 网络注册查询
+  75:Src/radarandec20.c ****     "AT+CGATT?\r\n",         // 5 附着网络查询
+  76:Src/radarandec20.c ****     "AT+QIACT=1\r\n",        // 6 激活移动场景 激活 context profile
+  77:Src/radarandec20.c ****     "AT+QIACT?\r\n",         // 7 IP地址查询   QIACT: 1,1,1,"10.23.163.28"  第一个1context�
+  78:Src/radarandec20.c ****     "AT+QIDEACT=1\r\n",      // 8  Deactivate a PDP Context
+  79:Src/radarandec20.c ****     "AT+QICLOSE=0,2000\r\n", // 9 关闭connect 0 不管怎样先关闭一下
+  80:Src/radarandec20.c **** #if FacIP == 0
+  81:Src/radarandec20.c ****     "AT+QIOPEN=1,0,\"TCP\",\"139.198.162.94\",999\r\n", // 10 连接context 1号   connect0号 TCP 
+  82:Src/radarandec20.c **** #else
+  83:Src/radarandec20.c ****     "AT+QIOPEN=1,0,\"TCP\",\"47.103.104.119\",999\r\n", // 10 连接context 1号   connect0号 TCP 
+  84:Src/radarandec20.c **** #endif
+  85:Src/radarandec20.c ****     "AT+QISENDEX=0,\"313233343536373839\"\r\n", // 11 发送数据
+  86:Src/radarandec20.c ****     "AT+QIRD=0,1500\r\n",                       // 12  接收
+  87:Src/radarandec20.c ****     "AT+QGPSCFG=\"outport\",\"uartdebug\"\r\n", // 13  设置gnss的端口-------------------------
+  88:Src/radarandec20.c ****     "AT+QGPS=1\r\n",                            // 14开启GNNS功能   使用串口发送
+  89:Src/radarandec20.c ****     "AT+QGPSLOC=0\r\n",                         // 15读取位置信息发送
+  90:Src/radarandec20.c ****     "F2.1.6" _BUILDCOMMITID "\r\n",             // 16
+  91:Src/radarandec20.c **** };
+  92:Src/radarandec20.c **** 
+  93:Src/radarandec20.c **** // 接收期待列表
+  94:Src/radarandec20.c **** char *RecExpected[] = {
+  95:Src/radarandec20.c ****     "OK",      // 0     OK
+  96:Src/radarandec20.c ****     "OK",      // 1     OK
+  97:Src/radarandec20.c ****     "READY",   // 2     +CPIN: READY   如果两次ERROR
+  98:Src/radarandec20.c ****     "CSQ",     // 3     +CSQ: 28,0
+  99:Src/radarandec20.c ****     "0,1",     // 4     +CREG: 0,1   0,5   1,1  1,5 这些都可以
+ 100:Src/radarandec20.c ****     "1",       // 5     +CGATT: 1
+ 101:Src/radarandec20.c ****     "O",       // 6     OK 或者 ERROR 重复激活为ERROR
+ 102:Src/radarandec20.c ****     "OK",      // 7     OK
+ 103:Src/radarandec20.c ****     "OK",      // 8     OK
+ 104:Src/radarandec20.c ****     "\r",      // 9     OK
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 11
+
+
+ 105:Src/radarandec20.c ****     "\r",      // 10
+ 106:Src/radarandec20.c ****     "OK",      // 11    发送
+ 107:Src/radarandec20.c ****     "+QIRD",   // 12    接收
+ 108:Src/radarandec20.c ****     "\r",      // 13
+ 109:Src/radarandec20.c ****     "\r",      // 14
+ 110:Src/radarandec20.c ****     "QGPSLOC", // 15
+ 111:Src/radarandec20.c ****     "ERROR"};
+ 112:Src/radarandec20.c **** //
+ 113:Src/radarandec20.c **** //
+ 114:Src/radarandec20.c **** //
+ 115:Src/radarandec20.c **** // 清除缓存
+ 116:Src/radarandec20.c **** void Clear_Buffer(void) // 清空缓存
+ 117:Src/radarandec20.c **** {
+ 492              		.loc 1 117 1
+ 493              		.cfi_startproc
+ 494              		@ args = 0, pretend = 0, frame = 8
+ 495              		@ frame_needed = 1, uses_anonymous_args = 0
+ 496              		@ link register save eliminated.
+ 497 0000 80B4     		push	{r7}
+ 498              	.LCFI0:
+ 499              		.cfi_def_cfa_offset 4
+ 500              		.cfi_offset 7, -4
+ 501 0002 83B0     		sub	sp, sp, #12
+ 502              	.LCFI1:
+ 503              		.cfi_def_cfa_offset 16
+ 504 0004 00AF     		add	r7, sp, #0
+ 505              	.LCFI2:
+ 506              		.cfi_def_cfa_register 7
+ 118:Src/radarandec20.c ****   int i;
+ 119:Src/radarandec20.c ****   for (i = 0; i < LASTSZIE; i++)
+ 507              		.loc 1 119 10
+ 508 0006 0023     		movs	r3, #0
+ 509 0008 7B60     		str	r3, [r7, #4]
+ 510              		.loc 1 119 3
+ 511 000a 07E0     		b	.L2
+ 512              	.L3:
+ 120:Src/radarandec20.c ****   {
+ 121:Src/radarandec20.c ****     rsRxBuf[i] = 0; // 缓存
+ 513              		.loc 1 121 16 discriminator 3
+ 514 000c 094A     		ldr	r2, .L4
+ 515 000e 7B68     		ldr	r3, [r7, #4]
+ 516 0010 1344     		add	r3, r3, r2
+ 517 0012 0022     		movs	r2, #0
+ 518 0014 1A70     		strb	r2, [r3]
+ 119:Src/radarandec20.c ****   {
+ 519              		.loc 1 119 30 discriminator 3
+ 520 0016 7B68     		ldr	r3, [r7, #4]
+ 521 0018 0133     		adds	r3, r3, #1
+ 522 001a 7B60     		str	r3, [r7, #4]
+ 523              	.L2:
+ 119:Src/radarandec20.c ****   {
+ 524              		.loc 1 119 3 discriminator 1
+ 525 001c 7B68     		ldr	r3, [r7, #4]
+ 526 001e C72B     		cmp	r3, #199
+ 527 0020 F4DD     		ble	.L3
+ 122:Src/radarandec20.c ****   }
+ 123:Src/radarandec20.c ****   rsRxLen = 0;
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 12
+
+
+ 528              		.loc 1 123 11
+ 529 0022 054B     		ldr	r3, .L4+4
+ 530 0024 0022     		movs	r2, #0
+ 531 0026 1A60     		str	r2, [r3]
+ 124:Src/radarandec20.c **** }
+ 532              		.loc 1 124 1
+ 533 0028 00BF     		nop
+ 534 002a 0C37     		adds	r7, r7, #12
+ 535              	.LCFI3:
+ 536              		.cfi_def_cfa_offset 4
+ 537 002c BD46     		mov	sp, r7
+ 538              	.LCFI4:
+ 539              		.cfi_def_cfa_register 13
+ 540              		@ sp needed
+ 541 002e 80BC     		pop	{r7}
+ 542              	.LCFI5:
+ 543              		.cfi_restore 7
+ 544              		.cfi_def_cfa_offset 0
+ 545 0030 7047     		bx	lr
+ 546              	.L5:
+ 547 0032 00BF     		.align	2
+ 548              	.L4:
+ 549 0034 00000000 		.word	rsRxBuf
+ 550 0038 00000000 		.word	rsRxLen
+ 551              		.cfi_endproc
+ 552              	.LFE68:
+ 554              		.section	.text.ucharCmp,"ax",%progbits
+ 555              		.align	1
+ 556              		.global	ucharCmp
+ 557              		.syntax unified
+ 558              		.thumb
+ 559              		.thumb_func
+ 561              	ucharCmp:
+ 562              	.LFB69:
+ 125:Src/radarandec20.c **** // 全部相同返回1
+ 126:Src/radarandec20.c **** unsigned char ucharCmp(unsigned char *p1, unsigned char *p2, unsigned char len)
+ 127:Src/radarandec20.c **** {
+ 563              		.loc 1 127 1
+ 564              		.cfi_startproc
+ 565              		@ args = 0, pretend = 0, frame = 24
+ 566              		@ frame_needed = 1, uses_anonymous_args = 0
+ 567              		@ link register save eliminated.
+ 568 0000 80B4     		push	{r7}
+ 569              	.LCFI6:
+ 570              		.cfi_def_cfa_offset 4
+ 571              		.cfi_offset 7, -4
+ 572 0002 87B0     		sub	sp, sp, #28
+ 573              	.LCFI7:
+ 574              		.cfi_def_cfa_offset 32
+ 575 0004 00AF     		add	r7, sp, #0
+ 576              	.LCFI8:
+ 577              		.cfi_def_cfa_register 7
+ 578 0006 F860     		str	r0, [r7, #12]
+ 579 0008 B960     		str	r1, [r7, #8]
+ 580 000a 1346     		mov	r3, r2
+ 581 000c FB71     		strb	r3, [r7, #7]
+ 128:Src/radarandec20.c ****   unsigned char i;
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 13
+
+
+ 129:Src/radarandec20.c ****   for (i = 0; i < len; i++)
+ 582              		.loc 1 129 10
+ 583 000e 0023     		movs	r3, #0
+ 584 0010 FB75     		strb	r3, [r7, #23]
+ 585              		.loc 1 129 3
+ 586 0012 0EE0     		b	.L7
+ 587              	.L10:
+ 130:Src/radarandec20.c ****   {
+ 131:Src/radarandec20.c ****     if ((*p1++) != (*p2++))
+ 588              		.loc 1 131 13
+ 589 0014 FB68     		ldr	r3, [r7, #12]
+ 590 0016 5A1C     		adds	r2, r3, #1
+ 591 0018 FA60     		str	r2, [r7, #12]
+ 592              		.loc 1 131 10
+ 593 001a 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 594              		.loc 1 131 24
+ 595 001c BB68     		ldr	r3, [r7, #8]
+ 596 001e 591C     		adds	r1, r3, #1
+ 597 0020 B960     		str	r1, [r7, #8]
+ 598              		.loc 1 131 21
+ 599 0022 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 600              		.loc 1 131 8
+ 601 0024 9A42     		cmp	r2, r3
+ 602 0026 01D0     		beq	.L8
+ 132:Src/radarandec20.c ****     {
+ 133:Src/radarandec20.c ****       return 0;
+ 603              		.loc 1 133 14
+ 604 0028 0023     		movs	r3, #0
+ 605 002a 07E0     		b	.L9
+ 606              	.L8:
+ 129:Src/radarandec20.c ****   {
+ 607              		.loc 1 129 25 discriminator 2
+ 608 002c FB7D     		ldrb	r3, [r7, #23]	@ zero_extendqisi2
+ 609 002e 0133     		adds	r3, r3, #1
+ 610 0030 FB75     		strb	r3, [r7, #23]
+ 611              	.L7:
+ 129:Src/radarandec20.c ****   {
+ 612              		.loc 1 129 3 discriminator 1
+ 613 0032 FA7D     		ldrb	r2, [r7, #23]	@ zero_extendqisi2
+ 614 0034 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 615 0036 9A42     		cmp	r2, r3
+ 616 0038 ECD3     		bcc	.L10
+ 134:Src/radarandec20.c ****     }
+ 135:Src/radarandec20.c ****   }
+ 136:Src/radarandec20.c ****   return 1; // 全部相等
+ 617              		.loc 1 136 10
+ 618 003a 0123     		movs	r3, #1
+ 619              	.L9:
+ 137:Src/radarandec20.c **** }
+ 620              		.loc 1 137 1
+ 621 003c 1846     		mov	r0, r3
+ 622 003e 1C37     		adds	r7, r7, #28
+ 623              	.LCFI9:
+ 624              		.cfi_def_cfa_offset 4
+ 625 0040 BD46     		mov	sp, r7
+ 626              	.LCFI10:
+ 627              		.cfi_def_cfa_register 13
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 14
+
+
+ 628              		@ sp needed
+ 629 0042 80BC     		pop	{r7}
+ 630              	.LCFI11:
+ 631              		.cfi_restore 7
+ 632              		.cfi_def_cfa_offset 0
+ 633 0044 7047     		bx	lr
+ 634              		.cfi_endproc
+ 635              	.LFE69:
+ 637              		.section	.text.findStrCmp,"ax",%progbits
+ 638              		.align	1
+ 639              		.global	findStrCmp
+ 640              		.syntax unified
+ 641              		.thumb
+ 642              		.thumb_func
+ 644              	findStrCmp:
+ 645              	.LFB70:
+ 138:Src/radarandec20.c **** 
+ 139:Src/radarandec20.c **** // 这部分完全包含在整个中就返回1 不然返回零
+ 140:Src/radarandec20.c **** unsigned char findStrCmp(unsigned char *allPstr, unsigned char alllen, unsigned char *partPstr, uns
+ 141:Src/radarandec20.c **** {
+ 646              		.loc 1 141 1
+ 647              		.cfi_startproc
+ 648              		@ args = 0, pretend = 0, frame = 24
+ 649              		@ frame_needed = 1, uses_anonymous_args = 0
+ 650 0000 80B5     		push	{r7, lr}
+ 651              	.LCFI12:
+ 652              		.cfi_def_cfa_offset 8
+ 653              		.cfi_offset 7, -8
+ 654              		.cfi_offset 14, -4
+ 655 0002 86B0     		sub	sp, sp, #24
+ 656              	.LCFI13:
+ 657              		.cfi_def_cfa_offset 32
+ 658 0004 00AF     		add	r7, sp, #0
+ 659              	.LCFI14:
+ 660              		.cfi_def_cfa_register 7
+ 661 0006 F860     		str	r0, [r7, #12]
+ 662 0008 7A60     		str	r2, [r7, #4]
+ 663 000a 1A46     		mov	r2, r3
+ 664 000c 0B46     		mov	r3, r1
+ 665 000e FB72     		strb	r3, [r7, #11]
+ 666 0010 1346     		mov	r3, r2
+ 667 0012 BB72     		strb	r3, [r7, #10]
+ 142:Src/radarandec20.c ****   unsigned char i = 0;
+ 668              		.loc 1 142 17
+ 669 0014 0023     		movs	r3, #0
+ 670 0016 FB75     		strb	r3, [r7, #23]
+ 143:Src/radarandec20.c ****   for (i = 0; i < alllen - partlen + 1; i++)
+ 671              		.loc 1 143 10
+ 672 0018 0023     		movs	r3, #0
+ 673 001a FB75     		strb	r3, [r7, #23]
+ 674              		.loc 1 143 3
+ 675 001c 0FE0     		b	.L12
+ 676              	.L15:
+ 144:Src/radarandec20.c ****   {
+ 145:Src/radarandec20.c ****     if (ucharCmp(allPstr + i, partPstr, partlen) == 1)
+ 677              		.loc 1 145 9
+ 678 001e FB7D     		ldrb	r3, [r7, #23]	@ zero_extendqisi2
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 15
+
+
+ 679 0020 FA68     		ldr	r2, [r7, #12]
+ 680 0022 1344     		add	r3, r3, r2
+ 681 0024 BA7A     		ldrb	r2, [r7, #10]	@ zero_extendqisi2
+ 682 0026 7968     		ldr	r1, [r7, #4]
+ 683 0028 1846     		mov	r0, r3
+ 684 002a FFF7FEFF 		bl	ucharCmp
+ 685 002e 0346     		mov	r3, r0
+ 686              		.loc 1 145 8
+ 687 0030 012B     		cmp	r3, #1
+ 688 0032 01D1     		bne	.L13
+ 146:Src/radarandec20.c ****     {
+ 147:Src/radarandec20.c ****       return 1; // 找到完全相同
+ 689              		.loc 1 147 14
+ 690 0034 0123     		movs	r3, #1
+ 691 0036 09E0     		b	.L14
+ 692              	.L13:
+ 143:Src/radarandec20.c ****   {
+ 693              		.loc 1 143 42 discriminator 2
+ 694 0038 FB7D     		ldrb	r3, [r7, #23]	@ zero_extendqisi2
+ 695 003a 0133     		adds	r3, r3, #1
+ 696 003c FB75     		strb	r3, [r7, #23]
+ 697              	.L12:
+ 143:Src/radarandec20.c ****   {
+ 698              		.loc 1 143 26 discriminator 1
+ 699 003e FA7A     		ldrb	r2, [r7, #11]	@ zero_extendqisi2
+ 700 0040 BB7A     		ldrb	r3, [r7, #10]	@ zero_extendqisi2
+ 701 0042 D21A     		subs	r2, r2, r3
+ 143:Src/radarandec20.c ****   {
+ 702              		.loc 1 143 17 discriminator 1
+ 703 0044 FB7D     		ldrb	r3, [r7, #23]	@ zero_extendqisi2
+ 143:Src/radarandec20.c ****   {
+ 704              		.loc 1 143 3 discriminator 1
+ 705 0046 9A42     		cmp	r2, r3
+ 706 0048 E9DA     		bge	.L15
+ 148:Src/radarandec20.c ****     }
+ 149:Src/radarandec20.c ****   }
+ 150:Src/radarandec20.c ****   return 0;
+ 707              		.loc 1 150 10
+ 708 004a 0023     		movs	r3, #0
+ 709              	.L14:
+ 151:Src/radarandec20.c **** }
+ 710              		.loc 1 151 1
+ 711 004c 1846     		mov	r0, r3
+ 712 004e 1837     		adds	r7, r7, #24
+ 713              	.LCFI15:
+ 714              		.cfi_def_cfa_offset 8
+ 715 0050 BD46     		mov	sp, r7
+ 716              	.LCFI16:
+ 717              		.cfi_def_cfa_register 13
+ 718              		@ sp needed
+ 719 0052 80BD     		pop	{r7, pc}
+ 720              		.cfi_endproc
+ 721              	.LFE70:
+ 723              		.section	.text.HexStrConvert,"ax",%progbits
+ 724              		.align	1
+ 725              		.global	HexStrConvert
+ 726              		.syntax unified
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 16
+
+
+ 727              		.thumb
+ 728              		.thumb_func
+ 730              	HexStrConvert:
+ 731              	.LFB71:
+ 152:Src/radarandec20.c **** 
+ 153:Src/radarandec20.c **** // AT发送TCP数据时候需要编码一下
+ 154:Src/radarandec20.c **** void HexStrConvert(unsigned char *Inp, unsigned char len, unsigned char *Outp)
+ 155:Src/radarandec20.c **** {
+ 732              		.loc 1 155 1
+ 733              		.cfi_startproc
+ 734              		@ args = 0, pretend = 0, frame = 24
+ 735              		@ frame_needed = 1, uses_anonymous_args = 0
+ 736              		@ link register save eliminated.
+ 737 0000 80B4     		push	{r7}
+ 738              	.LCFI17:
+ 739              		.cfi_def_cfa_offset 4
+ 740              		.cfi_offset 7, -4
+ 741 0002 87B0     		sub	sp, sp, #28
+ 742              	.LCFI18:
+ 743              		.cfi_def_cfa_offset 32
+ 744 0004 00AF     		add	r7, sp, #0
+ 745              	.LCFI19:
+ 746              		.cfi_def_cfa_register 7
+ 747 0006 F860     		str	r0, [r7, #12]
+ 748 0008 0B46     		mov	r3, r1
+ 749 000a 7A60     		str	r2, [r7, #4]
+ 750 000c FB72     		strb	r3, [r7, #11]
+ 156:Src/radarandec20.c ****   unsigned char hexH = 0;
+ 751              		.loc 1 156 17
+ 752 000e 0023     		movs	r3, #0
+ 753 0010 FB75     		strb	r3, [r7, #23]
+ 157:Src/radarandec20.c ****   unsigned char hexL = 0;
+ 754              		.loc 1 157 17
+ 755 0012 0023     		movs	r3, #0
+ 756 0014 BB75     		strb	r3, [r7, #22]
+ 158:Src/radarandec20.c ****   unsigned char i = 0;
+ 757              		.loc 1 158 17
+ 758 0016 0023     		movs	r3, #0
+ 759 0018 7B75     		strb	r3, [r7, #21]
+ 159:Src/radarandec20.c **** 
+ 160:Src/radarandec20.c ****   for (i = 0; i < len; i++)
+ 760              		.loc 1 160 10
+ 761 001a 0023     		movs	r3, #0
+ 762 001c 7B75     		strb	r3, [r7, #21]
+ 763              		.loc 1 160 3
+ 764 001e 2CE0     		b	.L17
+ 765              	.L22:
+ 161:Src/radarandec20.c ****   {
+ 162:Src/radarandec20.c ****     hexH = (*Inp) / 16;
+ 766              		.loc 1 162 13
+ 767 0020 FB68     		ldr	r3, [r7, #12]
+ 768 0022 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 769              		.loc 1 162 10
+ 770 0024 1B09     		lsrs	r3, r3, #4
+ 771 0026 FB75     		strb	r3, [r7, #23]
+ 163:Src/radarandec20.c ****     hexL = (*Inp) % 16;
+ 772              		.loc 1 163 13
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 17
+
+
+ 773 0028 FB68     		ldr	r3, [r7, #12]
+ 774 002a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 775              		.loc 1 163 10
+ 776 002c 03F00F03 		and	r3, r3, #15
+ 777 0030 BB75     		strb	r3, [r7, #22]
+ 164:Src/radarandec20.c ****     Inp++;
+ 778              		.loc 1 164 8
+ 779 0032 FB68     		ldr	r3, [r7, #12]
+ 780 0034 0133     		adds	r3, r3, #1
+ 781 0036 FB60     		str	r3, [r7, #12]
+ 165:Src/radarandec20.c ****     if (hexH >= 10)
+ 782              		.loc 1 165 8
+ 783 0038 FB7D     		ldrb	r3, [r7, #23]	@ zero_extendqisi2
+ 784 003a 092B     		cmp	r3, #9
+ 785 003c 03D9     		bls	.L18
+ 166:Src/radarandec20.c ****       hexH = hexH - 10 + 'A';
+ 786              		.loc 1 166 12
+ 787 003e FB7D     		ldrb	r3, [r7, #23]
+ 788 0040 3733     		adds	r3, r3, #55
+ 789 0042 FB75     		strb	r3, [r7, #23]
+ 790 0044 02E0     		b	.L19
+ 791              	.L18:
+ 167:Src/radarandec20.c ****     else
+ 168:Src/radarandec20.c ****       hexH = hexH + '0';
+ 792              		.loc 1 168 12
+ 793 0046 FB7D     		ldrb	r3, [r7, #23]
+ 794 0048 3033     		adds	r3, r3, #48
+ 795 004a FB75     		strb	r3, [r7, #23]
+ 796              	.L19:
+ 169:Src/radarandec20.c ****     if (hexL >= 10)
+ 797              		.loc 1 169 8
+ 798 004c BB7D     		ldrb	r3, [r7, #22]	@ zero_extendqisi2
+ 799 004e 092B     		cmp	r3, #9
+ 800 0050 03D9     		bls	.L20
+ 170:Src/radarandec20.c ****       hexL = hexL - 10 + 'A';
+ 801              		.loc 1 170 12
+ 802 0052 BB7D     		ldrb	r3, [r7, #22]
+ 803 0054 3733     		adds	r3, r3, #55
+ 804 0056 BB75     		strb	r3, [r7, #22]
+ 805 0058 02E0     		b	.L21
+ 806              	.L20:
+ 171:Src/radarandec20.c ****     else
+ 172:Src/radarandec20.c ****       hexL = hexL + '0';
+ 807              		.loc 1 172 12
+ 808 005a BB7D     		ldrb	r3, [r7, #22]
+ 809 005c 3033     		adds	r3, r3, #48
+ 810 005e BB75     		strb	r3, [r7, #22]
+ 811              	.L21:
+ 173:Src/radarandec20.c ****     *Outp++ = hexH;
+ 812              		.loc 1 173 10 discriminator 2
+ 813 0060 7B68     		ldr	r3, [r7, #4]
+ 814 0062 5A1C     		adds	r2, r3, #1
+ 815 0064 7A60     		str	r2, [r7, #4]
+ 816              		.loc 1 173 13 discriminator 2
+ 817 0066 FA7D     		ldrb	r2, [r7, #23]
+ 818 0068 1A70     		strb	r2, [r3]
+ 174:Src/radarandec20.c ****     *Outp++ = hexL;
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 18
+
+
+ 819              		.loc 1 174 10 discriminator 2
+ 820 006a 7B68     		ldr	r3, [r7, #4]
+ 821 006c 5A1C     		adds	r2, r3, #1
+ 822 006e 7A60     		str	r2, [r7, #4]
+ 823              		.loc 1 174 13 discriminator 2
+ 824 0070 BA7D     		ldrb	r2, [r7, #22]
+ 825 0072 1A70     		strb	r2, [r3]
+ 160:Src/radarandec20.c ****   {
+ 826              		.loc 1 160 25 discriminator 2
+ 827 0074 7B7D     		ldrb	r3, [r7, #21]	@ zero_extendqisi2
+ 828 0076 0133     		adds	r3, r3, #1
+ 829 0078 7B75     		strb	r3, [r7, #21]
+ 830              	.L17:
+ 160:Src/radarandec20.c ****   {
+ 831              		.loc 1 160 3 discriminator 1
+ 832 007a 7A7D     		ldrb	r2, [r7, #21]	@ zero_extendqisi2
+ 833 007c FB7A     		ldrb	r3, [r7, #11]	@ zero_extendqisi2
+ 834 007e 9A42     		cmp	r2, r3
+ 835 0080 CED3     		bcc	.L22
+ 175:Src/radarandec20.c ****   }
+ 176:Src/radarandec20.c **** }
+ 836              		.loc 1 176 1
+ 837 0082 00BF     		nop
+ 838 0084 00BF     		nop
+ 839 0086 1C37     		adds	r7, r7, #28
+ 840              	.LCFI20:
+ 841              		.cfi_def_cfa_offset 4
+ 842 0088 BD46     		mov	sp, r7
+ 843              	.LCFI21:
+ 844              		.cfi_def_cfa_register 13
+ 845              		@ sp needed
+ 846 008a 80BC     		pop	{r7}
+ 847              	.LCFI22:
+ 848              		.cfi_restore 7
+ 849              		.cfi_def_cfa_offset 0
+ 850 008c 7047     		bx	lr
+ 851              		.cfi_endproc
+ 852              	.LFE71:
+ 854              		.section	.text.delay_ms,"ax",%progbits
+ 855              		.align	1
+ 856              		.global	delay_ms
+ 857              		.syntax unified
+ 858              		.thumb
+ 859              		.thumb_func
+ 861              	delay_ms:
+ 862              	.LFB72:
+ 177:Src/radarandec20.c **** // 延时 这个函数需要把编译优化改成NONE才行
+ 178:Src/radarandec20.c **** void delay_ms(unsigned int n)
+ 179:Src/radarandec20.c **** {
+ 863              		.loc 1 179 1
+ 864              		.cfi_startproc
+ 865              		@ args = 0, pretend = 0, frame = 8
+ 866              		@ frame_needed = 1, uses_anonymous_args = 0
+ 867              		@ link register save eliminated.
+ 868 0000 80B4     		push	{r7}
+ 869              	.LCFI23:
+ 870              		.cfi_def_cfa_offset 4
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 19
+
+
+ 871              		.cfi_offset 7, -4
+ 872 0002 83B0     		sub	sp, sp, #12
+ 873              	.LCFI24:
+ 874              		.cfi_def_cfa_offset 16
+ 875 0004 00AF     		add	r7, sp, #0
+ 876              	.LCFI25:
+ 877              		.cfi_def_cfa_register 7
+ 878 0006 7860     		str	r0, [r7, #4]
+ 180:Src/radarandec20.c ****   msint = 0;
+ 879              		.loc 1 180 9
+ 880 0008 074B     		ldr	r3, .L25
+ 881 000a 0022     		movs	r2, #0
+ 882 000c 1A60     		str	r2, [r3]
+ 181:Src/radarandec20.c ****   while (n > msint)
+ 883              		.loc 1 181 9
+ 884 000e 00BF     		nop
+ 885              	.L24:
+ 886              		.loc 1 181 12 discriminator 1
+ 887 0010 054B     		ldr	r3, .L25
+ 888 0012 1B68     		ldr	r3, [r3]
+ 889              		.loc 1 181 9 discriminator 1
+ 890 0014 7A68     		ldr	r2, [r7, #4]
+ 891 0016 9A42     		cmp	r2, r3
+ 892 0018 FAD8     		bhi	.L24
+ 182:Src/radarandec20.c ****     ;
+ 183:Src/radarandec20.c **** }
+ 893              		.loc 1 183 1
+ 894 001a 00BF     		nop
+ 895 001c 00BF     		nop
+ 896 001e 0C37     		adds	r7, r7, #12
+ 897              	.LCFI26:
+ 898              		.cfi_def_cfa_offset 4
+ 899 0020 BD46     		mov	sp, r7
+ 900              	.LCFI27:
+ 901              		.cfi_def_cfa_register 13
+ 902              		@ sp needed
+ 903 0022 80BC     		pop	{r7}
+ 904              	.LCFI28:
+ 905              		.cfi_restore 7
+ 906              		.cfi_def_cfa_offset 0
+ 907 0024 7047     		bx	lr
+ 908              	.L26:
+ 909 0026 00BF     		.align	2
+ 910              	.L25:
+ 911 0028 00000000 		.word	msint
+ 912              		.cfi_endproc
+ 913              	.LFE72:
+ 915              		.section	.text.ec20power,"ax",%progbits
+ 916              		.align	1
+ 917              		.global	ec20power
+ 918              		.syntax unified
+ 919              		.thumb
+ 920              		.thumb_func
+ 922              	ec20power:
+ 923              	.LFB73:
+ 184:Src/radarandec20.c **** //
+ 185:Src/radarandec20.c **** //
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 20
+
+
+ 186:Src/radarandec20.c **** // 开关EC20的电源连着三极管控制开关电源
+ 187:Src/radarandec20.c **** void ec20power(unsigned char onoffflag)
+ 188:Src/radarandec20.c **** {
+ 924              		.loc 1 188 1
+ 925              		.cfi_startproc
+ 926              		@ args = 0, pretend = 0, frame = 8
+ 927              		@ frame_needed = 1, uses_anonymous_args = 0
+ 928 0000 80B5     		push	{r7, lr}
+ 929              	.LCFI29:
+ 930              		.cfi_def_cfa_offset 8
+ 931              		.cfi_offset 7, -8
+ 932              		.cfi_offset 14, -4
+ 933 0002 82B0     		sub	sp, sp, #8
+ 934              	.LCFI30:
+ 935              		.cfi_def_cfa_offset 16
+ 936 0004 00AF     		add	r7, sp, #0
+ 937              	.LCFI31:
+ 938              		.cfi_def_cfa_register 7
+ 939 0006 0346     		mov	r3, r0
+ 940 0008 FB71     		strb	r3, [r7, #7]
+ 189:Src/radarandec20.c ****   rstHig;
+ 941              		.loc 1 189 3
+ 942 000a 0122     		movs	r2, #1
+ 943 000c 0221     		movs	r1, #2
+ 944 000e 1448     		ldr	r0, .L31
+ 945 0010 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 190:Src/radarandec20.c ****   powerHig;
+ 946              		.loc 1 190 3
+ 947 0014 0122     		movs	r2, #1
+ 948 0016 0221     		movs	r1, #2
+ 949 0018 1248     		ldr	r0, .L31+4
+ 950 001a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 191:Src/radarandec20.c **** 
+ 192:Src/radarandec20.c ****   if (onoffflag) // 开
+ 951              		.loc 1 192 6
+ 952 001e FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 953 0020 002B     		cmp	r3, #0
+ 954 0022 0ED0     		beq	.L28
+ 193:Src/radarandec20.c ****   {
+ 194:Src/radarandec20.c ****     powerLow;
+ 955              		.loc 1 194 5
+ 956 0024 0022     		movs	r2, #0
+ 957 0026 0221     		movs	r1, #2
+ 958 0028 0E48     		ldr	r0, .L31+4
+ 959 002a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 195:Src/radarandec20.c ****     delay_oledms(500);
+ 960              		.loc 1 195 5
+ 961 002e 4FF4FA70 		mov	r0, #500
+ 962 0032 FFF7FEFF 		bl	delay_oledms
+ 196:Src/radarandec20.c ****     rstLow;
+ 963              		.loc 1 196 5
+ 964 0036 0022     		movs	r2, #0
+ 965 0038 0221     		movs	r1, #2
+ 966 003a 0948     		ldr	r0, .L31
+ 967 003c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 197:Src/radarandec20.c ****   }
+ 198:Src/radarandec20.c ****   else
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 21
+
+
+ 199:Src/radarandec20.c ****   {
+ 200:Src/radarandec20.c ****     rstHig;
+ 201:Src/radarandec20.c ****     powerHig;
+ 202:Src/radarandec20.c ****   }
+ 203:Src/radarandec20.c **** }
+ 968              		.loc 1 203 1
+ 969 0040 09E0     		b	.L30
+ 970              	.L28:
+ 200:Src/radarandec20.c ****     powerHig;
+ 971              		.loc 1 200 5
+ 972 0042 0122     		movs	r2, #1
+ 973 0044 0221     		movs	r1, #2
+ 974 0046 0648     		ldr	r0, .L31
+ 975 0048 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 201:Src/radarandec20.c ****   }
+ 976              		.loc 1 201 5
+ 977 004c 0122     		movs	r2, #1
+ 978 004e 0221     		movs	r1, #2
+ 979 0050 0448     		ldr	r0, .L31+4
+ 980 0052 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 981              	.L30:
+ 982              		.loc 1 203 1
+ 983 0056 00BF     		nop
+ 984 0058 0837     		adds	r7, r7, #8
+ 985              	.LCFI32:
+ 986              		.cfi_def_cfa_offset 8
+ 987 005a BD46     		mov	sp, r7
+ 988              	.LCFI33:
+ 989              		.cfi_def_cfa_register 13
+ 990              		@ sp needed
+ 991 005c 80BD     		pop	{r7, pc}
+ 992              	.L32:
+ 993 005e 00BF     		.align	2
+ 994              	.L31:
+ 995 0060 000C0140 		.word	1073810432
+ 996 0064 00100140 		.word	1073811456
+ 997              		.cfi_endproc
+ 998              	.LFE73:
+ 1000              		.global	txb
+ 1001              		.section	.bss.txb,"aw",%nobits
+ 1002              		.align	2
+ 1005              	txb:
+ 1006 0000 00000000 		.space	20
+ 1006      00000000 
+ 1006      00000000 
+ 1006      00000000 
+ 1006      00000000 
+ 1007              		.section	.rodata
+ 1008 0182 0000     		.align	2
+ 1009              	.LC27:
+ 1010 0184 69643A25 		.ascii	"id:%x\015\012\000"
+ 1010      780D0A00 
+ 1011              		.section	.text.GetIDCode,"ax",%progbits
+ 1012              		.align	1
+ 1013              		.global	GetIDCode
+ 1014              		.syntax unified
+ 1015              		.thumb
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 22
+
+
+ 1016              		.thumb_func
+ 1018              	GetIDCode:
+ 1019              	.LFB74:
+ 204:Src/radarandec20.c **** char txb[20];
+ 205:Src/radarandec20.c **** 
+ 206:Src/radarandec20.c **** // 获取唯一ID
+ 207:Src/radarandec20.c **** unsigned int GetIDCode(void)
+ 208:Src/radarandec20.c **** {
+ 1020              		.loc 1 208 1
+ 1021              		.cfi_startproc
+ 1022              		@ args = 0, pretend = 0, frame = 0
+ 1023              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1024 0000 80B5     		push	{r7, lr}
+ 1025              	.LCFI34:
+ 1026              		.cfi_def_cfa_offset 8
+ 1027              		.cfi_offset 7, -8
+ 1028              		.cfi_offset 14, -4
+ 1029 0002 00AF     		add	r7, sp, #0
+ 1030              	.LCFI35:
+ 1031              		.cfi_def_cfa_register 7
+ 209:Src/radarandec20.c ****   // 获取CPU唯一ID
+ 210:Src/radarandec20.c **** #if 0 // stm32f407
+ 211:Src/radarandec20.c ****   CpuID[0]=*(unsigned int *)(0x1fff7a10);
+ 212:Src/radarandec20.c ****   CpuID[1]=*(unsigned int *)(0x1fff7a14);
+ 213:Src/radarandec20.c ****   CpuID[2]=*(unsigned int *)(0x1fff7a18);
+ 214:Src/radarandec20.c **** #endif
+ 215:Src/radarandec20.c **** #if 1 // stm32f103
+ 216:Src/radarandec20.c ****   CpuID[0] = *(unsigned int *)(0x1FFFF7E8);
+ 1032              		.loc 1 216 14
+ 1033 0004 154B     		ldr	r3, .L35
+ 1034 0006 1B68     		ldr	r3, [r3]
+ 1035              		.loc 1 216 12
+ 1036 0008 154A     		ldr	r2, .L35+4
+ 1037 000a 1360     		str	r3, [r2]
+ 217:Src/radarandec20.c ****   CpuID[1] = *(unsigned int *)(0x1FFFF7EC);
+ 1038              		.loc 1 217 14
+ 1039 000c 154B     		ldr	r3, .L35+8
+ 1040 000e 1B68     		ldr	r3, [r3]
+ 1041              		.loc 1 217 12
+ 1042 0010 134A     		ldr	r2, .L35+4
+ 1043 0012 5360     		str	r3, [r2, #4]
+ 218:Src/radarandec20.c ****   CpuID[2] = *(unsigned int *)(0x1FFFF7F0);
+ 1044              		.loc 1 218 14
+ 1045 0014 144B     		ldr	r3, .L35+12
+ 1046 0016 1B68     		ldr	r3, [r3]
+ 1047              		.loc 1 218 12
+ 1048 0018 114A     		ldr	r2, .L35+4
+ 1049 001a 9360     		str	r3, [r2, #8]
+ 219:Src/radarandec20.c **** #endif
+ 220:Src/radarandec20.c ****   SendID = (CpuID[0] >> 1) + (CpuID[1] >> 2) + (CpuID[2] >> 3);
+ 1050              		.loc 1 220 18
+ 1051 001c 104B     		ldr	r3, .L35+4
+ 1052 001e 1B68     		ldr	r3, [r3]
+ 1053              		.loc 1 220 22
+ 1054 0020 5A08     		lsrs	r2, r3, #1
+ 1055              		.loc 1 220 36
+ 1056 0022 0F4B     		ldr	r3, .L35+4
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 23
+
+
+ 1057 0024 5B68     		ldr	r3, [r3, #4]
+ 1058              		.loc 1 220 40
+ 1059 0026 9B08     		lsrs	r3, r3, #2
+ 1060              		.loc 1 220 28
+ 1061 0028 1A44     		add	r2, r2, r3
+ 1062              		.loc 1 220 54
+ 1063 002a 0D4B     		ldr	r3, .L35+4
+ 1064 002c 9B68     		ldr	r3, [r3, #8]
+ 1065              		.loc 1 220 58
+ 1066 002e DB08     		lsrs	r3, r3, #3
+ 1067              		.loc 1 220 46
+ 1068 0030 1344     		add	r3, r3, r2
+ 1069              		.loc 1 220 10
+ 1070 0032 0E4A     		ldr	r2, .L35+16
+ 1071 0034 1360     		str	r3, [r2]
+ 221:Src/radarandec20.c ****   //  SendID=0x15A0;
+ 222:Src/radarandec20.c ****   SendID = 0x15B1;
+ 1072              		.loc 1 222 10
+ 1073 0036 0D4B     		ldr	r3, .L35+16
+ 1074 0038 41F2B152 		movw	r2, #5553
+ 1075 003c 1A60     		str	r2, [r3]
+ 223:Src/radarandec20.c ****   // SendID=0x15B2;
+ 224:Src/radarandec20.c ****   //  SendID=0x15C0;
+ 225:Src/radarandec20.c ****   //  SendID=0x15D1;
+ 226:Src/radarandec20.c ****   //  SendID=0x15D2;
+ 227:Src/radarandec20.c ****   sprintf(txb, "id:%x\r\n", SendID);
+ 1076              		.loc 1 227 3
+ 1077 003e 0B4B     		ldr	r3, .L35+16
+ 1078 0040 1B68     		ldr	r3, [r3]
+ 1079 0042 1A46     		mov	r2, r3
+ 1080 0044 0A49     		ldr	r1, .L35+20
+ 1081 0046 0B48     		ldr	r0, .L35+24
+ 1082 0048 FFF7FEFF 		bl	sprintf
+ 228:Src/radarandec20.c ****   SendTxDebug((unsigned char *)txb);
+ 1083              		.loc 1 228 3
+ 1084 004c 0948     		ldr	r0, .L35+24
+ 1085 004e FFF7FEFF 		bl	SendTxDebug
+ 229:Src/radarandec20.c **** 
+ 230:Src/radarandec20.c ****   return SendID;
+ 1086              		.loc 1 230 10
+ 1087 0052 064B     		ldr	r3, .L35+16
+ 1088 0054 1B68     		ldr	r3, [r3]
+ 231:Src/radarandec20.c **** }
+ 1089              		.loc 1 231 1
+ 1090 0056 1846     		mov	r0, r3
+ 1091 0058 80BD     		pop	{r7, pc}
+ 1092              	.L36:
+ 1093 005a 00BF     		.align	2
+ 1094              	.L35:
+ 1095 005c E8F7FF1F 		.word	536868840
+ 1096 0060 00000000 		.word	CpuID
+ 1097 0064 ECF7FF1F 		.word	536868844
+ 1098 0068 F0F7FF1F 		.word	536868848
+ 1099 006c 00000000 		.word	SendID
+ 1100 0070 84010000 		.word	.LC27
+ 1101 0074 00000000 		.word	txb
+ 1102              		.cfi_endproc
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 24
+
+
+ 1103              	.LFE74:
+ 1105              		.section	.rodata
+ 1106              		.align	2
+ 1107              	.LC28:
+ 1108 018c 30303030 		.ascii	"000000.000\000"
+ 1108      30302E30 
+ 1108      303000
+ 1109 0197 00       		.align	2
+ 1110              	.LC29:
+ 1111 0198 30303030 		.ascii	"0000.0000N\000"
+ 1111      2E303030 
+ 1111      304E00
+ 1112 01a3 00       		.align	2
+ 1113              	.LC30:
+ 1114 01a4 30303030 		.ascii	"00000.0000E\000"
+ 1114      302E3030 
+ 1114      30304500 
+ 1115              		.align	2
+ 1116              	.LC31:
+ 1117 01b0 32353137 		.ascii	"2517.2831N\000"
+ 1117      2E323833 
+ 1117      314E00
+ 1118 01bb 00       		.align	2
+ 1119              	.LC32:
+ 1120 01bc 3131372E 		.ascii	"117.242314E\000"
+ 1120      32343233 
+ 1120      31344500 
+ 1121              		.align	2
+ 1122              	.LC33:
+ 1123 01c8 41542B51 		.ascii	"AT+QISENDEX=0,\"\000"
+ 1123      4953454E 
+ 1123      4445583D 
+ 1123      302C2200 
+ 1124              		.align	2
+ 1125              	.LC34:
+ 1126 01d8 220D0A00 		.ascii	"\"\015\012\000"
+ 1127              		.section	.text.DataSendPre,"ax",%progbits
+ 1128              		.align	1
+ 1129              		.global	DataSendPre
+ 1130              		.syntax unified
+ 1131              		.thumb
+ 1132              		.thumb_func
+ 1134              	DataSendPre:
+ 1135              	.LFB75:
+ 232:Src/radarandec20.c **** void DataSendPre(void)
+ 233:Src/radarandec20.c **** {
+ 1136              		.loc 1 233 1
+ 1137              		.cfi_startproc
+ 1138              		@ args = 0, pretend = 0, frame = 8
+ 1139              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1140 0000 80B5     		push	{r7, lr}
+ 1141              	.LCFI36:
+ 1142              		.cfi_def_cfa_offset 8
+ 1143              		.cfi_offset 7, -8
+ 1144              		.cfi_offset 14, -4
+ 1145 0002 82B0     		sub	sp, sp, #8
+ 1146              	.LCFI37:
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 25
+
+
+ 1147              		.cfi_def_cfa_offset 16
+ 1148 0004 00AF     		add	r7, sp, #0
+ 1149              	.LCFI38:
+ 1150              		.cfi_def_cfa_register 7
+ 234:Src/radarandec20.c **** 
+ 235:Src/radarandec20.c ****   unsigned short i = 0;
+ 1151              		.loc 1 235 18
+ 1152 0006 0023     		movs	r3, #0
+ 1153 0008 BB80     		strh	r3, [r7, #4]	@ movhi
+ 236:Src/radarandec20.c ****   unsigned char cnt = 0;
+ 1154              		.loc 1 236 17
+ 1155 000a 0023     		movs	r3, #0
+ 1156 000c FB71     		strb	r3, [r7, #7]
+ 237:Src/radarandec20.c ****   static unsigned int indx = 0;
+ 238:Src/radarandec20.c ****   if (waringtime > 0)
+ 1157              		.loc 1 238 18
+ 1158 000e 794B     		ldr	r3, .L47
+ 1159 0010 1B68     		ldr	r3, [r3]
+ 1160              		.loc 1 238 6
+ 1161 0012 002B     		cmp	r3, #0
+ 1162 0014 00F0BC80 		beq	.L38
+ 239:Src/radarandec20.c ****   {
+ 240:Src/radarandec20.c ****     pec20 = &ec20send;
+ 1163              		.loc 1 240 11
+ 1164 0018 774B     		ldr	r3, .L47+4
+ 1165 001a 784A     		ldr	r2, .L47+8
+ 1166 001c 1A60     		str	r2, [r3]
+ 241:Src/radarandec20.c ****     ec20send.Len = sizeof(Ec20SendData);
+ 1167              		.loc 1 241 18
+ 1168 001e 774B     		ldr	r3, .L47+8
+ 1169 0020 4622     		movs	r2, #70
+ 1170 0022 1A60     		str	r2, [r3]
+ 242:Src/radarandec20.c ****     ec20send.ID = GetIDCode();
+ 1171              		.loc 1 242 19
+ 1172 0024 FFF7FEFF 		bl	GetIDCode
+ 1173 0028 0346     		mov	r3, r0
+ 1174              		.loc 1 242 17
+ 1175 002a 744A     		ldr	r2, .L47+8
+ 1176 002c 5360     		str	r3, [r2, #4]
+ 243:Src/radarandec20.c ****     ec20send.Send_Index = indx++;
+ 1177              		.loc 1 243 31
+ 1178 002e 744B     		ldr	r3, .L47+12
+ 1179 0030 1B68     		ldr	r3, [r3]
+ 1180 0032 5A1C     		adds	r2, r3, #1
+ 1181 0034 7249     		ldr	r1, .L47+12
+ 1182 0036 0A60     		str	r2, [r1]
+ 1183              		.loc 1 243 25
+ 1184 0038 704A     		ldr	r2, .L47+8
+ 1185 003a 9360     		str	r3, [r2, #8]
+ 244:Src/radarandec20.c ****     ec20send.Radar1_Cnt = lifetime_count[0];
+ 1186              		.loc 1 244 41
+ 1187 003c 714B     		ldr	r3, .L47+16
+ 1188 003e 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1189 0040 1A46     		mov	r2, r3
+ 1190              		.loc 1 244 25
+ 1191 0042 6E4B     		ldr	r3, .L47+8
+ 1192 0044 DA60     		str	r2, [r3, #12]
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 26
+
+
+ 245:Src/radarandec20.c ****     ec20send.Radar2_Cnt = lifetime_count[1];
+ 1193              		.loc 1 245 41
+ 1194 0046 6F4B     		ldr	r3, .L47+16
+ 1195 0048 5B78     		ldrb	r3, [r3, #1]	@ zero_extendqisi2
+ 1196 004a 1A46     		mov	r2, r3
+ 1197              		.loc 1 245 25
+ 1198 004c 6B4B     		ldr	r3, .L47+8
+ 1199 004e 1A61     		str	r2, [r3, #16]
+ 246:Src/radarandec20.c ****     ec20send.Radar3_Cnt = lifetime_count[2];
+ 1200              		.loc 1 246 41
+ 1201 0050 6C4B     		ldr	r3, .L47+16
+ 1202 0052 9B78     		ldrb	r3, [r3, #2]	@ zero_extendqisi2
+ 1203 0054 1A46     		mov	r2, r3
+ 1204              		.loc 1 246 25
+ 1205 0056 694B     		ldr	r3, .L47+8
+ 1206 0058 5A61     		str	r2, [r3, #20]
+ 247:Src/radarandec20.c ****     ec20send.Radar4_Cnt = lifetime_count[3];
+ 1207              		.loc 1 247 41
+ 1208 005a 6A4B     		ldr	r3, .L47+16
+ 1209 005c DB78     		ldrb	r3, [r3, #3]	@ zero_extendqisi2
+ 1210 005e 1A46     		mov	r2, r3
+ 1211              		.loc 1 247 25
+ 1212 0060 664B     		ldr	r3, .L47+8
+ 1213 0062 9A61     		str	r2, [r3, #24]
+ 248:Src/radarandec20.c ****     ec20send.Radar1_Warm = warmSend[0]; // 报警
+ 1214              		.loc 1 248 36
+ 1215 0064 684B     		ldr	r3, .L47+20
+ 1216 0066 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 1217              		.loc 1 248 26
+ 1218 0068 644B     		ldr	r3, .L47+8
+ 1219 006a 1A77     		strb	r2, [r3, #28]
+ 249:Src/radarandec20.c ****     ec20send.Radar2_Warm = warmSend[1];
+ 1220              		.loc 1 249 36
+ 1221 006c 664B     		ldr	r3, .L47+20
+ 1222 006e 5A78     		ldrb	r2, [r3, #1]	@ zero_extendqisi2
+ 1223              		.loc 1 249 26
+ 1224 0070 624B     		ldr	r3, .L47+8
+ 1225 0072 5A77     		strb	r2, [r3, #29]
+ 250:Src/radarandec20.c ****     ec20send.Radar3_Warm = warmSend[2];
+ 1226              		.loc 1 250 36
+ 1227 0074 644B     		ldr	r3, .L47+20
+ 1228 0076 9A78     		ldrb	r2, [r3, #2]	@ zero_extendqisi2
+ 1229              		.loc 1 250 26
+ 1230 0078 604B     		ldr	r3, .L47+8
+ 1231 007a 9A77     		strb	r2, [r3, #30]
+ 251:Src/radarandec20.c ****     ec20send.Radar4_Warm = warmSend[3];
+ 1232              		.loc 1 251 36
+ 1233 007c 624B     		ldr	r3, .L47+20
+ 1234 007e DA78     		ldrb	r2, [r3, #3]	@ zero_extendqisi2
+ 1235              		.loc 1 251 26
+ 1236 0080 5E4B     		ldr	r3, .L47+8
+ 1237 0082 DA77     		strb	r2, [r3, #31]
+ 252:Src/radarandec20.c ****     if (ec20send.Radar1_Warm == 1)
+ 1238              		.loc 1 252 17
+ 1239 0084 5D4B     		ldr	r3, .L47+8
+ 1240 0086 1B7F     		ldrb	r3, [r3, #28]	@ zero_extendqisi2
+ 1241              		.loc 1 252 8
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 27
+
+
+ 1242 0088 012B     		cmp	r3, #1
+ 1243 008a 02D1     		bne	.L39
+ 253:Src/radarandec20.c ****       cnt++;
+ 1244              		.loc 1 253 10
+ 1245 008c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1246 008e 0133     		adds	r3, r3, #1
+ 1247 0090 FB71     		strb	r3, [r7, #7]
+ 1248              	.L39:
+ 254:Src/radarandec20.c ****     if (ec20send.Radar2_Warm == 1)
+ 1249              		.loc 1 254 17
+ 1250 0092 5A4B     		ldr	r3, .L47+8
+ 1251 0094 5B7F     		ldrb	r3, [r3, #29]	@ zero_extendqisi2
+ 1252              		.loc 1 254 8
+ 1253 0096 012B     		cmp	r3, #1
+ 1254 0098 02D1     		bne	.L40
+ 255:Src/radarandec20.c ****       cnt++;
+ 1255              		.loc 1 255 10
+ 1256 009a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1257 009c 0133     		adds	r3, r3, #1
+ 1258 009e FB71     		strb	r3, [r7, #7]
+ 1259              	.L40:
+ 256:Src/radarandec20.c ****     if (ec20send.Radar3_Warm == 1)
+ 1260              		.loc 1 256 17
+ 1261 00a0 564B     		ldr	r3, .L47+8
+ 1262 00a2 9B7F     		ldrb	r3, [r3, #30]	@ zero_extendqisi2
+ 1263              		.loc 1 256 8
+ 1264 00a4 012B     		cmp	r3, #1
+ 1265 00a6 02D1     		bne	.L41
+ 257:Src/radarandec20.c ****       cnt++;
+ 1266              		.loc 1 257 10
+ 1267 00a8 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1268 00aa 0133     		adds	r3, r3, #1
+ 1269 00ac FB71     		strb	r3, [r7, #7]
+ 1270              	.L41:
+ 258:Src/radarandec20.c ****     if (ec20send.Radar4_Warm == 1)
+ 1271              		.loc 1 258 17
+ 1272 00ae 534B     		ldr	r3, .L47+8
+ 1273 00b0 DB7F     		ldrb	r3, [r3, #31]	@ zero_extendqisi2
+ 1274              		.loc 1 258 8
+ 1275 00b2 012B     		cmp	r3, #1
+ 1276 00b4 02D1     		bne	.L42
+ 259:Src/radarandec20.c ****       cnt++;
+ 1277              		.loc 1 259 10
+ 1278 00b6 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1279 00b8 0133     		adds	r3, r3, #1
+ 1280 00ba FB71     		strb	r3, [r7, #7]
+ 1281              	.L42:
+ 260:Src/radarandec20.c ****     ec20send.Alarm_Cnt = cnt;
+ 1282              		.loc 1 260 24
+ 1283 00bc 4F4A     		ldr	r2, .L47+8
+ 1284 00be FB79     		ldrb	r3, [r7, #7]
+ 1285 00c0 82F82030 		strb	r3, [r2, #32]
+ 261:Src/radarandec20.c ****     ec20send.Alarm_Enable = warmnobeep;
+ 1286              		.loc 1 261 27
+ 1287 00c4 514B     		ldr	r3, .L47+24
+ 1288 00c6 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 1289 00c8 4C4B     		ldr	r3, .L47+8
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 28
+
+
+ 1290 00ca 83F82120 		strb	r2, [r3, #33]
+ 262:Src/radarandec20.c ****     ec20send.GPS_State = GPSStatFlag;
+ 1291              		.loc 1 262 24
+ 1292 00ce 504B     		ldr	r3, .L47+28
+ 1293 00d0 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 1294 00d2 4A4B     		ldr	r3, .L47+8
+ 1295 00d4 83F82220 		strb	r2, [r3, #34]
+ 263:Src/radarandec20.c ****     if (GpsRecFlag == 0) // 未曾接受到gps数据
+ 1296              		.loc 1 263 20
+ 1297 00d8 4E4B     		ldr	r3, .L47+32
+ 1298 00da 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1299              		.loc 1 263 8
+ 1300 00dc 002B     		cmp	r3, #0
+ 1301 00de 18D1     		bne	.L43
+ 264:Src/radarandec20.c ****     {
+ 265:Src/radarandec20.c ****       memcpy((char *)&(pec20->Time[0]), "000000.000", 10);
+ 1302              		.loc 1 265 29
+ 1303 00e0 454B     		ldr	r3, .L47+4
+ 1304 00e2 1B68     		ldr	r3, [r3]
+ 1305              		.loc 1 265 22
+ 1306 00e4 2333     		adds	r3, r3, #35
+ 1307              		.loc 1 265 7
+ 1308 00e6 0A22     		movs	r2, #10
+ 1309 00e8 4B49     		ldr	r1, .L47+36
+ 1310 00ea 1846     		mov	r0, r3
+ 1311 00ec FFF7FEFF 		bl	memcpy
+ 266:Src/radarandec20.c ****       memcpy((char *)&(pec20->Latitude[0]), "0000.0000N", 10);
+ 1312              		.loc 1 266 29
+ 1313 00f0 414B     		ldr	r3, .L47+4
+ 1314 00f2 1B68     		ldr	r3, [r3]
+ 1315              		.loc 1 266 22
+ 1316 00f4 2D33     		adds	r3, r3, #45
+ 1317              		.loc 1 266 7
+ 1318 00f6 0A22     		movs	r2, #10
+ 1319 00f8 4849     		ldr	r1, .L47+40
+ 1320 00fa 1846     		mov	r0, r3
+ 1321 00fc FFF7FEFF 		bl	memcpy
+ 267:Src/radarandec20.c ****       memcpy((char *)&(pec20->longitude[0]), "00000.0000E", 11);
+ 1322              		.loc 1 267 29
+ 1323 0100 3D4B     		ldr	r3, .L47+4
+ 1324 0102 1B68     		ldr	r3, [r3]
+ 1325              		.loc 1 267 22
+ 1326 0104 3733     		adds	r3, r3, #55
+ 1327              		.loc 1 267 7
+ 1328 0106 0B22     		movs	r2, #11
+ 1329 0108 4549     		ldr	r1, .L47+44
+ 1330 010a 1846     		mov	r0, r3
+ 1331 010c FFF7FEFF 		bl	memcpy
+ 1332 0110 02E0     		b	.L44
+ 1333              	.L43:
+ 268:Src/radarandec20.c ****     }
+ 269:Src/radarandec20.c ****     else
+ 270:Src/radarandec20.c ****     {
+ 271:Src/radarandec20.c ****       GpsRecFlag = 0;
+ 1334              		.loc 1 271 18
+ 1335 0112 404B     		ldr	r3, .L47+32
+ 1336 0114 0022     		movs	r2, #0
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 29
+
+
+ 1337 0116 1A70     		strb	r2, [r3]
+ 1338              	.L44:
+ 272:Src/radarandec20.c ****     }
+ 273:Src/radarandec20.c ****     sprintf((char *)&(pec20->Latitude[0]), "2517.2831N");
+ 1339              		.loc 1 273 28
+ 1340 0118 374B     		ldr	r3, .L47+4
+ 1341 011a 1B68     		ldr	r3, [r3]
+ 1342              		.loc 1 273 21
+ 1343 011c 2D33     		adds	r3, r3, #45
+ 1344              		.loc 1 273 5
+ 1345 011e 4149     		ldr	r1, .L47+48
+ 1346 0120 1846     		mov	r0, r3
+ 1347 0122 FFF7FEFF 		bl	sprintf
+ 274:Src/radarandec20.c ****     sprintf((char *)&(pec20->longitude[0]), "117.242314E");
+ 1348              		.loc 1 274 28
+ 1349 0126 344B     		ldr	r3, .L47+4
+ 1350 0128 1B68     		ldr	r3, [r3]
+ 1351              		.loc 1 274 21
+ 1352 012a 3733     		adds	r3, r3, #55
+ 1353              		.loc 1 274 5
+ 1354 012c 3E49     		ldr	r1, .L47+52
+ 1355 012e 1846     		mov	r0, r3
+ 1356 0130 FFF7FEFF 		bl	sprintf
+ 275:Src/radarandec20.c ****     ec20send.End = 0xffff0000;
+ 1357              		.loc 1 275 18
+ 1358 0134 314B     		ldr	r3, .L47+8
+ 1359 0136 0022     		movs	r2, #0
+ 1360 0138 A3F84220 		strh	r2, [r3, #66]	@ movhi
+ 1361 013c 4FF0FF32 		mov	r2, #-1
+ 1362 0140 A3F84420 		strh	r2, [r3, #68]	@ movhi
+ 276:Src/radarandec20.c ****     i = 0;
+ 1363              		.loc 1 276 7
+ 1364 0144 0023     		movs	r3, #0
+ 1365 0146 BB80     		strh	r3, [r7, #4]	@ movhi
+ 277:Src/radarandec20.c ****     sprintf((char *)&sendbuf[i], "AT+QISENDEX=0,\""); // AT+QISENDEX=0,"
+ 1366              		.loc 1 277 29
+ 1367 0148 BB88     		ldrh	r3, [r7, #4]
+ 1368              		.loc 1 277 21
+ 1369 014a 384A     		ldr	r2, .L47+56
+ 1370 014c 1344     		add	r3, r3, r2
+ 1371              		.loc 1 277 5
+ 1372 014e 3849     		ldr	r1, .L47+60
+ 1373 0150 1846     		mov	r0, r3
+ 1374 0152 FFF7FEFF 		bl	sprintf
+ 278:Src/radarandec20.c ****     i = i + strlen("AT+QISENDEX=0,\"");
+ 1375              		.loc 1 278 7
+ 1376 0156 BB88     		ldrh	r3, [r7, #4]	@ movhi
+ 1377 0158 0F33     		adds	r3, r3, #15
+ 1378 015a BB80     		strh	r3, [r7, #4]	@ movhi
+ 279:Src/radarandec20.c ****     HexStrConvert((unsigned char *)&ec20send, sizeof(Ec20SendData), &sendbuf[i]);
+ 1379              		.loc 1 279 77
+ 1380 015c BB88     		ldrh	r3, [r7, #4]
+ 1381              		.loc 1 279 5
+ 1382 015e 334A     		ldr	r2, .L47+56
+ 1383 0160 1344     		add	r3, r3, r2
+ 1384 0162 1A46     		mov	r2, r3
+ 1385 0164 4621     		movs	r1, #70
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 30
+
+
+ 1386 0166 2548     		ldr	r0, .L47+8
+ 1387 0168 FFF7FEFF 		bl	HexStrConvert
+ 280:Src/radarandec20.c ****     i = i + sizeof(Ec20SendData) * 2;
+ 1388              		.loc 1 280 7
+ 1389 016c BB88     		ldrh	r3, [r7, #4]	@ movhi
+ 1390 016e 8C33     		adds	r3, r3, #140
+ 1391 0170 BB80     		strh	r3, [r7, #4]	@ movhi
+ 281:Src/radarandec20.c ****     sprintf((char *)&sendbuf[i], "\"\r\n");                                  // 3字节
+ 1392              		.loc 1 281 29
+ 1393 0172 BB88     		ldrh	r3, [r7, #4]
+ 1394              		.loc 1 281 21
+ 1395 0174 2D4A     		ldr	r2, .L47+56
+ 1396 0176 1344     		add	r3, r3, r2
+ 1397              		.loc 1 281 5
+ 1398 0178 2E49     		ldr	r1, .L47+64
+ 1399 017a 1846     		mov	r0, r3
+ 1400 017c FFF7FEFF 		bl	sprintf
+ 282:Src/radarandec20.c ****     HAL_UART_Transmit(&huart2, sendbuf, 2 * sizeof(Ec20SendData) + 18, 800); // 69*2+18=156一共�
+ 1401              		.loc 1 282 5
+ 1402 0180 4FF44873 		mov	r3, #800
+ 1403 0184 9E22     		movs	r2, #158
+ 1404 0186 2949     		ldr	r1, .L47+56
+ 1405 0188 2B48     		ldr	r0, .L47+68
+ 1406 018a FFF7FEFF 		bl	HAL_UART_Transmit
+ 283:Src/radarandec20.c ****   }
+ 284:Src/radarandec20.c ****   else
+ 285:Src/radarandec20.c ****   {
+ 286:Src/radarandec20.c ****     ec20heart.Len = sizeof(Ec20HEART);
+ 287:Src/radarandec20.c ****     ec20heart.ID = GetIDCode();
+ 288:Src/radarandec20.c ****     i = 0;
+ 289:Src/radarandec20.c ****     sprintf((char *)&sendbuf[i], "AT+QISENDEX=0,\""); // AT+QISENDEX=0,"
+ 290:Src/radarandec20.c ****     i = i + strlen("AT+QISENDEX=0,\"");
+ 291:Src/radarandec20.c ****     HexStrConvert((unsigned char *)&ec20heart, sizeof(Ec20HEART), &sendbuf[i]);
+ 292:Src/radarandec20.c ****     i = i + sizeof(Ec20HEART) * 2;
+ 293:Src/radarandec20.c ****     sprintf((char *)&sendbuf[i], "\"\r\n");                               // 3字节
+ 294:Src/radarandec20.c ****     HAL_UART_Transmit(&huart2, sendbuf, 2 * sizeof(Ec20HEART) + 18, 800); // 69*2+18=156一共发�
+ 295:Src/radarandec20.c ****   }
+ 296:Src/radarandec20.c **** }
+ 1407              		.loc 1 296 1
+ 1408 018e 2CE0     		b	.L46
+ 1409              	.L38:
+ 286:Src/radarandec20.c ****     ec20heart.ID = GetIDCode();
+ 1410              		.loc 1 286 19
+ 1411 0190 2A4B     		ldr	r3, .L47+72
+ 1412 0192 0822     		movs	r2, #8
+ 1413 0194 1A60     		str	r2, [r3]
+ 287:Src/radarandec20.c ****     i = 0;
+ 1414              		.loc 1 287 20
+ 1415 0196 FFF7FEFF 		bl	GetIDCode
+ 1416 019a 0346     		mov	r3, r0
+ 287:Src/radarandec20.c ****     i = 0;
+ 1417              		.loc 1 287 18
+ 1418 019c 274A     		ldr	r2, .L47+72
+ 1419 019e 5360     		str	r3, [r2, #4]
+ 288:Src/radarandec20.c ****     sprintf((char *)&sendbuf[i], "AT+QISENDEX=0,\""); // AT+QISENDEX=0,"
+ 1420              		.loc 1 288 7
+ 1421 01a0 0023     		movs	r3, #0
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 31
+
+
+ 1422 01a2 BB80     		strh	r3, [r7, #4]	@ movhi
+ 289:Src/radarandec20.c ****     i = i + strlen("AT+QISENDEX=0,\"");
+ 1423              		.loc 1 289 29
+ 1424 01a4 BB88     		ldrh	r3, [r7, #4]
+ 289:Src/radarandec20.c ****     i = i + strlen("AT+QISENDEX=0,\"");
+ 1425              		.loc 1 289 21
+ 1426 01a6 214A     		ldr	r2, .L47+56
+ 1427 01a8 1344     		add	r3, r3, r2
+ 289:Src/radarandec20.c ****     i = i + strlen("AT+QISENDEX=0,\"");
+ 1428              		.loc 1 289 5
+ 1429 01aa 2149     		ldr	r1, .L47+60
+ 1430 01ac 1846     		mov	r0, r3
+ 1431 01ae FFF7FEFF 		bl	sprintf
+ 290:Src/radarandec20.c ****     HexStrConvert((unsigned char *)&ec20heart, sizeof(Ec20HEART), &sendbuf[i]);
+ 1432              		.loc 1 290 7
+ 1433 01b2 BB88     		ldrh	r3, [r7, #4]	@ movhi
+ 1434 01b4 0F33     		adds	r3, r3, #15
+ 1435 01b6 BB80     		strh	r3, [r7, #4]	@ movhi
+ 291:Src/radarandec20.c ****     i = i + sizeof(Ec20HEART) * 2;
+ 1436              		.loc 1 291 75
+ 1437 01b8 BB88     		ldrh	r3, [r7, #4]
+ 291:Src/radarandec20.c ****     i = i + sizeof(Ec20HEART) * 2;
+ 1438              		.loc 1 291 5
+ 1439 01ba 1C4A     		ldr	r2, .L47+56
+ 1440 01bc 1344     		add	r3, r3, r2
+ 1441 01be 1A46     		mov	r2, r3
+ 1442 01c0 0821     		movs	r1, #8
+ 1443 01c2 1E48     		ldr	r0, .L47+72
+ 1444 01c4 FFF7FEFF 		bl	HexStrConvert
+ 292:Src/radarandec20.c ****     sprintf((char *)&sendbuf[i], "\"\r\n");                               // 3字节
+ 1445              		.loc 1 292 7
+ 1446 01c8 BB88     		ldrh	r3, [r7, #4]	@ movhi
+ 1447 01ca 1033     		adds	r3, r3, #16
+ 1448 01cc BB80     		strh	r3, [r7, #4]	@ movhi
+ 293:Src/radarandec20.c ****     HAL_UART_Transmit(&huart2, sendbuf, 2 * sizeof(Ec20HEART) + 18, 800); // 69*2+18=156一共发�
+ 1449              		.loc 1 293 29
+ 1450 01ce BB88     		ldrh	r3, [r7, #4]
+ 293:Src/radarandec20.c ****     HAL_UART_Transmit(&huart2, sendbuf, 2 * sizeof(Ec20HEART) + 18, 800); // 69*2+18=156一共发�
+ 1451              		.loc 1 293 21
+ 1452 01d0 164A     		ldr	r2, .L47+56
+ 1453 01d2 1344     		add	r3, r3, r2
+ 293:Src/radarandec20.c ****     HAL_UART_Transmit(&huart2, sendbuf, 2 * sizeof(Ec20HEART) + 18, 800); // 69*2+18=156一共发�
+ 1454              		.loc 1 293 5
+ 1455 01d4 1749     		ldr	r1, .L47+64
+ 1456 01d6 1846     		mov	r0, r3
+ 1457 01d8 FFF7FEFF 		bl	sprintf
+ 294:Src/radarandec20.c ****   }
+ 1458              		.loc 1 294 5
+ 1459 01dc 4FF44873 		mov	r3, #800
+ 1460 01e0 2222     		movs	r2, #34
+ 1461 01e2 1249     		ldr	r1, .L47+56
+ 1462 01e4 1448     		ldr	r0, .L47+68
+ 1463 01e6 FFF7FEFF 		bl	HAL_UART_Transmit
+ 1464              	.L46:
+ 1465              		.loc 1 296 1
+ 1466 01ea 00BF     		nop
+ 1467 01ec 0837     		adds	r7, r7, #8
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 32
+
+
+ 1468              	.LCFI39:
+ 1469              		.cfi_def_cfa_offset 8
+ 1470 01ee BD46     		mov	sp, r7
+ 1471              	.LCFI40:
+ 1472              		.cfi_def_cfa_register 13
+ 1473              		@ sp needed
+ 1474 01f0 80BD     		pop	{r7, pc}
+ 1475              	.L48:
+ 1476 01f2 00BF     		.align	2
+ 1477              	.L47:
+ 1478 01f4 00000000 		.word	waringtime
+ 1479 01f8 00000000 		.word	pec20
+ 1480 01fc 00000000 		.word	ec20send
+ 1481 0200 00000000 		.word	indx.1
+ 1482 0204 00000000 		.word	lifetime_count
+ 1483 0208 00000000 		.word	warmSend
+ 1484 020c 00000000 		.word	warmnobeep
+ 1485 0210 00000000 		.word	GPSStatFlag
+ 1486 0214 00000000 		.word	GpsRecFlag
+ 1487 0218 8C010000 		.word	.LC28
+ 1488 021c 98010000 		.word	.LC29
+ 1489 0220 A4010000 		.word	.LC30
+ 1490 0224 B0010000 		.word	.LC31
+ 1491 0228 BC010000 		.word	.LC32
+ 1492 022c 00000000 		.word	sendbuf
+ 1493 0230 C8010000 		.word	.LC33
+ 1494 0234 D8010000 		.word	.LC34
+ 1495 0238 00000000 		.word	huart2
+ 1496 023c 00000000 		.word	ec20heart
+ 1497              		.cfi_endproc
+ 1498              	.LFE75:
+ 1500              		.global	sendedflag
+ 1501              		.section	.bss.sendedflag,"aw",%nobits
+ 1504              	sendedflag:
+ 1505 0000 00       		.space	1
+ 1506              		.global	warmonceflag
+ 1507              		.section	.bss.warmonceflag,"aw",%nobits
+ 1510              	warmonceflag:
+ 1511 0000 00       		.space	1
+ 1512              		.section	.rodata
+ 1513              		.align	2
+ 1514              	.LC35:
+ 1515 01dc 45433230 		.ascii	"EC20\351\235\236\351\242\204\346\234\237\351\224\231"
+ 1515      E99D9EE9 
+ 1515      A284E69C 
+ 1515      9FE99499 
+ 1516 01ec E8AFAF00 		.ascii	"\350\257\257\000"
+ 1517              		.align	2
+ 1518              	.LC36:
+ 1519 01f0 25303264 		.ascii	"%02d\000"
+ 1519      00
+ 1520 01f5 000000   		.align	2
+ 1521              	.LC37:
+ 1522 01f8 E6ADA3E5 		.ascii	"\346\255\243\345\234\250\350\277\236\346\216\245\000"
+ 1522      9CA8E8BF 
+ 1522      9EE68EA5 
+ 1522      00
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 33
+
+
+ 1523 0205 000000   		.align	2
+ 1524              	.LC38:
+ 1525 0208 E794B5E8 		.ascii	"\347\224\265\350\257\235\345\215\241\346\234\211\351"
+ 1525      AF9DE58D 
+ 1525      A1E69C89 
+ 1525      E9
+ 1526 0215 97AE00   		.ascii	"\227\256\000"
+ 1527              		.align	2
+ 1528              	.LC39:
+ 1529 0218 E8BF9EE6 		.ascii	"\350\277\236\346\216\245\346\210\220\345\212\237\000"
+ 1529      8EA5E688 
+ 1529      90E58A9F 
+ 1529      00
+ 1530 0225 000000   		.align	2
+ 1531              	.LC40:
+ 1532 0228 312C3100 		.ascii	"1,1\000"
+ 1533              		.align	2
+ 1534              	.LC41:
+ 1535 022c 312C3500 		.ascii	"1,5\000"
+ 1536              		.align	2
+ 1537              	.LC42:
+ 1538 0230 302C3500 		.ascii	"0,5\000"
+ 1539              		.align	2
+ 1540              	.LC43:
+ 1541 0234 72656376 		.ascii	"recv\000"
+ 1541      00
+ 1542 0239 000000   		.align	2
+ 1543              	.LC44:
+ 1544 023c 2C3000   		.ascii	",0\000"
+ 1545 023f 00       		.align	2
+ 1546              	.LC45:
+ 1547 0240 414C4152 		.ascii	"ALARM\000"
+ 1547      4D00
+ 1548 0246 0000     		.align	2
+ 1549              	.LC46:
+ 1550 0248 4E4F4E45 		.ascii	"NONEA\000"
+ 1550      4100
+ 1551              		.section	.text.ec20ProcessFun,"ax",%progbits
+ 1552              		.align	1
+ 1553              		.global	ec20ProcessFun
+ 1554              		.syntax unified
+ 1555              		.thumb
+ 1556              		.thumb_func
+ 1558              	ec20ProcessFun:
+ 1559              	.LFB76:
+ 297:Src/radarandec20.c **** unsigned char sendedflag = 0;
+ 298:Src/radarandec20.c **** unsigned char warmonceflag = 0;
+ 299:Src/radarandec20.c **** // 发送进程sendingflag=0;//发送好了
+ 300:Src/radarandec20.c **** // radar
+ 301:Src/radarandec20.c **** void ec20ProcessFun(void)
+ 302:Src/radarandec20.c **** {
+ 1560              		.loc 1 302 1
+ 1561              		.cfi_startproc
+ 1562              		@ args = 0, pretend = 0, frame = 8
+ 1563              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1564 0000 80B5     		push	{r7, lr}
+ 1565              	.LCFI41:
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 34
+
+
+ 1566              		.cfi_def_cfa_offset 8
+ 1567              		.cfi_offset 7, -8
+ 1568              		.cfi_offset 14, -4
+ 1569 0002 82B0     		sub	sp, sp, #8
+ 1570              	.LCFI42:
+ 1571              		.cfi_def_cfa_offset 16
+ 1572 0004 00AF     		add	r7, sp, #0
+ 1573              	.LCFI43:
+ 1574              		.cfi_def_cfa_register 7
+ 303:Src/radarandec20.c **** 
+ 304:Src/radarandec20.c ****   char numstr[3];
+ 305:Src/radarandec20.c ****   unsigned short i = 0;
+ 1575              		.loc 1 305 18
+ 1576 0006 0023     		movs	r3, #0
+ 1577 0008 FB80     		strh	r3, [r7, #6]	@ movhi
+ 306:Src/radarandec20.c ****   // 接收
+ 307:Src/radarandec20.c ****   if (rsPackFlag == 1 && rsRxTime > 50) // 断包 防止有些上位机软件发送数据不连续
+ 1578              		.loc 1 307 18
+ 1579 000a 794B     		ldr	r3, .L94
+ 1580 000c 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1581              		.loc 1 307 6
+ 1582 000e 012B     		cmp	r3, #1
+ 1583 0010 1DD1     		bne	.L50
+ 1584              		.loc 1 307 35 discriminator 1
+ 1585 0012 784B     		ldr	r3, .L94+4
+ 1586 0014 1B68     		ldr	r3, [r3]
+ 1587              		.loc 1 307 23 discriminator 1
+ 1588 0016 322B     		cmp	r3, #50
+ 1589 0018 19D9     		bls	.L50
+ 308:Src/radarandec20.c ****   {
+ 309:Src/radarandec20.c ****     rsPackFlag = 0;
+ 1590              		.loc 1 309 16
+ 1591 001a 754B     		ldr	r3, .L94
+ 1592 001c 0022     		movs	r2, #0
+ 1593 001e 1A70     		strb	r2, [r3]
+ 310:Src/radarandec20.c ****     rsRxTime = 0;
+ 1594              		.loc 1 310 14
+ 1595 0020 744B     		ldr	r3, .L94+4
+ 1596 0022 0022     		movs	r2, #0
+ 1597 0024 1A60     		str	r2, [r3]
+ 311:Src/radarandec20.c ****     rsRxLen = rsRxIndexLen;
+ 1598              		.loc 1 311 13
+ 1599 0026 744B     		ldr	r3, .L94+8
+ 1600 0028 1B68     		ldr	r3, [r3]
+ 1601 002a 744A     		ldr	r2, .L94+12
+ 1602 002c 1360     		str	r3, [r2]
+ 312:Src/radarandec20.c ****     rsRxBuf[rsRxLen] = 0; // 为了打印时候保险起见手动在末尾追加一个零
+ 1603              		.loc 1 312 12
+ 1604 002e 734B     		ldr	r3, .L94+12
+ 1605 0030 1B68     		ldr	r3, [r3]
+ 1606              		.loc 1 312 22
+ 1607 0032 734A     		ldr	r2, .L94+16
+ 1608 0034 0021     		movs	r1, #0
+ 1609 0036 D154     		strb	r1, [r2, r3]
+ 313:Src/radarandec20.c ****     rsRxIndexLen = 0;
+ 1610              		.loc 1 313 18
+ 1611 0038 6F4B     		ldr	r3, .L94+8
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 35
+
+
+ 1612 003a 0022     		movs	r2, #0
+ 1613 003c 1A60     		str	r2, [r3]
+ 314:Src/radarandec20.c ****     rsRecFlag = 1;
+ 1614              		.loc 1 314 15
+ 1615 003e 714B     		ldr	r3, .L94+20
+ 1616 0040 0122     		movs	r2, #1
+ 1617 0042 1A70     		strb	r2, [r3]
+ 315:Src/radarandec20.c **** 
+ 316:Src/radarandec20.c ****     // COM_Get_Callback(GSMinit.status,rsRxBuf,rsRxLen);//状态、接收数据、接收数据的�
+ 317:Src/radarandec20.c ****     HAL_UART_Receive_DMA(&huart2, RxBufferDMA, DMARXBUFFERSIZE); // 再次开启DMA接收
+ 1618              		.loc 1 317 5
+ 1619 0044 6422     		movs	r2, #100
+ 1620 0046 7049     		ldr	r1, .L94+24
+ 1621 0048 7048     		ldr	r0, .L94+28
+ 1622 004a FFF7FEFF 		bl	HAL_UART_Receive_DMA
+ 1623              	.L50:
+ 318:Src/radarandec20.c ****   }
+ 319:Src/radarandec20.c **** 
+ 320:Src/radarandec20.c ****   if (ProSta < InitTCPIndex)
+ 1624              		.loc 1 320 14
+ 1625 004e 704B     		ldr	r3, .L94+32
+ 1626 0050 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1627              		.loc 1 320 6
+ 1628 0052 052B     		cmp	r3, #5
+ 1629 0054 04D8     		bhi	.L51
+ 321:Src/radarandec20.c ****   {
+ 322:Src/radarandec20.c ****     POLLTime = ALARMTIME; // 未连接TCP前可以以报警速度进行
+ 1630              		.loc 1 322 14
+ 1631 0056 6F4B     		ldr	r3, .L94+36
+ 1632 0058 4FF44872 		mov	r2, #800
+ 1633 005c 1A60     		str	r2, [r3]
+ 1634 005e 19E0     		b	.L52
+ 1635              	.L51:
+ 323:Src/radarandec20.c ****   }
+ 324:Src/radarandec20.c ****   else
+ 325:Src/radarandec20.c ****   {
+ 326:Src/radarandec20.c **** 
+ 327:Src/radarandec20.c ****     if (warmonceflag == 0) // 从未报警
+ 1636              		.loc 1 327 22
+ 1637 0060 6D4B     		ldr	r3, .L94+40
+ 1638 0062 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1639              		.loc 1 327 8
+ 1640 0064 002B     		cmp	r3, #0
+ 1641 0066 03D1     		bne	.L53
+ 328:Src/radarandec20.c ****     {
+ 329:Src/radarandec20.c ****       POLLTime = NORMARLTIME;
+ 1642              		.loc 1 329 16
+ 1643 0068 6A4B     		ldr	r3, .L94+36
+ 1644 006a 4FF44872 		mov	r2, #800
+ 1645 006e 1A60     		str	r2, [r3]
+ 1646              	.L53:
+ 330:Src/radarandec20.c ****     }
+ 331:Src/radarandec20.c ****     if (waringspeedflag == 1 && sendedflag == 1) // 有过报警 且已经发送恢复慢速
+ 1647              		.loc 1 331 25
+ 1648 0070 6A4B     		ldr	r3, .L94+44
+ 1649 0072 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1650              		.loc 1 331 8
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 36
+
+
+ 1651 0074 012B     		cmp	r3, #1
+ 1652 0076 0DD1     		bne	.L52
+ 1653              		.loc 1 331 44 discriminator 1
+ 1654 0078 694B     		ldr	r3, .L94+48
+ 1655 007a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1656              		.loc 1 331 30 discriminator 1
+ 1657 007c 012B     		cmp	r3, #1
+ 1658 007e 09D1     		bne	.L52
+ 332:Src/radarandec20.c ****     {
+ 333:Src/radarandec20.c ****       sendedflag = 0;
+ 1659              		.loc 1 333 18
+ 1660 0080 674B     		ldr	r3, .L94+48
+ 1661 0082 0022     		movs	r2, #0
+ 1662 0084 1A70     		strb	r2, [r3]
+ 334:Src/radarandec20.c ****       waringspeedflag = 0;
+ 1663              		.loc 1 334 23
+ 1664 0086 654B     		ldr	r3, .L94+44
+ 1665 0088 0022     		movs	r2, #0
+ 1666 008a 1A70     		strb	r2, [r3]
+ 335:Src/radarandec20.c ****       POLLTime = NORMARLTIME;
+ 1667              		.loc 1 335 16
+ 1668 008c 614B     		ldr	r3, .L94+36
+ 1669 008e 4FF44872 		mov	r2, #800
+ 1670 0092 1A60     		str	r2, [r3]
+ 1671              	.L52:
+ 336:Src/radarandec20.c ****     }
+ 337:Src/radarandec20.c ****   }
+ 338:Src/radarandec20.c ****   if (PollTimeCnt > POLLTime) // 0.5秒执行一次
+ 1672              		.loc 1 338 19
+ 1673 0094 634B     		ldr	r3, .L94+52
+ 1674 0096 1B88     		ldrh	r3, [r3]
+ 1675 0098 1A46     		mov	r2, r3
+ 1676 009a 5E4B     		ldr	r3, .L94+36
+ 1677 009c 1B68     		ldr	r3, [r3]
+ 1678              		.loc 1 338 6
+ 1679 009e 9A42     		cmp	r2, r3
+ 1680 00a0 40F21282 		bls	.L92
+ 339:Src/radarandec20.c ****   {
+ 340:Src/radarandec20.c ****     PollTimeCnt = 0;
+ 1681              		.loc 1 340 17
+ 1682 00a4 5F4B     		ldr	r3, .L94+52
+ 1683 00a6 0022     		movs	r2, #0
+ 1684 00a8 1A80     		strh	r2, [r3]	@ movhi
+ 341:Src/radarandec20.c ****     // 应答计数  识别断线
+ 342:Src/radarandec20.c ****     if (SendCntRecClear > SendButNoRecCnt) // 发送计数  收到任何东西都清除
+ 1685              		.loc 1 342 25
+ 1686 00aa 5F4B     		ldr	r3, .L94+56
+ 1687 00ac 1B68     		ldr	r3, [r3]
+ 1688              		.loc 1 342 8
+ 1689 00ae 322B     		cmp	r3, #50
+ 1690 00b0 17D9     		bls	.L55
+ 343:Src/radarandec20.c ****     {
+ 344:Src/radarandec20.c ****       ProSta = InitEC2Index;
+ 1691              		.loc 1 344 14
+ 1692 00b2 574B     		ldr	r3, .L94+32
+ 1693 00b4 0022     		movs	r2, #0
+ 1694 00b6 1A70     		strb	r2, [r3]
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 37
+
+
+ 345:Src/radarandec20.c ****       SendCntRecClear = 0;
+ 1695              		.loc 1 345 23
+ 1696 00b8 5B4B     		ldr	r3, .L94+56
+ 1697 00ba 0022     		movs	r2, #0
+ 1698 00bc 1A60     		str	r2, [r3]
+ 346:Src/radarandec20.c ****       GPSStatFlag = 0;
+ 1699              		.loc 1 346 19
+ 1700 00be 5B4B     		ldr	r3, .L94+60
+ 1701 00c0 0022     		movs	r2, #0
+ 1702 00c2 1A70     		strb	r2, [r3]
+ 347:Src/radarandec20.c ****       SendGPSCnt = 0;
+ 1703              		.loc 1 347 18
+ 1704 00c4 5A4B     		ldr	r3, .L94+64
+ 1705 00c6 0022     		movs	r2, #0
+ 1706 00c8 1A60     		str	r2, [r3]
+ 348:Src/radarandec20.c ****       CurStaSendCnt = 0;
+ 1707              		.loc 1 348 21
+ 1708 00ca 5A4B     		ldr	r3, .L94+68
+ 1709 00cc 0022     		movs	r2, #0
+ 1710 00ce 1A70     		strb	r2, [r3]
+ 349:Src/radarandec20.c ****       ec20power(1); // 复位一下
+ 1711              		.loc 1 349 7
+ 1712 00d0 0120     		movs	r0, #1
+ 1713 00d2 FFF7FEFF 		bl	ec20power
+ 350:Src/radarandec20.c ****       linkflag = 0;
+ 1714              		.loc 1 350 16
+ 1715 00d6 584B     		ldr	r3, .L94+72
+ 1716 00d8 0022     		movs	r2, #0
+ 1717 00da 1A70     		strb	r2, [r3]
+ 351:Src/radarandec20.c **** #if DEBUGMODE == 0
+ 352:Src/radarandec20.c ****       OLED_ShowString(0, 0, "                  ", 16);
+ 353:Src/radarandec20.c ****       PrintHZ(0, 0, "RST ERROR             ", 0, 1, 0);
+ 354:Src/radarandec20.c **** #else
+ 355:Src/radarandec20.c ****       SendTxDebug((unsigned char *)"EC20非预期错误");
+ 1718              		.loc 1 355 7
+ 1719 00dc 5748     		ldr	r0, .L94+76
+ 1720 00de FFF7FEFF 		bl	SendTxDebug
+ 1721              	.L55:
+ 356:Src/radarandec20.c **** #endif
+ 357:Src/radarandec20.c ****     }
+ 358:Src/radarandec20.c ****     // 发送 有接收 但非预期的计数 识别断线
+ 359:Src/radarandec20.c ****     if (CurStaSendCnt > SendRecButNotExpCnt && ProSta != ATCodeLastNum)
+ 1722              		.loc 1 359 23
+ 1723 00e2 544B     		ldr	r3, .L94+68
+ 1724 00e4 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1725              		.loc 1 359 8
+ 1726 00e6 0A2B     		cmp	r3, #10
+ 1727 00e8 12D9     		bls	.L56
+ 1728              		.loc 1 359 55 discriminator 1
+ 1729 00ea 494B     		ldr	r3, .L94+32
+ 1730 00ec 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1731              		.loc 1 359 45 discriminator 1
+ 1732 00ee 0C2B     		cmp	r3, #12
+ 1733 00f0 0ED0     		beq	.L56
+ 360:Src/radarandec20.c ****     {
+ 361:Src/radarandec20.c ****       ProSta = InitEC2Index;
+ 1734              		.loc 1 361 14
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 38
+
+
+ 1735 00f2 474B     		ldr	r3, .L94+32
+ 1736 00f4 0022     		movs	r2, #0
+ 1737 00f6 1A70     		strb	r2, [r3]
+ 362:Src/radarandec20.c ****       CurStaSendCnt = 0;
+ 1738              		.loc 1 362 21
+ 1739 00f8 4E4B     		ldr	r3, .L94+68
+ 1740 00fa 0022     		movs	r2, #0
+ 1741 00fc 1A70     		strb	r2, [r3]
+ 363:Src/radarandec20.c ****       SendCntRecClear = 0;
+ 1742              		.loc 1 363 23
+ 1743 00fe 4A4B     		ldr	r3, .L94+56
+ 1744 0100 0022     		movs	r2, #0
+ 1745 0102 1A60     		str	r2, [r3]
+ 364:Src/radarandec20.c ****       linkflag = 0;
+ 1746              		.loc 1 364 16
+ 1747 0104 4C4B     		ldr	r3, .L94+72
+ 1748 0106 0022     		movs	r2, #0
+ 1749 0108 1A70     		strb	r2, [r3]
+ 365:Src/radarandec20.c **** #if DEBUGMODE == 0
+ 366:Src/radarandec20.c ****       OLED_ShowString(0, 0, "                  ", 16);
+ 367:Src/radarandec20.c ****       PrintHZ(0, 0, "EXP ERROR             ", 0, 1, 0);
+ 368:Src/radarandec20.c **** #else
+ 369:Src/radarandec20.c ****       SendTxDebug((unsigned char *)"EC20非预期错误");
+ 1750              		.loc 1 369 7
+ 1751 010a 4C48     		ldr	r0, .L94+76
+ 1752 010c FFF7FEFF 		bl	SendTxDebug
+ 1753              	.L56:
+ 370:Src/radarandec20.c **** #endif
+ 371:Src/radarandec20.c ****     }
+ 372:Src/radarandec20.c **** 
+ 373:Src/radarandec20.c ****     // 最后一条发送 有接收 但非预期的计数据
+ 374:Src/radarandec20.c ****     if (SendGPSCnt > SendRecButGpsNotExp && ProSta == ATCodeLastNum)
+ 1754              		.loc 1 374 20
+ 1755 0110 474B     		ldr	r3, .L94+64
+ 1756 0112 1B68     		ldr	r3, [r3]
+ 1757              		.loc 1 374 8
+ 1758 0114 032B     		cmp	r3, #3
+ 1759 0116 0FD9     		bls	.L57
+ 1760              		.loc 1 374 52 discriminator 1
+ 1761 0118 3D4B     		ldr	r3, .L94+32
+ 1762 011a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1763              		.loc 1 374 42 discriminator 1
+ 1764 011c 0C2B     		cmp	r3, #12
+ 1765 011e 0BD1     		bne	.L57
+ 375:Src/radarandec20.c ****     {
+ 376:Src/radarandec20.c ****       ProSta = InitTCPIndex; // 重新开始
+ 1766              		.loc 1 376 14
+ 1767 0120 3B4B     		ldr	r3, .L94+32
+ 1768 0122 0622     		movs	r2, #6
+ 1769 0124 1A70     		strb	r2, [r3]
+ 377:Src/radarandec20.c ****       CurStaSendCnt = 0;
+ 1770              		.loc 1 377 21
+ 1771 0126 434B     		ldr	r3, .L94+68
+ 1772 0128 0022     		movs	r2, #0
+ 1773 012a 1A70     		strb	r2, [r3]
+ 378:Src/radarandec20.c ****       SendGPSCnt = 0;
+ 1774              		.loc 1 378 18
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 39
+
+
+ 1775 012c 404B     		ldr	r3, .L94+64
+ 1776 012e 0022     		movs	r2, #0
+ 1777 0130 1A60     		str	r2, [r3]
+ 379:Src/radarandec20.c ****       GPSStatFlag = 0; // GPS未正常工作
+ 1778              		.loc 1 379 19
+ 1779 0132 3E4B     		ldr	r3, .L94+60
+ 1780 0134 0022     		movs	r2, #0
+ 1781 0136 1A70     		strb	r2, [r3]
+ 1782              	.L57:
+ 380:Src/radarandec20.c ****     }
+ 381:Src/radarandec20.c **** 
+ 382:Src/radarandec20.c ****     if (ProSta <= ATCodeNum)
+ 1783              		.loc 1 382 16
+ 1784 0138 354B     		ldr	r3, .L94+32
+ 1785 013a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1786              		.loc 1 382 8
+ 1787 013c 0C2B     		cmp	r3, #12
+ 1788 013e 00F2B581 		bhi	.L58
+ 383:Src/radarandec20.c ****     {
+ 384:Src/radarandec20.c ****       if (rsRecFlag == 0) // 发送
+ 1789              		.loc 1 384 21
+ 1790 0142 304B     		ldr	r3, .L94+20
+ 1791 0144 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1792              		.loc 1 384 10
+ 1793 0146 002B     		cmp	r3, #0
+ 1794 0148 40F08480 		bne	.L59
+ 385:Src/radarandec20.c ****       {
+ 386:Src/radarandec20.c **** 
+ 387:Src/radarandec20.c ****         if (ProSta == ATCodeSnd) // 发送的那条信息
+ 1795              		.loc 1 387 20
+ 1796 014c 304B     		ldr	r3, .L94+32
+ 1797 014e 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1798              		.loc 1 387 12
+ 1799 0150 0B2B     		cmp	r3, #11
+ 1800 0152 02D1     		bne	.L60
+ 388:Src/radarandec20.c ****         {
+ 389:Src/radarandec20.c **** 
+ 390:Src/radarandec20.c ****           DataSendPre();
+ 1801              		.loc 1 390 11
+ 1802 0154 FFF7FEFF 		bl	DataSendPre
+ 1803 0158 10E0     		b	.L61
+ 1804              	.L60:
+ 391:Src/radarandec20.c ****         }
+ 392:Src/radarandec20.c ****         else
+ 393:Src/radarandec20.c ****         {
+ 394:Src/radarandec20.c ****           SendTxBuf((unsigned char *)SendList[ProSta]);
+ 1805              		.loc 1 394 11
+ 1806 015a 2D4B     		ldr	r3, .L94+32
+ 1807 015c 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1808 015e 1A46     		mov	r2, r3
+ 1809              		.loc 1 394 46
+ 1810 0160 374B     		ldr	r3, .L94+80
+ 1811 0162 53F82230 		ldr	r3, [r3, r2, lsl #2]
+ 1812              		.loc 1 394 11
+ 1813 0166 1846     		mov	r0, r3
+ 1814 0168 FFF7FEFF 		bl	SendTxBuf
+ 395:Src/radarandec20.c ****           psend = (const unsigned char *)SendList[ProSta];
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 40
+
+
+ 1815              		.loc 1 395 50
+ 1816 016c 284B     		ldr	r3, .L94+32
+ 1817 016e 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1818 0170 1A46     		mov	r2, r3
+ 1819 0172 334B     		ldr	r3, .L94+80
+ 1820 0174 53F82230 		ldr	r3, [r3, r2, lsl #2]
+ 1821              		.loc 1 395 17
+ 1822 0178 324A     		ldr	r2, .L94+84
+ 1823 017a 1360     		str	r3, [r2]
+ 1824              	.L61:
+ 396:Src/radarandec20.c ****         }
+ 397:Src/radarandec20.c **** 
+ 398:Src/radarandec20.c ****         if (ProSta == ATCodeLastNum)
+ 1825              		.loc 1 398 20
+ 1826 017c 244B     		ldr	r3, .L94+32
+ 1827 017e 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1828              		.loc 1 398 12
+ 1829 0180 0C2B     		cmp	r3, #12
+ 1830 0182 04D1     		bne	.L62
+ 399:Src/radarandec20.c ****         {
+ 400:Src/radarandec20.c ****           SendGPSCnt++; // 读取GPS计数
+ 1831              		.loc 1 400 21
+ 1832 0184 2A4B     		ldr	r3, .L94+64
+ 1833 0186 1B68     		ldr	r3, [r3]
+ 1834 0188 0133     		adds	r3, r3, #1
+ 1835 018a 294A     		ldr	r2, .L94+64
+ 1836 018c 1360     		str	r3, [r2]
+ 1837              	.L62:
+ 401:Src/radarandec20.c ****         }
+ 402:Src/radarandec20.c ****         SendCntRecClear++;
+ 1838              		.loc 1 402 24
+ 1839 018e 264B     		ldr	r3, .L94+56
+ 1840 0190 1B68     		ldr	r3, [r3]
+ 1841 0192 0133     		adds	r3, r3, #1
+ 1842 0194 244A     		ldr	r2, .L94+56
+ 1843 0196 1360     		str	r3, [r2]
+ 403:Src/radarandec20.c ****         sprintf((char *)numstr, "%02d", ProSta);
+ 1844              		.loc 1 403 9
+ 1845 0198 1D4B     		ldr	r3, .L94+32
+ 1846 019a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1847 019c 1A46     		mov	r2, r3
+ 1848 019e 3B46     		mov	r3, r7
+ 1849 01a0 2949     		ldr	r1, .L94+88
+ 1850 01a2 1846     		mov	r0, r3
+ 1851 01a4 FFF7FEFF 		bl	sprintf
+ 404:Src/radarandec20.c **** #if DEBUGMODE == 0
+ 405:Src/radarandec20.c ****         OLED_ShowString(0, 0, (char *)numstr, 2);
+ 406:Src/radarandec20.c **** 
+ 407:Src/radarandec20.c **** #else
+ 408:Src/radarandec20.c ****         SendTxDebug((unsigned char *)numstr);
+ 1852              		.loc 1 408 9
+ 1853 01a8 3B46     		mov	r3, r7
+ 1854 01aa 1846     		mov	r0, r3
+ 1855 01ac FFF7FEFF 		bl	SendTxDebug
+ 409:Src/radarandec20.c ****         if (ProSta == ATCodeSnd) // 发送的那条信息
+ 1856              		.loc 1 409 20
+ 1857 01b0 174B     		ldr	r3, .L94+32
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 41
+
+
+ 1858 01b2 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1859              		.loc 1 409 12
+ 1860 01b4 0B2B     		cmp	r3, #11
+ 1861 01b6 03D1     		bne	.L63
+ 410:Src/radarandec20.c ****         {
+ 411:Src/radarandec20.c ****           SendTxDebug(sendbuf);
+ 1862              		.loc 1 411 11
+ 1863 01b8 2448     		ldr	r0, .L94+92
+ 1864 01ba FFF7FEFF 		bl	SendTxDebug
+ 1865 01be 08E0     		b	.L64
+ 1866              	.L63:
+ 412:Src/radarandec20.c ****         }
+ 413:Src/radarandec20.c ****         else
+ 414:Src/radarandec20.c ****         {
+ 415:Src/radarandec20.c ****           SendTxDebug((unsigned char *)SendList[ProSta]);
+ 1867              		.loc 1 415 11
+ 1868 01c0 134B     		ldr	r3, .L94+32
+ 1869 01c2 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1870 01c4 1A46     		mov	r2, r3
+ 1871              		.loc 1 415 48
+ 1872 01c6 1E4B     		ldr	r3, .L94+80
+ 1873 01c8 53F82230 		ldr	r3, [r3, r2, lsl #2]
+ 1874              		.loc 1 415 11
+ 1875 01cc 1846     		mov	r0, r3
+ 1876 01ce FFF7FEFF 		bl	SendTxDebug
+ 1877              	.L64:
+ 416:Src/radarandec20.c ****         }
+ 417:Src/radarandec20.c **** 
+ 418:Src/radarandec20.c **** #endif
+ 419:Src/radarandec20.c **** 
+ 420:Src/radarandec20.c ****         if (ProSta == 6)
+ 1878              		.loc 1 420 20
+ 1879 01d2 0F4B     		ldr	r3, .L94+32
+ 1880 01d4 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1881              		.loc 1 420 12
+ 1882 01d6 062B     		cmp	r3, #6
+ 1883 01d8 02D1     		bne	.L65
+ 421:Src/radarandec20.c ****         {
+ 422:Src/radarandec20.c **** #if DEBUGMODE == 0
+ 423:Src/radarandec20.c ****           OLED_ShowString(0, 0, "                  ", 16);
+ 424:Src/radarandec20.c ****           PrintHZ(0, 0, "正在连接               ", 0, 1, 0);
+ 425:Src/radarandec20.c **** #else
+ 426:Src/radarandec20.c ****           SendTxDebug((unsigned char *)"正在连接");
+ 1884              		.loc 1 426 11
+ 1885 01da 1D48     		ldr	r0, .L94+96
+ 1886 01dc FFF7FEFF 		bl	SendTxDebug
+ 1887              	.L65:
+ 427:Src/radarandec20.c **** #endif
+ 428:Src/radarandec20.c ****         }
+ 429:Src/radarandec20.c **** 
+ 430:Src/radarandec20.c ****         // togLEDstatus;
+ 431:Src/radarandec20.c ****         CurStaSendCnt++; // 收到预期会清零
+ 1888              		.loc 1 431 22
+ 1889 01e0 144B     		ldr	r3, .L94+68
+ 1890 01e2 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1891 01e4 0133     		adds	r3, r3, #1
+ 1892 01e6 DAB2     		uxtb	r2, r3
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 42
+
+
+ 1893 01e8 124B     		ldr	r3, .L94+68
+ 1894 01ea 1A70     		strb	r2, [r3]
+ 432:Src/radarandec20.c ****       }
+ 433:Src/radarandec20.c ****       else // 接收内容的识别处理
+ 434:Src/radarandec20.c ****       {
+ 435:Src/radarandec20.c ****         rsRecFlag = 0;
+ 436:Src/radarandec20.c ****         SendCntRecClear = 0;
+ 437:Src/radarandec20.c ****         sprintf((char *)numstr, "%02d", ProSta);
+ 438:Src/radarandec20.c **** #if DEBUGMODE == 0
+ 439:Src/radarandec20.c ****         OLED_ShowString(0, 0, "                   ", 8);
+ 440:Src/radarandec20.c ****         OLED_ShowString(0, 2, "                   ", 8);
+ 441:Src/radarandec20.c ****         OLED_ShowString(0, 0, (char *)numstr, 2);
+ 442:Src/radarandec20.c ****         OLED_ShowString(24, 0, (char *)rsRxBuf, 8);
+ 443:Src/radarandec20.c **** #else
+ 444:Src/radarandec20.c ****         SendTxDebug((unsigned char *)numstr);
+ 445:Src/radarandec20.c ****         SendTxDebug((unsigned char *)rsRxBuf);
+ 446:Src/radarandec20.c **** #endif
+ 447:Src/radarandec20.c **** 
+ 448:Src/radarandec20.c ****         if (ProSta == 2 && strstr((const char *)rsRxBuf, (const char *)RecExpected[16]) != NULL)
+ 449:Src/radarandec20.c ****         {
+ 450:Src/radarandec20.c **** #if DEBUGMODE == 0
+ 451:Src/radarandec20.c ****           OLED_ShowString(0, 0, "                  ", 16);
+ 452:Src/radarandec20.c ****           PrintHZ(0, 0, "SIM ERROR             ", 0, 1, 0);
+ 453:Src/radarandec20.c **** #else
+ 454:Src/radarandec20.c ****           SendTxDebug((unsigned char *)"电话卡有问");
+ 455:Src/radarandec20.c **** #endif
+ 456:Src/radarandec20.c ****           linkflag = 0;
+ 457:Src/radarandec20.c ****         }
+ 458:Src/radarandec20.c **** 
+ 459:Src/radarandec20.c ****         if (ProSta == 12) // TCP数据返回
+ 460:Src/radarandec20.c ****         {
+ 461:Src/radarandec20.c ****           linkflag = 1;
+ 462:Src/radarandec20.c ****           if (waringtimeflag)
+ 463:Src/radarandec20.c ****           {
+ 464:Src/radarandec20.c ****             sendedflag = 1; // 报警已发送
+ 465:Src/radarandec20.c ****           }
+ 466:Src/radarandec20.c **** #if DEBUGMODE == 0
+ 467:Src/radarandec20.c ****           OLED_ShowString(0, 0, "                  ", 16);
+ 468:Src/radarandec20.c ****           PrintHZ(0, 0, "连接成功              ", 0, 1, 0);
+ 469:Src/radarandec20.c **** #else
+ 470:Src/radarandec20.c ****           SendTxDebug((unsigned char *)"连接成功");
+ 471:Src/radarandec20.c **** #endif
+ 472:Src/radarandec20.c ****         }
+ 473:Src/radarandec20.c **** 
+ 474:Src/radarandec20.c ****         if (strstr((const char *)rsRxBuf, (const char *)RecExpected[ProSta]) != NULL ||
+ 475:Src/radarandec20.c ****             (ProSta == 2 && strstr((const char *)rsRxBuf, (const char *)"1,1") != NULL) ||
+ 476:Src/radarandec20.c ****             (ProSta == 2 && strstr((const char *)rsRxBuf, (const char *)"1,5") != NULL) ||
+ 477:Src/radarandec20.c ****             (ProSta == 2 && strstr((const char *)rsRxBuf, (const char *)"0,5") != NULL) ||
+ 478:Src/radarandec20.c ****             (ProSta == 11 && strstr((const char *)rsRxBuf, (const char *)"recv") != NULL) ||
+ 479:Src/radarandec20.c ****             (ProSta == 11 && strstr((const char *)rsRxBuf, (const char *)",0") != NULL)) // 符合�
+ 480:Src/radarandec20.c ****         {
+ 481:Src/radarandec20.c **** 
+ 482:Src/radarandec20.c ****           if (ProSta == ATTcpReadIndex) // 读取到了TCP返回值
+ 483:Src/radarandec20.c ****           {
+ 484:Src/radarandec20.c **** 
+ 485:Src/radarandec20.c ****             if (findStrCmp((unsigned char *)&rsRxBuf[20], 20, (unsigned char *)"ALARM", 5) != 0)
+ 486:Src/radarandec20.c ****             {
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 43
+
+
+ 487:Src/radarandec20.c ****               WarmHig;
+ 488:Src/radarandec20.c ****               CloudtriggerFlag = 1;
+ 489:Src/radarandec20.c ****             }
+ 490:Src/radarandec20.c ****             if (findStrCmp((unsigned char *)&rsRxBuf[20], 20, (unsigned char *)"NONEA", 5) != 0)
+ 491:Src/radarandec20.c ****             {
+ 492:Src/radarandec20.c ****               WarmLow;
+ 493:Src/radarandec20.c ****             }
+ 494:Src/radarandec20.c ****             for (i = 0; i < rsRxLen; i++)
+ 495:Src/radarandec20.c ****             {
+ 496:Src/radarandec20.c ****               if (rsRxBuf[i] < '9' && rsRxBuf[i] > '0') // 查第一个数字
+ 497:Src/radarandec20.c ****               {
+ 498:Src/radarandec20.c ****                 break;
+ 499:Src/radarandec20.c ****               }
+ 500:Src/radarandec20.c ****             }
+ 501:Src/radarandec20.c ****             if (rsRxLen >= 19)
+ 502:Src/radarandec20.c ****             {
+ 503:Src/radarandec20.c **** 
+ 504:Src/radarandec20.c ****               if (rsRxBuf[i + 9] == 1)
+ 505:Src/radarandec20.c ****               {
+ 506:Src/radarandec20.c ****                 warmSend[0] = 0;
+ 507:Src/radarandec20.c ****                 warmSend[1] = 0;
+ 508:Src/radarandec20.c ****                 warmSend[2] = 0;
+ 509:Src/radarandec20.c ****                 warmSend[3] = 0;
+ 510:Src/radarandec20.c ****               }
+ 511:Src/radarandec20.c ****               if (rsRxBuf[i + 10] == 0)
+ 512:Src/radarandec20.c ****                 warmnobeep = 0;
+ 513:Src/radarandec20.c ****               if (rsRxBuf[i + 10] == 1)
+ 514:Src/radarandec20.c ****                 warmnobeep = 1;
+ 515:Src/radarandec20.c ****               if (rsRxBuf[i + 11] == 1)
+ 516:Src/radarandec20.c ****                 lifetime_count[0] = 0;
+ 517:Src/radarandec20.c ****               if (rsRxBuf[i + 12] == 1)
+ 518:Src/radarandec20.c ****                 lifetime_count[1] = 0;
+ 519:Src/radarandec20.c ****               if (rsRxBuf[i + 13] == 1)
+ 520:Src/radarandec20.c ****                 lifetime_count[2] = 0;
+ 521:Src/radarandec20.c ****               if (rsRxBuf[i + 14] == 1)
+ 522:Src/radarandec20.c ****                 lifetime_count[3] = 0;
+ 523:Src/radarandec20.c ****             }
+ 524:Src/radarandec20.c ****           }
+ 525:Src/radarandec20.c **** #if 0
+ 526:Src/radarandec20.c ****           if(ProSta==ATCodeLastNum)//gps的读取  并且 QGPSLOC读取正确
+ 527:Src/radarandec20.c ****           {
+ 528:Src/radarandec20.c ****             SendGPSCnt=0;//收到gps预期清零
+ 529:Src/radarandec20.c ****             GPSStatFlag=1;//gps运行状态正常
+ 530:Src/radarandec20.c ****             pec20=&ec20send;
+ 531:Src/radarandec20.c ****             for(i=0;i<rsRxLen;i++)
+ 532:Src/radarandec20.c ****             {
+ 533:Src/radarandec20.c ****               if(rsRxBuf[i]<'9'&&rsRxBuf[i]>'0')//查第一个数字
+ 534:Src/radarandec20.c ****               {
+ 535:Src/radarandec20.c ****                 break;
+ 536:Src/radarandec20.c ****               }
+ 537:Src/radarandec20.c ****             }
+ 538:Src/radarandec20.c ****             memcpy((char *)&(pec20->Time[0]),&rsRxBuf[i],10);
+ 539:Src/radarandec20.c ****             for(;i<rsRxLen;i++)
+ 540:Src/radarandec20.c ****             {
+ 541:Src/radarandec20.c ****               if(rsRxBuf[i]==',')//查第一个数字
+ 542:Src/radarandec20.c ****               {
+ 543:Src/radarandec20.c ****                 break;
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 44
+
+
+ 544:Src/radarandec20.c ****               }
+ 545:Src/radarandec20.c ****             }
+ 546:Src/radarandec20.c ****             memcpy((char *)&(pec20->Latitude[0]),&rsRxBuf[i+1],10);
+ 547:Src/radarandec20.c ****             i++;//跳过上一个逗号
+ 548:Src/radarandec20.c ****             for(;i<rsRxLen;i++)
+ 549:Src/radarandec20.c ****             {
+ 550:Src/radarandec20.c ****               if(rsRxBuf[i]==',')//查第一个数字
+ 551:Src/radarandec20.c ****               {
+ 552:Src/radarandec20.c ****                 break;
+ 553:Src/radarandec20.c ****               }
+ 554:Src/radarandec20.c ****             }
+ 555:Src/radarandec20.c ****             memcpy((char *)&(pec20->longitude[0]),&rsRxBuf[i+1],11);
+ 556:Src/radarandec20.c ****             GpsRecFlag=1;
+ 557:Src/radarandec20.c ****           }
+ 558:Src/radarandec20.c **** #endif
+ 559:Src/radarandec20.c ****           GpsRecFlag = 1;   // 放弃经纬度的识别
+ 560:Src/radarandec20.c ****           if (ProSta == 11) // 发送成功则
+ 561:Src/radarandec20.c ****           {
+ 562:Src/radarandec20.c ****             linkflagSta = 1;
+ 563:Src/radarandec20.c ****             SendGPSCnt = 0;
+ 564:Src/radarandec20.c ****           }
+ 565:Src/radarandec20.c **** 
+ 566:Src/radarandec20.c ****           ProSta++;          // 符合预期往下走
+ 567:Src/radarandec20.c ****           CurStaSendCnt = 0; // 收到预期清零
+ 568:Src/radarandec20.c ****         }
+ 569:Src/radarandec20.c ****         else
+ 570:Src/radarandec20.c ****         {
+ 571:Src/radarandec20.c ****           if (ProSta == 11) // 发送不成功
+ 572:Src/radarandec20.c ****           {
+ 573:Src/radarandec20.c ****             linkflagSta = 0;
+ 574:Src/radarandec20.c ****             ProSta = 6; // 发都没发成功就别接收了 直接重新开始
+ 575:Src/radarandec20.c ****           }
+ 576:Src/radarandec20.c ****         }
+ 577:Src/radarandec20.c ****         Clear_Buffer();
+ 578:Src/radarandec20.c ****       }
+ 579:Src/radarandec20.c ****     }
+ 580:Src/radarandec20.c ****     else // 正常走完整个流程 从第九步[关闭TCP连接这步重新执行]开始
+ 581:Src/radarandec20.c ****     {
+ 582:Src/radarandec20.c **** 
+ 583:Src/radarandec20.c ****       if (linkflagSta)
+ 584:Src/radarandec20.c ****       {
+ 585:Src/radarandec20.c ****         ProSta = 11; // 重新发送
+ 586:Src/radarandec20.c ****       }
+ 587:Src/radarandec20.c ****       else
+ 588:Src/radarandec20.c ****       {
+ 589:Src/radarandec20.c ****         ProSta = 6;
+ 590:Src/radarandec20.c ****       }
+ 591:Src/radarandec20.c ****       sendingflag = 0; // 未发送
+ 592:Src/radarandec20.c ****     }
+ 593:Src/radarandec20.c ****   }
+ 594:Src/radarandec20.c **** }
+ 1895              		.loc 1 594 1
+ 1896 01ec 6CE1     		b	.L92
+ 1897              	.L95:
+ 1898 01ee 00BF     		.align	2
+ 1899              	.L94:
+ 1900 01f0 00000000 		.word	rsPackFlag
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 45
+
+
+ 1901 01f4 00000000 		.word	rsRxTime
+ 1902 01f8 00000000 		.word	rsRxIndexLen
+ 1903 01fc 00000000 		.word	rsRxLen
+ 1904 0200 00000000 		.word	rsRxBuf
+ 1905 0204 00000000 		.word	rsRecFlag
+ 1906 0208 00000000 		.word	RxBufferDMA
+ 1907 020c 00000000 		.word	huart2
+ 1908 0210 00000000 		.word	ProSta
+ 1909 0214 00000000 		.word	POLLTime
+ 1910 0218 00000000 		.word	warmonceflag
+ 1911 021c 00000000 		.word	waringspeedflag
+ 1912 0220 00000000 		.word	sendedflag
+ 1913 0224 00000000 		.word	PollTimeCnt
+ 1914 0228 00000000 		.word	SendCntRecClear
+ 1915 022c 00000000 		.word	GPSStatFlag
+ 1916 0230 00000000 		.word	SendGPSCnt
+ 1917 0234 00000000 		.word	CurStaSendCnt
+ 1918 0238 00000000 		.word	linkflag
+ 1919 023c DC010000 		.word	.LC35
+ 1920 0240 00000000 		.word	SendList
+ 1921 0244 00000000 		.word	psend
+ 1922 0248 F0010000 		.word	.LC36
+ 1923 024c 00000000 		.word	sendbuf
+ 1924 0250 F8010000 		.word	.LC37
+ 1925              	.L59:
+ 435:Src/radarandec20.c ****         SendCntRecClear = 0;
+ 1926              		.loc 1 435 19
+ 1927 0254 9E4B     		ldr	r3, .L96
+ 1928 0256 0022     		movs	r2, #0
+ 1929 0258 1A70     		strb	r2, [r3]
+ 436:Src/radarandec20.c ****         sprintf((char *)numstr, "%02d", ProSta);
+ 1930              		.loc 1 436 25
+ 1931 025a 9E4B     		ldr	r3, .L96+4
+ 1932 025c 0022     		movs	r2, #0
+ 1933 025e 1A60     		str	r2, [r3]
+ 437:Src/radarandec20.c **** #if DEBUGMODE == 0
+ 1934              		.loc 1 437 9
+ 1935 0260 9D4B     		ldr	r3, .L96+8
+ 1936 0262 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1937 0264 1A46     		mov	r2, r3
+ 1938 0266 3B46     		mov	r3, r7
+ 1939 0268 9C49     		ldr	r1, .L96+12
+ 1940 026a 1846     		mov	r0, r3
+ 1941 026c FFF7FEFF 		bl	sprintf
+ 444:Src/radarandec20.c ****         SendTxDebug((unsigned char *)rsRxBuf);
+ 1942              		.loc 1 444 9
+ 1943 0270 3B46     		mov	r3, r7
+ 1944 0272 1846     		mov	r0, r3
+ 1945 0274 FFF7FEFF 		bl	SendTxDebug
+ 445:Src/radarandec20.c **** #endif
+ 1946              		.loc 1 445 9
+ 1947 0278 9948     		ldr	r0, .L96+16
+ 1948 027a FFF7FEFF 		bl	SendTxDebug
+ 448:Src/radarandec20.c ****         {
+ 1949              		.loc 1 448 20
+ 1950 027e 964B     		ldr	r3, .L96+8
+ 1951 0280 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 46
+
+
+ 448:Src/radarandec20.c ****         {
+ 1952              		.loc 1 448 12
+ 1953 0282 022B     		cmp	r3, #2
+ 1954 0284 0ED1     		bne	.L66
+ 448:Src/radarandec20.c ****         {
+ 1955              		.loc 1 448 83 discriminator 1
+ 1956 0286 974B     		ldr	r3, .L96+20
+ 1957 0288 1B6C     		ldr	r3, [r3, #64]
+ 448:Src/radarandec20.c ****         {
+ 1958              		.loc 1 448 28 discriminator 1
+ 1959 028a 1946     		mov	r1, r3
+ 1960 028c 9448     		ldr	r0, .L96+16
+ 1961 028e FFF7FEFF 		bl	strstr
+ 1962 0292 0346     		mov	r3, r0
+ 448:Src/radarandec20.c ****         {
+ 1963              		.loc 1 448 25 discriminator 1
+ 1964 0294 002B     		cmp	r3, #0
+ 1965 0296 05D0     		beq	.L66
+ 454:Src/radarandec20.c **** #endif
+ 1966              		.loc 1 454 11
+ 1967 0298 9348     		ldr	r0, .L96+24
+ 1968 029a FFF7FEFF 		bl	SendTxDebug
+ 456:Src/radarandec20.c ****         }
+ 1969              		.loc 1 456 20
+ 1970 029e 934B     		ldr	r3, .L96+28
+ 1971 02a0 0022     		movs	r2, #0
+ 1972 02a2 1A70     		strb	r2, [r3]
+ 1973              	.L66:
+ 459:Src/radarandec20.c ****         {
+ 1974              		.loc 1 459 20
+ 1975 02a4 8C4B     		ldr	r3, .L96+8
+ 1976 02a6 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 459:Src/radarandec20.c ****         {
+ 1977              		.loc 1 459 12
+ 1978 02a8 0C2B     		cmp	r3, #12
+ 1979 02aa 0CD1     		bne	.L67
+ 461:Src/radarandec20.c ****           if (waringtimeflag)
+ 1980              		.loc 1 461 20
+ 1981 02ac 8F4B     		ldr	r3, .L96+28
+ 1982 02ae 0122     		movs	r2, #1
+ 1983 02b0 1A70     		strb	r2, [r3]
+ 462:Src/radarandec20.c ****           {
+ 1984              		.loc 1 462 15
+ 1985 02b2 8F4B     		ldr	r3, .L96+32
+ 1986 02b4 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 462:Src/radarandec20.c ****           {
+ 1987              		.loc 1 462 14
+ 1988 02b6 002B     		cmp	r3, #0
+ 1989 02b8 02D0     		beq	.L68
+ 464:Src/radarandec20.c ****           }
+ 1990              		.loc 1 464 24
+ 1991 02ba 8E4B     		ldr	r3, .L96+36
+ 1992 02bc 0122     		movs	r2, #1
+ 1993 02be 1A70     		strb	r2, [r3]
+ 1994              	.L68:
+ 470:Src/radarandec20.c **** #endif
+ 1995              		.loc 1 470 11
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 47
+
+
+ 1996 02c0 8D48     		ldr	r0, .L96+40
+ 1997 02c2 FFF7FEFF 		bl	SendTxDebug
+ 1998              	.L67:
+ 474:Src/radarandec20.c ****             (ProSta == 2 && strstr((const char *)rsRxBuf, (const char *)"1,1") != NULL) ||
+ 1999              		.loc 1 474 13
+ 2000 02c6 844B     		ldr	r3, .L96+8
+ 2001 02c8 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 2002 02ca 1A46     		mov	r2, r3
+ 474:Src/radarandec20.c ****             (ProSta == 2 && strstr((const char *)rsRxBuf, (const char *)"1,1") != NULL) ||
+ 2003              		.loc 1 474 68
+ 2004 02cc 854B     		ldr	r3, .L96+20
+ 2005 02ce 53F82230 		ldr	r3, [r3, r2, lsl #2]
+ 474:Src/radarandec20.c ****             (ProSta == 2 && strstr((const char *)rsRxBuf, (const char *)"1,1") != NULL) ||
+ 2006              		.loc 1 474 13
+ 2007 02d2 1946     		mov	r1, r3
+ 2008 02d4 8248     		ldr	r0, .L96+16
+ 2009 02d6 FFF7FEFF 		bl	strstr
+ 2010 02da 0346     		mov	r3, r0
+ 474:Src/radarandec20.c ****             (ProSta == 2 && strstr((const char *)rsRxBuf, (const char *)"1,1") != NULL) ||
+ 2011              		.loc 1 474 12
+ 2012 02dc 002B     		cmp	r3, #0
+ 2013 02de 38D1     		bne	.L69
+ 475:Src/radarandec20.c ****             (ProSta == 2 && strstr((const char *)rsRxBuf, (const char *)"1,5") != NULL) ||
+ 2014              		.loc 1 475 21 discriminator 1
+ 2015 02e0 7D4B     		ldr	r3, .L96+8
+ 2016 02e2 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 474:Src/radarandec20.c ****             (ProSta == 2 && strstr((const char *)rsRxBuf, (const char *)"1,1") != NULL) ||
+ 2017              		.loc 1 474 86 discriminator 1
+ 2018 02e4 022B     		cmp	r3, #2
+ 2019 02e6 06D1     		bne	.L70
+ 475:Src/radarandec20.c ****             (ProSta == 2 && strstr((const char *)rsRxBuf, (const char *)"1,5") != NULL) ||
+ 2020              		.loc 1 475 29
+ 2021 02e8 8449     		ldr	r1, .L96+44
+ 2022 02ea 7D48     		ldr	r0, .L96+16
+ 2023 02ec FFF7FEFF 		bl	strstr
+ 2024 02f0 0346     		mov	r3, r0
+ 475:Src/radarandec20.c ****             (ProSta == 2 && strstr((const char *)rsRxBuf, (const char *)"1,5") != NULL) ||
+ 2025              		.loc 1 475 26
+ 2026 02f2 002B     		cmp	r3, #0
+ 2027 02f4 2DD1     		bne	.L69
+ 2028              	.L70:
+ 476:Src/radarandec20.c ****             (ProSta == 2 && strstr((const char *)rsRxBuf, (const char *)"0,5") != NULL) ||
+ 2029              		.loc 1 476 21 discriminator 1
+ 2030 02f6 784B     		ldr	r3, .L96+8
+ 2031 02f8 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 475:Src/radarandec20.c ****             (ProSta == 2 && strstr((const char *)rsRxBuf, (const char *)"1,5") != NULL) ||
+ 2032              		.loc 1 475 89 discriminator 1
+ 2033 02fa 022B     		cmp	r3, #2
+ 2034 02fc 06D1     		bne	.L71
+ 476:Src/radarandec20.c ****             (ProSta == 2 && strstr((const char *)rsRxBuf, (const char *)"0,5") != NULL) ||
+ 2035              		.loc 1 476 29
+ 2036 02fe 8049     		ldr	r1, .L96+48
+ 2037 0300 7748     		ldr	r0, .L96+16
+ 2038 0302 FFF7FEFF 		bl	strstr
+ 2039 0306 0346     		mov	r3, r0
+ 476:Src/radarandec20.c ****             (ProSta == 2 && strstr((const char *)rsRxBuf, (const char *)"0,5") != NULL) ||
+ 2040              		.loc 1 476 26
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 48
+
+
+ 2041 0308 002B     		cmp	r3, #0
+ 2042 030a 22D1     		bne	.L69
+ 2043              	.L71:
+ 477:Src/radarandec20.c ****             (ProSta == 11 && strstr((const char *)rsRxBuf, (const char *)"recv") != NULL) ||
+ 2044              		.loc 1 477 21 discriminator 1
+ 2045 030c 724B     		ldr	r3, .L96+8
+ 2046 030e 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 476:Src/radarandec20.c ****             (ProSta == 2 && strstr((const char *)rsRxBuf, (const char *)"0,5") != NULL) ||
+ 2047              		.loc 1 476 89 discriminator 1
+ 2048 0310 022B     		cmp	r3, #2
+ 2049 0312 06D1     		bne	.L72
+ 477:Src/radarandec20.c ****             (ProSta == 11 && strstr((const char *)rsRxBuf, (const char *)"recv") != NULL) ||
+ 2050              		.loc 1 477 29
+ 2051 0314 7B49     		ldr	r1, .L96+52
+ 2052 0316 7248     		ldr	r0, .L96+16
+ 2053 0318 FFF7FEFF 		bl	strstr
+ 2054 031c 0346     		mov	r3, r0
+ 477:Src/radarandec20.c ****             (ProSta == 11 && strstr((const char *)rsRxBuf, (const char *)"recv") != NULL) ||
+ 2055              		.loc 1 477 26
+ 2056 031e 002B     		cmp	r3, #0
+ 2057 0320 17D1     		bne	.L69
+ 2058              	.L72:
+ 478:Src/radarandec20.c ****             (ProSta == 11 && strstr((const char *)rsRxBuf, (const char *)",0") != NULL)) // 符合�
+ 2059              		.loc 1 478 21 discriminator 1
+ 2060 0322 6D4B     		ldr	r3, .L96+8
+ 2061 0324 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 477:Src/radarandec20.c ****             (ProSta == 11 && strstr((const char *)rsRxBuf, (const char *)"recv") != NULL) ||
+ 2062              		.loc 1 477 89 discriminator 1
+ 2063 0326 0B2B     		cmp	r3, #11
+ 2064 0328 06D1     		bne	.L73
+ 478:Src/radarandec20.c ****             (ProSta == 11 && strstr((const char *)rsRxBuf, (const char *)",0") != NULL)) // 符合�
+ 2065              		.loc 1 478 30
+ 2066 032a 7749     		ldr	r1, .L96+56
+ 2067 032c 6C48     		ldr	r0, .L96+16
+ 2068 032e FFF7FEFF 		bl	strstr
+ 2069 0332 0346     		mov	r3, r0
+ 478:Src/radarandec20.c ****             (ProSta == 11 && strstr((const char *)rsRxBuf, (const char *)",0") != NULL)) // 符合�
+ 2070              		.loc 1 478 27
+ 2071 0334 002B     		cmp	r3, #0
+ 2072 0336 0CD1     		bne	.L69
+ 2073              	.L73:
+ 479:Src/radarandec20.c ****         {
+ 2074              		.loc 1 479 21 discriminator 1
+ 2075 0338 674B     		ldr	r3, .L96+8
+ 2076 033a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 478:Src/radarandec20.c ****             (ProSta == 11 && strstr((const char *)rsRxBuf, (const char *)",0") != NULL)) // 符合�
+ 2077              		.loc 1 478 91 discriminator 1
+ 2078 033c 0B2B     		cmp	r3, #11
+ 2079 033e 40F0A880 		bne	.L74
+ 479:Src/radarandec20.c ****         {
+ 2080              		.loc 1 479 30
+ 2081 0342 7249     		ldr	r1, .L96+60
+ 2082 0344 6648     		ldr	r0, .L96+16
+ 2083 0346 FFF7FEFF 		bl	strstr
+ 2084 034a 0346     		mov	r3, r0
+ 479:Src/radarandec20.c ****         {
+ 2085              		.loc 1 479 27
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 49
+
+
+ 2086 034c 002B     		cmp	r3, #0
+ 2087 034e 00F0A080 		beq	.L74
+ 2088              	.L69:
+ 482:Src/radarandec20.c ****           {
+ 2089              		.loc 1 482 22
+ 2090 0352 614B     		ldr	r3, .L96+8
+ 2091 0354 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 482:Src/radarandec20.c ****           {
+ 2092              		.loc 1 482 14
+ 2093 0356 0C2B     		cmp	r3, #12
+ 2094 0358 40F08480 		bne	.L75
+ 485:Src/radarandec20.c ****             {
+ 2095              		.loc 1 485 17
+ 2096 035c 0523     		movs	r3, #5
+ 2097 035e 6C4A     		ldr	r2, .L96+64
+ 2098 0360 1421     		movs	r1, #20
+ 2099 0362 6C48     		ldr	r0, .L96+68
+ 2100 0364 FFF7FEFF 		bl	findStrCmp
+ 2101 0368 0346     		mov	r3, r0
+ 485:Src/radarandec20.c ****             {
+ 2102              		.loc 1 485 16
+ 2103 036a 002B     		cmp	r3, #0
+ 2104 036c 08D0     		beq	.L76
+ 487:Src/radarandec20.c ****               CloudtriggerFlag = 1;
+ 2105              		.loc 1 487 15
+ 2106 036e 0022     		movs	r2, #0
+ 2107 0370 4FF48051 		mov	r1, #4096
+ 2108 0374 6848     		ldr	r0, .L96+72
+ 2109 0376 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 488:Src/radarandec20.c ****             }
+ 2110              		.loc 1 488 32
+ 2111 037a 684B     		ldr	r3, .L96+76
+ 2112 037c 0122     		movs	r2, #1
+ 2113 037e 1A70     		strb	r2, [r3]
+ 2114              	.L76:
+ 490:Src/radarandec20.c ****             {
+ 2115              		.loc 1 490 17
+ 2116 0380 0523     		movs	r3, #5
+ 2117 0382 674A     		ldr	r2, .L96+80
+ 2118 0384 1421     		movs	r1, #20
+ 2119 0386 6348     		ldr	r0, .L96+68
+ 2120 0388 FFF7FEFF 		bl	findStrCmp
+ 2121 038c 0346     		mov	r3, r0
+ 490:Src/radarandec20.c ****             {
+ 2122              		.loc 1 490 16
+ 2123 038e 002B     		cmp	r3, #0
+ 2124 0390 05D0     		beq	.L77
+ 492:Src/radarandec20.c ****             }
+ 2125              		.loc 1 492 15
+ 2126 0392 0122     		movs	r2, #1
+ 2127 0394 4FF48051 		mov	r1, #4096
+ 2128 0398 5F48     		ldr	r0, .L96+72
+ 2129 039a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 2130              	.L77:
+ 494:Src/radarandec20.c ****             {
+ 2131              		.loc 1 494 20
+ 2132 039e 0023     		movs	r3, #0
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 50
+
+
+ 2133 03a0 FB80     		strh	r3, [r7, #6]	@ movhi
+ 494:Src/radarandec20.c ****             {
+ 2134              		.loc 1 494 13
+ 2135 03a2 0CE0     		b	.L78
+ 2136              	.L81:
+ 496:Src/radarandec20.c ****               {
+ 2137              		.loc 1 496 26
+ 2138 03a4 FB88     		ldrh	r3, [r7, #6]
+ 2139 03a6 4E4A     		ldr	r2, .L96+16
+ 2140 03a8 D35C     		ldrb	r3, [r2, r3]	@ zero_extendqisi2
+ 496:Src/radarandec20.c ****               {
+ 2141              		.loc 1 496 18
+ 2142 03aa 382B     		cmp	r3, #56
+ 2143 03ac 04D8     		bhi	.L79
+ 496:Src/radarandec20.c ****               {
+ 2144              		.loc 1 496 46 discriminator 1
+ 2145 03ae FB88     		ldrh	r3, [r7, #6]
+ 2146 03b0 4B4A     		ldr	r2, .L96+16
+ 2147 03b2 D35C     		ldrb	r3, [r2, r3]	@ zero_extendqisi2
+ 496:Src/radarandec20.c ****               {
+ 2148              		.loc 1 496 36 discriminator 1
+ 2149 03b4 302B     		cmp	r3, #48
+ 2150 03b6 08D8     		bhi	.L93
+ 2151              	.L79:
+ 494:Src/radarandec20.c ****             {
+ 2152              		.loc 1 494 39 discriminator 2
+ 2153 03b8 FB88     		ldrh	r3, [r7, #6]
+ 2154 03ba 0133     		adds	r3, r3, #1
+ 2155 03bc FB80     		strh	r3, [r7, #6]	@ movhi
+ 2156              	.L78:
+ 494:Src/radarandec20.c ****             {
+ 2157              		.loc 1 494 27 discriminator 1
+ 2158 03be FA88     		ldrh	r2, [r7, #6]
+ 2159 03c0 584B     		ldr	r3, .L96+84
+ 2160 03c2 1B68     		ldr	r3, [r3]
+ 494:Src/radarandec20.c ****             {
+ 2161              		.loc 1 494 13 discriminator 1
+ 2162 03c4 9A42     		cmp	r2, r3
+ 2163 03c6 EDD3     		bcc	.L81
+ 2164 03c8 00E0     		b	.L80
+ 2165              	.L93:
+ 498:Src/radarandec20.c ****               }
+ 2166              		.loc 1 498 17
+ 2167 03ca 00BF     		nop
+ 2168              	.L80:
+ 501:Src/radarandec20.c ****             {
+ 2169              		.loc 1 501 25
+ 2170 03cc 554B     		ldr	r3, .L96+84
+ 2171 03ce 1B68     		ldr	r3, [r3]
+ 501:Src/radarandec20.c ****             {
+ 2172              		.loc 1 501 16
+ 2173 03d0 122B     		cmp	r3, #18
+ 2174 03d2 47D9     		bls	.L75
+ 504:Src/radarandec20.c ****               {
+ 2175              		.loc 1 504 29
+ 2176 03d4 FB88     		ldrh	r3, [r7, #6]
+ 2177 03d6 0933     		adds	r3, r3, #9
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 51
+
+
+ 504:Src/radarandec20.c ****               {
+ 2178              		.loc 1 504 26
+ 2179 03d8 414A     		ldr	r2, .L96+16
+ 2180 03da D35C     		ldrb	r3, [r2, r3]	@ zero_extendqisi2
+ 504:Src/radarandec20.c ****               {
+ 2181              		.loc 1 504 18
+ 2182 03dc 012B     		cmp	r3, #1
+ 2183 03de 0BD1     		bne	.L82
+ 506:Src/radarandec20.c ****                 warmSend[1] = 0;
+ 2184              		.loc 1 506 29
+ 2185 03e0 514B     		ldr	r3, .L96+88
+ 2186 03e2 0022     		movs	r2, #0
+ 2187 03e4 1A70     		strb	r2, [r3]
+ 507:Src/radarandec20.c ****                 warmSend[2] = 0;
+ 2188              		.loc 1 507 29
+ 2189 03e6 504B     		ldr	r3, .L96+88
+ 2190 03e8 0022     		movs	r2, #0
+ 2191 03ea 5A70     		strb	r2, [r3, #1]
+ 508:Src/radarandec20.c ****                 warmSend[3] = 0;
+ 2192              		.loc 1 508 29
+ 2193 03ec 4E4B     		ldr	r3, .L96+88
+ 2194 03ee 0022     		movs	r2, #0
+ 2195 03f0 9A70     		strb	r2, [r3, #2]
+ 509:Src/radarandec20.c ****               }
+ 2196              		.loc 1 509 29
+ 2197 03f2 4D4B     		ldr	r3, .L96+88
+ 2198 03f4 0022     		movs	r2, #0
+ 2199 03f6 DA70     		strb	r2, [r3, #3]
+ 2200              	.L82:
+ 511:Src/radarandec20.c ****                 warmnobeep = 0;
+ 2201              		.loc 1 511 29
+ 2202 03f8 FB88     		ldrh	r3, [r7, #6]
+ 2203 03fa 0A33     		adds	r3, r3, #10
+ 511:Src/radarandec20.c ****                 warmnobeep = 0;
+ 2204              		.loc 1 511 26
+ 2205 03fc 384A     		ldr	r2, .L96+16
+ 2206 03fe D35C     		ldrb	r3, [r2, r3]	@ zero_extendqisi2
+ 511:Src/radarandec20.c ****                 warmnobeep = 0;
+ 2207              		.loc 1 511 18
+ 2208 0400 002B     		cmp	r3, #0
+ 2209 0402 02D1     		bne	.L83
+ 512:Src/radarandec20.c ****               if (rsRxBuf[i + 10] == 1)
+ 2210              		.loc 1 512 28
+ 2211 0404 494B     		ldr	r3, .L96+92
+ 2212 0406 0022     		movs	r2, #0
+ 2213 0408 1A70     		strb	r2, [r3]
+ 2214              	.L83:
+ 513:Src/radarandec20.c ****                 warmnobeep = 1;
+ 2215              		.loc 1 513 29
+ 2216 040a FB88     		ldrh	r3, [r7, #6]
+ 2217 040c 0A33     		adds	r3, r3, #10
+ 513:Src/radarandec20.c ****                 warmnobeep = 1;
+ 2218              		.loc 1 513 26
+ 2219 040e 344A     		ldr	r2, .L96+16
+ 2220 0410 D35C     		ldrb	r3, [r2, r3]	@ zero_extendqisi2
+ 513:Src/radarandec20.c ****                 warmnobeep = 1;
+ 2221              		.loc 1 513 18
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 52
+
+
+ 2222 0412 012B     		cmp	r3, #1
+ 2223 0414 02D1     		bne	.L84
+ 514:Src/radarandec20.c ****               if (rsRxBuf[i + 11] == 1)
+ 2224              		.loc 1 514 28
+ 2225 0416 454B     		ldr	r3, .L96+92
+ 2226 0418 0122     		movs	r2, #1
+ 2227 041a 1A70     		strb	r2, [r3]
+ 2228              	.L84:
+ 515:Src/radarandec20.c ****                 lifetime_count[0] = 0;
+ 2229              		.loc 1 515 29
+ 2230 041c FB88     		ldrh	r3, [r7, #6]
+ 2231 041e 0B33     		adds	r3, r3, #11
+ 515:Src/radarandec20.c ****                 lifetime_count[0] = 0;
+ 2232              		.loc 1 515 26
+ 2233 0420 2F4A     		ldr	r2, .L96+16
+ 2234 0422 D35C     		ldrb	r3, [r2, r3]	@ zero_extendqisi2
+ 515:Src/radarandec20.c ****                 lifetime_count[0] = 0;
+ 2235              		.loc 1 515 18
+ 2236 0424 012B     		cmp	r3, #1
+ 2237 0426 02D1     		bne	.L85
+ 516:Src/radarandec20.c ****               if (rsRxBuf[i + 12] == 1)
+ 2238              		.loc 1 516 35
+ 2239 0428 414B     		ldr	r3, .L96+96
+ 2240 042a 0022     		movs	r2, #0
+ 2241 042c 1A70     		strb	r2, [r3]
+ 2242              	.L85:
+ 517:Src/radarandec20.c ****                 lifetime_count[1] = 0;
+ 2243              		.loc 1 517 29
+ 2244 042e FB88     		ldrh	r3, [r7, #6]
+ 2245 0430 0C33     		adds	r3, r3, #12
+ 517:Src/radarandec20.c ****                 lifetime_count[1] = 0;
+ 2246              		.loc 1 517 26
+ 2247 0432 2B4A     		ldr	r2, .L96+16
+ 2248 0434 D35C     		ldrb	r3, [r2, r3]	@ zero_extendqisi2
+ 517:Src/radarandec20.c ****                 lifetime_count[1] = 0;
+ 2249              		.loc 1 517 18
+ 2250 0436 012B     		cmp	r3, #1
+ 2251 0438 02D1     		bne	.L86
+ 518:Src/radarandec20.c ****               if (rsRxBuf[i + 13] == 1)
+ 2252              		.loc 1 518 35
+ 2253 043a 3D4B     		ldr	r3, .L96+96
+ 2254 043c 0022     		movs	r2, #0
+ 2255 043e 5A70     		strb	r2, [r3, #1]
+ 2256              	.L86:
+ 519:Src/radarandec20.c ****                 lifetime_count[2] = 0;
+ 2257              		.loc 1 519 29
+ 2258 0440 FB88     		ldrh	r3, [r7, #6]
+ 2259 0442 0D33     		adds	r3, r3, #13
+ 519:Src/radarandec20.c ****                 lifetime_count[2] = 0;
+ 2260              		.loc 1 519 26
+ 2261 0444 264A     		ldr	r2, .L96+16
+ 2262 0446 D35C     		ldrb	r3, [r2, r3]	@ zero_extendqisi2
+ 519:Src/radarandec20.c ****                 lifetime_count[2] = 0;
+ 2263              		.loc 1 519 18
+ 2264 0448 012B     		cmp	r3, #1
+ 2265 044a 02D1     		bne	.L87
+ 520:Src/radarandec20.c ****               if (rsRxBuf[i + 14] == 1)
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 53
+
+
+ 2266              		.loc 1 520 35
+ 2267 044c 384B     		ldr	r3, .L96+96
+ 2268 044e 0022     		movs	r2, #0
+ 2269 0450 9A70     		strb	r2, [r3, #2]
+ 2270              	.L87:
+ 521:Src/radarandec20.c ****                 lifetime_count[3] = 0;
+ 2271              		.loc 1 521 29
+ 2272 0452 FB88     		ldrh	r3, [r7, #6]
+ 2273 0454 0E33     		adds	r3, r3, #14
+ 521:Src/radarandec20.c ****                 lifetime_count[3] = 0;
+ 2274              		.loc 1 521 26
+ 2275 0456 224A     		ldr	r2, .L96+16
+ 2276 0458 D35C     		ldrb	r3, [r2, r3]	@ zero_extendqisi2
+ 521:Src/radarandec20.c ****                 lifetime_count[3] = 0;
+ 2277              		.loc 1 521 18
+ 2278 045a 012B     		cmp	r3, #1
+ 2279 045c 02D1     		bne	.L75
+ 522:Src/radarandec20.c ****             }
+ 2280              		.loc 1 522 35
+ 2281 045e 344B     		ldr	r3, .L96+96
+ 2282 0460 0022     		movs	r2, #0
+ 2283 0462 DA70     		strb	r2, [r3, #3]
+ 2284              	.L75:
+ 559:Src/radarandec20.c ****           if (ProSta == 11) // 发送成功则
+ 2285              		.loc 1 559 22
+ 2286 0464 334B     		ldr	r3, .L96+100
+ 2287 0466 0122     		movs	r2, #1
+ 2288 0468 1A70     		strb	r2, [r3]
+ 560:Src/radarandec20.c ****           {
+ 2289              		.loc 1 560 22
+ 2290 046a 1B4B     		ldr	r3, .L96+8
+ 2291 046c 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 560:Src/radarandec20.c ****           {
+ 2292              		.loc 1 560 14
+ 2293 046e 0B2B     		cmp	r3, #11
+ 2294 0470 05D1     		bne	.L88
+ 562:Src/radarandec20.c ****             SendGPSCnt = 0;
+ 2295              		.loc 1 562 25
+ 2296 0472 314B     		ldr	r3, .L96+104
+ 2297 0474 0122     		movs	r2, #1
+ 2298 0476 1A70     		strb	r2, [r3]
+ 563:Src/radarandec20.c ****           }
+ 2299              		.loc 1 563 24
+ 2300 0478 304B     		ldr	r3, .L96+108
+ 2301 047a 0022     		movs	r2, #0
+ 2302 047c 1A60     		str	r2, [r3]
+ 2303              	.L88:
+ 566:Src/radarandec20.c ****           CurStaSendCnt = 0; // 收到预期清零
+ 2304              		.loc 1 566 17
+ 2305 047e 164B     		ldr	r3, .L96+8
+ 2306 0480 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 2307 0482 0133     		adds	r3, r3, #1
+ 2308 0484 DAB2     		uxtb	r2, r3
+ 2309 0486 144B     		ldr	r3, .L96+8
+ 2310 0488 1A70     		strb	r2, [r3]
+ 567:Src/radarandec20.c ****         }
+ 2311              		.loc 1 567 25
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 54
+
+
+ 2312 048a 2D4B     		ldr	r3, .L96+112
+ 2313 048c 0022     		movs	r2, #0
+ 2314 048e 1A70     		strb	r2, [r3]
+ 2315 0490 09E0     		b	.L89
+ 2316              	.L74:
+ 571:Src/radarandec20.c ****           {
+ 2317              		.loc 1 571 22
+ 2318 0492 114B     		ldr	r3, .L96+8
+ 2319 0494 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 571:Src/radarandec20.c ****           {
+ 2320              		.loc 1 571 14
+ 2321 0496 0B2B     		cmp	r3, #11
+ 2322 0498 05D1     		bne	.L89
+ 573:Src/radarandec20.c ****             ProSta = 6; // 发都没发成功就别接收了 直接重新开始
+ 2323              		.loc 1 573 25
+ 2324 049a 274B     		ldr	r3, .L96+104
+ 2325 049c 0022     		movs	r2, #0
+ 2326 049e 1A70     		strb	r2, [r3]
+ 574:Src/radarandec20.c ****           }
+ 2327              		.loc 1 574 20
+ 2328 04a0 0D4B     		ldr	r3, .L96+8
+ 2329 04a2 0622     		movs	r2, #6
+ 2330 04a4 1A70     		strb	r2, [r3]
+ 2331              	.L89:
+ 577:Src/radarandec20.c ****       }
+ 2332              		.loc 1 577 9
+ 2333 04a6 FFF7FEFF 		bl	Clear_Buffer
+ 2334              		.loc 1 594 1
+ 2335 04aa 0DE0     		b	.L92
+ 2336              	.L58:
+ 583:Src/radarandec20.c ****       {
+ 2337              		.loc 1 583 11
+ 2338 04ac 224B     		ldr	r3, .L96+104
+ 2339 04ae 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 583:Src/radarandec20.c ****       {
+ 2340              		.loc 1 583 10
+ 2341 04b0 002B     		cmp	r3, #0
+ 2342 04b2 03D0     		beq	.L90
+ 585:Src/radarandec20.c ****       }
+ 2343              		.loc 1 585 16
+ 2344 04b4 084B     		ldr	r3, .L96+8
+ 2345 04b6 0B22     		movs	r2, #11
+ 2346 04b8 1A70     		strb	r2, [r3]
+ 2347 04ba 02E0     		b	.L91
+ 2348              	.L90:
+ 589:Src/radarandec20.c ****       }
+ 2349              		.loc 1 589 16
+ 2350 04bc 064B     		ldr	r3, .L96+8
+ 2351 04be 0622     		movs	r2, #6
+ 2352 04c0 1A70     		strb	r2, [r3]
+ 2353              	.L91:
+ 591:Src/radarandec20.c ****     }
+ 2354              		.loc 1 591 19
+ 2355 04c2 204B     		ldr	r3, .L96+116
+ 2356 04c4 0022     		movs	r2, #0
+ 2357 04c6 1A70     		strb	r2, [r3]
+ 2358              	.L92:
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 55
+
+
+ 2359              		.loc 1 594 1
+ 2360 04c8 00BF     		nop
+ 2361 04ca 0837     		adds	r7, r7, #8
+ 2362              	.LCFI44:
+ 2363              		.cfi_def_cfa_offset 8
+ 2364 04cc BD46     		mov	sp, r7
+ 2365              	.LCFI45:
+ 2366              		.cfi_def_cfa_register 13
+ 2367              		@ sp needed
+ 2368 04ce 80BD     		pop	{r7, pc}
+ 2369              	.L97:
+ 2370              		.align	2
+ 2371              	.L96:
+ 2372 04d0 00000000 		.word	rsRecFlag
+ 2373 04d4 00000000 		.word	SendCntRecClear
+ 2374 04d8 00000000 		.word	ProSta
+ 2375 04dc F0010000 		.word	.LC36
+ 2376 04e0 00000000 		.word	rsRxBuf
+ 2377 04e4 00000000 		.word	RecExpected
+ 2378 04e8 08020000 		.word	.LC38
+ 2379 04ec 00000000 		.word	linkflag
+ 2380 04f0 00000000 		.word	waringtimeflag
+ 2381 04f4 00000000 		.word	sendedflag
+ 2382 04f8 18020000 		.word	.LC39
+ 2383 04fc 28020000 		.word	.LC40
+ 2384 0500 2C020000 		.word	.LC41
+ 2385 0504 30020000 		.word	.LC42
+ 2386 0508 34020000 		.word	.LC43
+ 2387 050c 3C020000 		.word	.LC44
+ 2388 0510 40020000 		.word	.LC45
+ 2389 0514 14000000 		.word	rsRxBuf+20
+ 2390 0518 000C0140 		.word	1073810432
+ 2391 051c 00000000 		.word	CloudtriggerFlag
+ 2392 0520 48020000 		.word	.LC46
+ 2393 0524 00000000 		.word	rsRxLen
+ 2394 0528 00000000 		.word	warmSend
+ 2395 052c 00000000 		.word	warmnobeep
+ 2396 0530 00000000 		.word	lifetime_count
+ 2397 0534 00000000 		.word	GpsRecFlag
+ 2398 0538 00000000 		.word	linkflagSta
+ 2399 053c 00000000 		.word	SendGPSCnt
+ 2400 0540 00000000 		.word	CurStaSendCnt
+ 2401 0544 00000000 		.word	sendingflag
+ 2402              		.cfi_endproc
+ 2403              	.LFE76:
+ 2405              		.section	.rodata
+ 2406 024e 0000     		.align	2
+ 2407              	.LC47:
+ 2408 0250 E5889DE5 		.ascii	"\345\210\235\345\247\213\345\214\226\345\256\214\346"
+ 2408      A78BE58C 
+ 2408      96E5AE8C 
+ 2408      E6
+ 2409 025d 889000   		.ascii	"\210\220\000"
+ 2410              		.align	2
+ 2411              	.LC48:
+ 2412 0260 E99BB7E8 		.ascii	"\351\233\267\350\276\2761\346\212\245\350\255\246\000"
+ 2412      BEBE31E6 
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 56
+
+
+ 2412      8AA5E8AD 
+ 2412      A600
+ 2413 026e 0000     		.align	2
+ 2414              	.LC49:
+ 2415 0270 E99BB7E8 		.ascii	"\351\233\267\350\276\2762\346\212\245\350\255\246\000"
+ 2415      BEBE32E6 
+ 2415      8AA5E8AD 
+ 2415      A600
+ 2416 027e 0000     		.align	2
+ 2417              	.LC50:
+ 2418 0280 E99BB7E8 		.ascii	"\351\233\267\350\276\2763\346\212\245\350\255\246\000"
+ 2418      BEBE33E6 
+ 2418      8AA5E8AD 
+ 2418      A600
+ 2419 028e 0000     		.align	2
+ 2420              	.LC51:
+ 2421 0290 E99BB7E8 		.ascii	"\351\233\267\350\276\2764\346\212\245\350\255\246\000"
+ 2421      BEBE34E6 
+ 2421      8AA5E8AD 
+ 2421      A600
+ 2422 029e 0000     		.align	2
+ 2423              	.LC52:
+ 2424 02a0 E5B7B2E6 		.ascii	"\345\267\262\346\212\245\350\255\246\000"
+ 2424      8AA5E8AD 
+ 2424      A600
+ 2425 02aa 0000     		.align	2
+ 2426              	.LC53:
+ 2427 02ac E6B885E9 		.ascii	"\346\270\205\351\231\244\345\261\217\345\271\225\000"
+ 2427      99A4E5B1 
+ 2427      8FE5B995 
+ 2427      00
+ 2428              		.section	.text.PollFun,"ax",%progbits
+ 2429              		.align	1
+ 2430              		.global	PollFun
+ 2431              		.syntax unified
+ 2432              		.thumb
+ 2433              		.thumb_func
+ 2435              	PollFun:
+ 2436              	.LFB77:
+ 595:Src/radarandec20.c **** 
+ 596:Src/radarandec20.c **** // 放在while(1)总的函数=EC20+RADAR
+ 597:Src/radarandec20.c **** void PollFun(void)
+ 598:Src/radarandec20.c **** {
+ 2437              		.loc 1 598 1
+ 2438              		.cfi_startproc
+ 2439              		@ args = 0, pretend = 0, frame = 8
+ 2440              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2441 0000 80B5     		push	{r7, lr}
+ 2442              	.LCFI46:
+ 2443              		.cfi_def_cfa_offset 8
+ 2444              		.cfi_offset 7, -8
+ 2445              		.cfi_offset 14, -4
+ 2446 0002 82B0     		sub	sp, sp, #8
+ 2447              	.LCFI47:
+ 2448              		.cfi_def_cfa_offset 16
+ 2449 0004 00AF     		add	r7, sp, #0
+ 2450              	.LCFI48:
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 57
+
+
+ 2451              		.cfi_def_cfa_register 7
+ 599:Src/radarandec20.c **** 
+ 600:Src/radarandec20.c ****   static unsigned char initflag = 0;
+ 601:Src/radarandec20.c **** 
+ 602:Src/radarandec20.c ****   if (initflag == 0)
+ 2452              		.loc 1 602 16
+ 2453 0006 7C4B     		ldr	r3, .L112
+ 2454 0008 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 2455              		.loc 1 602 6
+ 2456 000a 002B     		cmp	r3, #0
+ 2457 000c 26D1     		bne	.L99
+ 603:Src/radarandec20.c ****   {
+ 604:Src/radarandec20.c ****     initflag = 1; // 这里放一些初始化函数
+ 2458              		.loc 1 604 14
+ 2459 000e 7A4B     		ldr	r3, .L112
+ 2460 0010 0122     		movs	r2, #1
+ 2461 0012 1A70     		strb	r2, [r3]
+ 605:Src/radarandec20.c ****     ec20power(1);
+ 2462              		.loc 1 605 5
+ 2463 0014 0120     		movs	r0, #1
+ 2464 0016 FFF7FEFF 		bl	ec20power
+ 606:Src/radarandec20.c ****     u1Conf(); // RS232
+ 2465              		.loc 1 606 5
+ 2466 001a FFF7FEFF 		bl	u1Conf
+ 607:Src/radarandec20.c ****     u2Conf(); // EC20  AT指令
+ 2467              		.loc 1 607 5
+ 2468 001e FFF7FEFF 		bl	u2Conf
+ 608:Src/radarandec20.c ****     u3Conf(); // Radar
+ 2469              		.loc 1 608 5
+ 2470 0022 FFF7FEFF 		bl	u3Conf
+ 609:Src/radarandec20.c **** #if DEBUGMODE == 0
+ 610:Src/radarandec20.c ****     OLED_Init();
+ 611:Src/radarandec20.c ****     OLED_CLS();
+ 612:Src/radarandec20.c ****     OLED_ShowString(0, 1, "Setup Complete", 16);
+ 613:Src/radarandec20.c ****     delay_ms(1000);
+ 614:Src/radarandec20.c ****     OLED_CLS();
+ 615:Src/radarandec20.c **** #else
+ 616:Src/radarandec20.c ****     SendTxDebug((unsigned char *)"初始化完成");
+ 2471              		.loc 1 616 5
+ 2472 0026 7548     		ldr	r0, .L112+4
+ 2473 0028 FFF7FEFF 		bl	SendTxDebug
+ 617:Src/radarandec20.c **** #endif
+ 618:Src/radarandec20.c ****     lifetime_count[0] = 0;
+ 2474              		.loc 1 618 23
+ 2475 002c 744B     		ldr	r3, .L112+8
+ 2476 002e 0022     		movs	r2, #0
+ 2477 0030 1A70     		strb	r2, [r3]
+ 619:Src/radarandec20.c ****     lifetime_count[1] = 0;
+ 2478              		.loc 1 619 23
+ 2479 0032 734B     		ldr	r3, .L112+8
+ 2480 0034 0022     		movs	r2, #0
+ 2481 0036 5A70     		strb	r2, [r3, #1]
+ 620:Src/radarandec20.c ****     lifetime_count[2] = 0;
+ 2482              		.loc 1 620 23
+ 2483 0038 714B     		ldr	r3, .L112+8
+ 2484 003a 0022     		movs	r2, #0
+ 2485 003c 9A70     		strb	r2, [r3, #2]
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 58
+
+
+ 621:Src/radarandec20.c ****     lifetime_count[3] = 0;
+ 2486              		.loc 1 621 23
+ 2487 003e 704B     		ldr	r3, .L112+8
+ 2488 0040 0022     		movs	r2, #0
+ 2489 0042 DA70     		strb	r2, [r3, #3]
+ 622:Src/radarandec20.c ****     warmSend[0] = 0;
+ 2490              		.loc 1 622 17
+ 2491 0044 6F4B     		ldr	r3, .L112+12
+ 2492 0046 0022     		movs	r2, #0
+ 2493 0048 1A70     		strb	r2, [r3]
+ 623:Src/radarandec20.c ****     warmSend[1] = 0;
+ 2494              		.loc 1 623 17
+ 2495 004a 6E4B     		ldr	r3, .L112+12
+ 2496 004c 0022     		movs	r2, #0
+ 2497 004e 5A70     		strb	r2, [r3, #1]
+ 624:Src/radarandec20.c ****     warmSend[2] = 0;
+ 2498              		.loc 1 624 17
+ 2499 0050 6C4B     		ldr	r3, .L112+12
+ 2500 0052 0022     		movs	r2, #0
+ 2501 0054 9A70     		strb	r2, [r3, #2]
+ 625:Src/radarandec20.c ****     warmSend[3] = 0;
+ 2502              		.loc 1 625 17
+ 2503 0056 6B4B     		ldr	r3, .L112+12
+ 2504 0058 0022     		movs	r2, #0
+ 2505 005a DA70     		strb	r2, [r3, #3]
+ 2506              	.L99:
+ 626:Src/radarandec20.c ****   }
+ 627:Src/radarandec20.c **** 
+ 628:Src/radarandec20.c ****   ec20ProcessFun();
+ 2507              		.loc 1 628 3
+ 2508 005c FFF7FEFF 		bl	ec20ProcessFun
+ 629:Src/radarandec20.c **** 
+ 630:Src/radarandec20.c **** #if FacSend == 1 // 这里测试
+ 631:Src/radarandec20.c ****   if (simCnt > 10000)
+ 632:Src/radarandec20.c ****   {
+ 633:Src/radarandec20.c ****     ready_2_warning = 1;
+ 634:Src/radarandec20.c ****     warning_ID = 1;
+ 635:Src/radarandec20.c ****     warmSend[0] = 1;
+ 636:Src/radarandec20.c ****     warmSend[1] = 1;
+ 637:Src/radarandec20.c ****     warmSend[2] = 1;
+ 638:Src/radarandec20.c ****     warmSend[3] = 1;
+ 639:Src/radarandec20.c ****     if (linkflag == 1 && sendingflag == 0)
+ 640:Src/radarandec20.c ****     {
+ 641:Src/radarandec20.c ****       sendingflag = 1;
+ 642:Src/radarandec20.c ****       ProSta = 11; // 立马准备发送
+ 643:Src/radarandec20.c ****     }
+ 644:Src/radarandec20.c ****   }
+ 645:Src/radarandec20.c **** 
+ 646:Src/radarandec20.c ****   if (simCnt > 20000)
+ 647:Src/radarandec20.c ****   {
+ 648:Src/radarandec20.c ****     simCnt = 0;
+ 649:Src/radarandec20.c ****     sendingflag = 0;
+ 650:Src/radarandec20.c ****     ready_2_warning = 0;
+ 651:Src/radarandec20.c ****     warning_ID = 0;
+ 652:Src/radarandec20.c ****     warmSend[0] = 0;
+ 653:Src/radarandec20.c ****     warmSend[1] = 0;
+ 654:Src/radarandec20.c ****     warmSend[2] = 0;
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 59
+
+
+ 655:Src/radarandec20.c ****     warmSend[3] = 0;
+ 656:Src/radarandec20.c ****   }
+ 657:Src/radarandec20.c **** 
+ 658:Src/radarandec20.c **** #endif
+ 659:Src/radarandec20.c **** 
+ 660:Src/radarandec20.c ****   // 上次1这次0
+ 661:Src/radarandec20.c ****   if (readsxtioflag == GPIO_PIN_SET && readSXTwarm == GPIO_PIN_RESET)
+ 2509              		.loc 1 661 21
+ 2510 0060 694B     		ldr	r3, .L112+16
+ 2511 0062 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 2512              		.loc 1 661 6
+ 2513 0064 012B     		cmp	r3, #1
+ 2514 0066 10D1     		bne	.L100
+ 2515              		.loc 1 661 40 discriminator 1
+ 2516 0068 4FF40051 		mov	r1, #8192
+ 2517 006c 6748     		ldr	r0, .L112+20
+ 2518 006e FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 2519 0072 0346     		mov	r3, r0
+ 2520              		.loc 1 661 37 discriminator 1
+ 2521 0074 002B     		cmp	r3, #0
+ 2522 0076 08D1     		bne	.L100
+ 662:Src/radarandec20.c ****   {
+ 663:Src/radarandec20.c ****     ready_2_warning = 1;
+ 2523              		.loc 1 663 21
+ 2524 0078 654B     		ldr	r3, .L112+24
+ 2525 007a 0122     		movs	r2, #1
+ 2526 007c 1A70     		strb	r2, [r3]
+ 664:Src/radarandec20.c ****     warning_ID = 0;
+ 2527              		.loc 1 664 16
+ 2528 007e 654B     		ldr	r3, .L112+28
+ 2529 0080 0022     		movs	r2, #0
+ 2530 0082 1A70     		strb	r2, [r3]
+ 665:Src/radarandec20.c ****     warmSend[0] = 1;
+ 2531              		.loc 1 665 17
+ 2532 0084 5F4B     		ldr	r3, .L112+12
+ 2533 0086 0122     		movs	r2, #1
+ 2534 0088 1A70     		strb	r2, [r3]
+ 2535              	.L100:
+ 666:Src/radarandec20.c ****   }
+ 667:Src/radarandec20.c **** 
+ 668:Src/radarandec20.c ****   readsxtioflag = readSXTwarm;
+ 2536              		.loc 1 668 19
+ 2537 008a 4FF40051 		mov	r1, #8192
+ 2538 008e 5F48     		ldr	r0, .L112+20
+ 2539 0090 FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 2540 0094 0346     		mov	r3, r0
+ 2541 0096 1A46     		mov	r2, r3
+ 2542              		.loc 1 668 17
+ 2543 0098 5B4B     		ldr	r3, .L112+16
+ 2544 009a 1A70     		strb	r2, [r3]
+ 669:Src/radarandec20.c **** 
+ 670:Src/radarandec20.c ****   if (ready_2_warning == 1)
+ 2545              		.loc 1 670 23
+ 2546 009c 5C4B     		ldr	r3, .L112+24
+ 2547 009e 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 2548              		.loc 1 670 6
+ 2549 00a0 012B     		cmp	r3, #1
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 60
+
+
+ 2550 00a2 50D1     		bne	.L101
+ 671:Src/radarandec20.c ****   {
+ 672:Src/radarandec20.c ****     danger_keep = 10;
+ 2551              		.loc 1 672 17
+ 2552 00a4 5C4B     		ldr	r3, .L112+32
+ 2553 00a6 0A22     		movs	r2, #10
+ 2554 00a8 1A70     		strb	r2, [r3]
+ 673:Src/radarandec20.c ****     ready_2_warning = 0;
+ 2555              		.loc 1 673 21
+ 2556 00aa 594B     		ldr	r3, .L112+24
+ 2557 00ac 0022     		movs	r2, #0
+ 2558 00ae 1A70     		strb	r2, [r3]
+ 674:Src/radarandec20.c **** 
+ 675:Src/radarandec20.c ****     if (linkflag == 1 && sendingflag == 0) // 已连接 未发送
+ 2559              		.loc 1 675 18
+ 2560 00b0 5A4B     		ldr	r3, .L112+36
+ 2561 00b2 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 2562              		.loc 1 675 8
+ 2563 00b4 012B     		cmp	r3, #1
+ 2564 00b6 10D1     		bne	.L102
+ 2565              		.loc 1 675 38 discriminator 1
+ 2566 00b8 594B     		ldr	r3, .L112+40
+ 2567 00ba 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 2568              		.loc 1 675 23 discriminator 1
+ 2569 00bc 002B     		cmp	r3, #0
+ 2570 00be 0CD1     		bne	.L102
+ 676:Src/radarandec20.c ****     {
+ 677:Src/radarandec20.c ****       sendingflag = 1;
+ 2571              		.loc 1 677 19
+ 2572 00c0 574B     		ldr	r3, .L112+40
+ 2573 00c2 0122     		movs	r2, #1
+ 2574 00c4 1A70     		strb	r2, [r3]
+ 678:Src/radarandec20.c ****       ProSta = 11; // 立马准备发送
+ 2575              		.loc 1 678 14
+ 2576 00c6 574B     		ldr	r3, .L112+44
+ 2577 00c8 0B22     		movs	r2, #11
+ 2578 00ca 1A70     		strb	r2, [r3]
+ 679:Src/radarandec20.c **** 
+ 680:Src/radarandec20.c ****       PollTimeCnt = POLLTime + 1;
+ 2579              		.loc 1 680 30
+ 2580 00cc 564B     		ldr	r3, .L112+48
+ 2581 00ce 1B68     		ldr	r3, [r3]
+ 2582 00d0 9BB2     		uxth	r3, r3
+ 2583 00d2 0133     		adds	r3, r3, #1
+ 2584 00d4 9AB2     		uxth	r2, r3
+ 2585              		.loc 1 680 19
+ 2586 00d6 554B     		ldr	r3, .L112+52
+ 2587 00d8 1A80     		strh	r2, [r3]	@ movhi
+ 2588              	.L102:
+ 681:Src/radarandec20.c ****     }
+ 682:Src/radarandec20.c ****     if (warning_ID == 1)
+ 2589              		.loc 1 682 20
+ 2590 00da 4E4B     		ldr	r3, .L112+28
+ 2591 00dc 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 2592              		.loc 1 682 8
+ 2593 00de 012B     		cmp	r3, #1
+ 2594 00e0 03D1     		bne	.L103
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 61
+
+
+ 683:Src/radarandec20.c ****     {
+ 684:Src/radarandec20.c **** #if DEBUGMODE == 0
+ 685:Src/radarandec20.c ****       OLED_ShowString(0, 0, "RADAR[1]DANGER!!", 16);
+ 686:Src/radarandec20.c **** #else
+ 687:Src/radarandec20.c ****       SendTxDebug((unsigned char *)"雷达1报警");
+ 2595              		.loc 1 687 7
+ 2596 00e2 5348     		ldr	r0, .L112+56
+ 2597 00e4 FFF7FEFF 		bl	SendTxDebug
+ 2598 00e8 16E0     		b	.L104
+ 2599              	.L103:
+ 688:Src/radarandec20.c **** #endif
+ 689:Src/radarandec20.c ****     }
+ 690:Src/radarandec20.c ****     else if (warning_ID == 2)
+ 2600              		.loc 1 690 25
+ 2601 00ea 4A4B     		ldr	r3, .L112+28
+ 2602 00ec 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 2603              		.loc 1 690 13
+ 2604 00ee 022B     		cmp	r3, #2
+ 2605 00f0 03D1     		bne	.L105
+ 691:Src/radarandec20.c ****     {
+ 692:Src/radarandec20.c **** #if DEBUGMODE == 0
+ 693:Src/radarandec20.c ****       OLED_ShowString(0, 0, "RADAR[2]DANGER!!", 16);
+ 694:Src/radarandec20.c **** #else
+ 695:Src/radarandec20.c ****       SendTxDebug((unsigned char *)"雷达2报警");
+ 2606              		.loc 1 695 7
+ 2607 00f2 5048     		ldr	r0, .L112+60
+ 2608 00f4 FFF7FEFF 		bl	SendTxDebug
+ 2609 00f8 0EE0     		b	.L104
+ 2610              	.L105:
+ 696:Src/radarandec20.c **** #endif
+ 697:Src/radarandec20.c ****     }
+ 698:Src/radarandec20.c ****     else if (warning_ID == 3)
+ 2611              		.loc 1 698 25
+ 2612 00fa 464B     		ldr	r3, .L112+28
+ 2613 00fc 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 2614              		.loc 1 698 13
+ 2615 00fe 032B     		cmp	r3, #3
+ 2616 0100 03D1     		bne	.L106
+ 699:Src/radarandec20.c ****     {
+ 700:Src/radarandec20.c **** #if DEBUGMODE == 0
+ 701:Src/radarandec20.c ****       OLED_ShowString(0, 0, "RADAR[3]DANGER!!", 16);
+ 702:Src/radarandec20.c **** #else
+ 703:Src/radarandec20.c ****       SendTxDebug((unsigned char *)"雷达3报警");
+ 2617              		.loc 1 703 7
+ 2618 0102 4D48     		ldr	r0, .L112+64
+ 2619 0104 FFF7FEFF 		bl	SendTxDebug
+ 2620 0108 06E0     		b	.L104
+ 2621              	.L106:
+ 704:Src/radarandec20.c **** #endif
+ 705:Src/radarandec20.c ****     }
+ 706:Src/radarandec20.c ****     else if (warning_ID == 4)
+ 2622              		.loc 1 706 25
+ 2623 010a 424B     		ldr	r3, .L112+28
+ 2624 010c 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 2625              		.loc 1 706 13
+ 2626 010e 042B     		cmp	r3, #4
+ 2627 0110 02D1     		bne	.L104
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 62
+
+
+ 707:Src/radarandec20.c ****     {
+ 708:Src/radarandec20.c ****       ;
+ 709:Src/radarandec20.c **** #if DEBUGMODE == 0
+ 710:Src/radarandec20.c ****       OLED_ShowString(0, 0, "RADAR[4]DANGER!!", 16);
+ 711:Src/radarandec20.c **** #else
+ 712:Src/radarandec20.c ****       SendTxDebug((unsigned char *)"雷达4报警");
+ 2628              		.loc 1 712 7
+ 2629 0112 4A48     		ldr	r0, .L112+68
+ 2630 0114 FFF7FEFF 		bl	SendTxDebug
+ 2631              	.L104:
+ 713:Src/radarandec20.c **** #endif
+ 714:Src/radarandec20.c ****     }
+ 715:Src/radarandec20.c **** 
+ 716:Src/radarandec20.c ****     // if(warmnobeep==0)//
+ 717:Src/radarandec20.c ****     {
+ 718:Src/radarandec20.c ****       if (waringtimeflag == 0)
+ 2632              		.loc 1 718 26
+ 2633 0118 494B     		ldr	r3, .L112+72
+ 2634 011a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 2635              		.loc 1 718 10
+ 2636 011c 002B     		cmp	r3, #0
+ 2637 011e 12D1     		bne	.L101
+ 719:Src/radarandec20.c ****       {
+ 720:Src/radarandec20.c ****         waringtimeflag = 1;
+ 2638              		.loc 1 720 24
+ 2639 0120 474B     		ldr	r3, .L112+72
+ 2640 0122 0122     		movs	r2, #1
+ 2641 0124 1A70     		strb	r2, [r3]
+ 721:Src/radarandec20.c ****         waringspeedflag = 1;
+ 2642              		.loc 1 721 25
+ 2643 0126 474B     		ldr	r3, .L112+76
+ 2644 0128 0122     		movs	r2, #1
+ 2645 012a 1A70     		strb	r2, [r3]
+ 722:Src/radarandec20.c ****         warmonceflag = 1;
+ 2646              		.loc 1 722 22
+ 2647 012c 464B     		ldr	r3, .L112+80
+ 2648 012e 0122     		movs	r2, #1
+ 2649 0130 1A70     		strb	r2, [r3]
+ 723:Src/radarandec20.c ****         POLLTime = ALARMTIME;
+ 2650              		.loc 1 723 18
+ 2651 0132 3D4B     		ldr	r3, .L112+48
+ 2652 0134 4FF44872 		mov	r2, #800
+ 2653 0138 1A60     		str	r2, [r3]
+ 724:Src/radarandec20.c ****         WarmHig; // 报警  报警没有被禁用
+ 2654              		.loc 1 724 9
+ 2655 013a 0022     		movs	r2, #0
+ 2656 013c 4FF48051 		mov	r1, #4096
+ 2657 0140 4248     		ldr	r0, .L112+84
+ 2658 0142 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 2659              	.L101:
+ 725:Src/radarandec20.c ****       }
+ 726:Src/radarandec20.c ****     }
+ 727:Src/radarandec20.c ****   }
+ 728:Src/radarandec20.c ****   if (waringtime > 10000)
+ 2660              		.loc 1 728 18
+ 2661 0146 424B     		ldr	r3, .L112+88
+ 2662 0148 1B68     		ldr	r3, [r3]
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 63
+
+
+ 2663              		.loc 1 728 6
+ 2664 014a 42F21072 		movw	r2, #10000
+ 2665 014e 9342     		cmp	r3, r2
+ 2666 0150 1DD9     		bls	.L107
+ 729:Src/radarandec20.c ****   {
+ 730:Src/radarandec20.c ****     WarmLow;
+ 2667              		.loc 1 730 5
+ 2668 0152 0122     		movs	r2, #1
+ 2669 0154 4FF48051 		mov	r1, #4096
+ 2670 0158 3C48     		ldr	r0, .L112+84
+ 2671 015a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 731:Src/radarandec20.c **** #if DEBUGMODE == 0
+ 732:Src/radarandec20.c ****     SendTxDebug((unsigned char *)"已报警");
+ 733:Src/radarandec20.c **** #else
+ 734:Src/radarandec20.c ****     SendTxDebug((unsigned char *)"已报警");
+ 2672              		.loc 1 734 5
+ 2673 015e 3D48     		ldr	r0, .L112+92
+ 2674 0160 FFF7FEFF 		bl	SendTxDebug
+ 735:Src/radarandec20.c **** #endif
+ 736:Src/radarandec20.c ****     waringtimeflag = 0;
+ 2675              		.loc 1 736 20
+ 2676 0164 364B     		ldr	r3, .L112+72
+ 2677 0166 0022     		movs	r2, #0
+ 2678 0168 1A70     		strb	r2, [r3]
+ 737:Src/radarandec20.c ****     sendingflag = 0; // 未发送 20220527
+ 2679              		.loc 1 737 17
+ 2680 016a 2D4B     		ldr	r3, .L112+40
+ 2681 016c 0022     		movs	r2, #0
+ 2682 016e 1A70     		strb	r2, [r3]
+ 738:Src/radarandec20.c ****     waringtime = 0;
+ 2683              		.loc 1 738 16
+ 2684 0170 374B     		ldr	r3, .L112+88
+ 2685 0172 0022     		movs	r2, #0
+ 2686 0174 1A60     		str	r2, [r3]
+ 739:Src/radarandec20.c ****     warmSend[0] = 0;
+ 2687              		.loc 1 739 17
+ 2688 0176 234B     		ldr	r3, .L112+12
+ 2689 0178 0022     		movs	r2, #0
+ 2690 017a 1A70     		strb	r2, [r3]
+ 740:Src/radarandec20.c ****     warmSend[1] = 0;
+ 2691              		.loc 1 740 17
+ 2692 017c 214B     		ldr	r3, .L112+12
+ 2693 017e 0022     		movs	r2, #0
+ 2694 0180 5A70     		strb	r2, [r3, #1]
+ 741:Src/radarandec20.c ****     warmSend[2] = 0;
+ 2695              		.loc 1 741 17
+ 2696 0182 204B     		ldr	r3, .L112+12
+ 2697 0184 0022     		movs	r2, #0
+ 2698 0186 9A70     		strb	r2, [r3, #2]
+ 742:Src/radarandec20.c ****     warmSend[3] = 0;
+ 2699              		.loc 1 742 17
+ 2700 0188 1E4B     		ldr	r3, .L112+12
+ 2701 018a 0022     		movs	r2, #0
+ 2702 018c DA70     		strb	r2, [r3, #3]
+ 2703              	.L107:
+ 743:Src/radarandec20.c ****   }
+ 744:Src/radarandec20.c **** 
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 64
+
+
+ 745:Src/radarandec20.c ****   if (ms10 >= 6000) // 6秒
+ 2704              		.loc 1 745 12
+ 2705 018e 324B     		ldr	r3, .L112+96
+ 2706 0190 1B88     		ldrh	r3, [r3]
+ 2707              		.loc 1 745 6
+ 2708 0192 41F26F72 		movw	r2, #5999
+ 2709 0196 9342     		cmp	r3, r2
+ 2710 0198 29D9     		bls	.L111
+ 746:Src/radarandec20.c ****   {
+ 747:Src/radarandec20.c ****     ms10 = 0;
+ 2711              		.loc 1 747 10
+ 2712 019a 2F4B     		ldr	r3, .L112+96
+ 2713 019c 0022     		movs	r2, #0
+ 2714 019e 1A80     		strh	r2, [r3]	@ movhi
+ 2715              	.LBB2:
+ 748:Src/radarandec20.c ****     for (int i = 0; i < 4; i++)
+ 2716              		.loc 1 748 14
+ 2717 01a0 0023     		movs	r3, #0
+ 2718 01a2 7B60     		str	r3, [r7, #4]
+ 2719              		.loc 1 748 5
+ 2720 01a4 0DE0     		b	.L109
+ 2721              	.L110:
+ 749:Src/radarandec20.c ****     {
+ 750:Src/radarandec20.c ****       lifetime_count[i]++;
+ 2722              		.loc 1 750 21
+ 2723 01a6 164A     		ldr	r2, .L112+8
+ 2724 01a8 7B68     		ldr	r3, [r7, #4]
+ 2725 01aa 1344     		add	r3, r3, r2
+ 2726 01ac 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 2727              		.loc 1 750 24
+ 2728 01ae 0133     		adds	r3, r3, #1
+ 2729 01b0 D9B2     		uxtb	r1, r3
+ 2730 01b2 134A     		ldr	r2, .L112+8
+ 2731 01b4 7B68     		ldr	r3, [r7, #4]
+ 2732 01b6 1344     		add	r3, r3, r2
+ 2733 01b8 0A46     		mov	r2, r1
+ 2734 01ba 1A70     		strb	r2, [r3]
+ 748:Src/radarandec20.c ****     for (int i = 0; i < 4; i++)
+ 2735              		.loc 1 748 29
+ 2736 01bc 7B68     		ldr	r3, [r7, #4]
+ 2737 01be 0133     		adds	r3, r3, #1
+ 2738 01c0 7B60     		str	r3, [r7, #4]
+ 2739              	.L109:
+ 748:Src/radarandec20.c ****     for (int i = 0; i < 4; i++)
+ 2740              		.loc 1 748 5 discriminator 1
+ 2741 01c2 7B68     		ldr	r3, [r7, #4]
+ 2742 01c4 032B     		cmp	r3, #3
+ 2743 01c6 EEDD     		ble	.L110
+ 2744              	.LBE2:
+ 751:Src/radarandec20.c ****       if (lifetime_count[i] > 10) // 1分钟
+ 752:Src/radarandec20.c ****       {
+ 753:Src/radarandec20.c ****         // warmSend[i]=0;
+ 754:Src/radarandec20.c ****         // printf("radar[%d] offline",i+1);
+ 755:Src/radarandec20.c ****       }
+ 756:Src/radarandec20.c ****     }
+ 757:Src/radarandec20.c **** 
+ 758:Src/radarandec20.c ****     danger_keep--;
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 65
+
+
+ 2745              		.loc 1 758 16
+ 2746 01c8 134B     		ldr	r3, .L112+32
+ 2747 01ca 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 2748 01cc 013B     		subs	r3, r3, #1
+ 2749 01ce DAB2     		uxtb	r2, r3
+ 2750 01d0 114B     		ldr	r3, .L112+32
+ 2751 01d2 1A70     		strb	r2, [r3]
+ 759:Src/radarandec20.c ****     if (danger_keep == 0)
+ 2752              		.loc 1 759 21
+ 2753 01d4 104B     		ldr	r3, .L112+32
+ 2754 01d6 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 2755              		.loc 1 759 8
+ 2756 01d8 002B     		cmp	r3, #0
+ 2757 01da 08D1     		bne	.L111
+ 760:Src/radarandec20.c ****     {
+ 761:Src/radarandec20.c **** #if DEBUGMODE == 0
+ 762:Src/radarandec20.c ****       OLED_Clear();
+ 763:Src/radarandec20.c **** #else
+ 764:Src/radarandec20.c ****       SendTxDebug((unsigned char *)"清除屏幕");
+ 2758              		.loc 1 764 7
+ 2759 01dc 1F48     		ldr	r0, .L112+100
+ 2760 01de FFF7FEFF 		bl	SendTxDebug
+ 765:Src/radarandec20.c **** #endif
+ 766:Src/radarandec20.c ****       WarmLow;
+ 2761              		.loc 1 766 7
+ 2762 01e2 0122     		movs	r2, #1
+ 2763 01e4 4FF48051 		mov	r1, #4096
+ 2764 01e8 1848     		ldr	r0, .L112+84
+ 2765 01ea FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 2766              	.L111:
+ 767:Src/radarandec20.c ****     }
+ 768:Src/radarandec20.c ****   }
+ 769:Src/radarandec20.c **** }
+ 2767              		.loc 1 769 1
+ 2768 01ee 00BF     		nop
+ 2769 01f0 0837     		adds	r7, r7, #8
+ 2770              	.LCFI49:
+ 2771              		.cfi_def_cfa_offset 8
+ 2772 01f2 BD46     		mov	sp, r7
+ 2773              	.LCFI50:
+ 2774              		.cfi_def_cfa_register 13
+ 2775              		@ sp needed
+ 2776 01f4 80BD     		pop	{r7, pc}
+ 2777              	.L113:
+ 2778 01f6 00BF     		.align	2
+ 2779              	.L112:
+ 2780 01f8 00000000 		.word	initflag.0
+ 2781 01fc 50020000 		.word	.LC47
+ 2782 0200 00000000 		.word	lifetime_count
+ 2783 0204 00000000 		.word	warmSend
+ 2784 0208 00000000 		.word	readsxtioflag
+ 2785 020c 00100140 		.word	1073811456
+ 2786 0210 00000000 		.word	ready_2_warning
+ 2787 0214 00000000 		.word	warning_ID
+ 2788 0218 00000000 		.word	danger_keep
+ 2789 021c 00000000 		.word	linkflag
+ 2790 0220 00000000 		.word	sendingflag
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 66
+
+
+ 2791 0224 00000000 		.word	ProSta
+ 2792 0228 00000000 		.word	POLLTime
+ 2793 022c 00000000 		.word	PollTimeCnt
+ 2794 0230 60020000 		.word	.LC48
+ 2795 0234 70020000 		.word	.LC49
+ 2796 0238 80020000 		.word	.LC50
+ 2797 023c 90020000 		.word	.LC51
+ 2798 0240 00000000 		.word	waringtimeflag
+ 2799 0244 00000000 		.word	waringspeedflag
+ 2800 0248 00000000 		.word	warmonceflag
+ 2801 024c 000C0140 		.word	1073810432
+ 2802 0250 00000000 		.word	waringtime
+ 2803 0254 A0020000 		.word	.LC52
+ 2804 0258 00000000 		.word	ms10
+ 2805 025c AC020000 		.word	.LC53
+ 2806              		.cfi_endproc
+ 2807              	.LFE77:
+ 2809              		.section	.bss.indx.1,"aw",%nobits
+ 2810              		.align	2
+ 2813              	indx.1:
+ 2814 0000 00000000 		.space	4
+ 2815              		.section	.bss.initflag.0,"aw",%nobits
+ 2818              	initflag.0:
+ 2819 0000 00       		.space	1
+ 2820              		.text
+ 2821              	.Letext0:
+ 2822              		.file 2 "c:\\program files\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\machine\\_defa
+ 2823              		.file 3 "c:\\program files\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\include\\sys\\_stdint.h
+ 2824              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 2825              		.file 5 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 2826              		.file 6 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h"
+ 2827              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 2828              		.file 8 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
+ 2829              		.file 9 "Inc/ec20.h"
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 67
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 radarandec20.c
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:22     .bss.CpuID:00000000 CpuID
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:19     .bss.CpuID:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:29     .bss.SendID:00000000 SendID
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:26     .bss.SendID:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:35     .bss.GpsRecFlag:00000000 GpsRecFlag
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:36     .bss.GpsRecFlag:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:42     .bss.gspdata:00000000 gspdata
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:39     .bss.gspdata:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:49     .bss.GSMinit:00000000 GSMinit
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:46     .bss.GSMinit:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:55     .bss.CloudtriggerFlag:00000000 CloudtriggerFlag
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:56     .bss.CloudtriggerFlag:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:62     .bss.CloudtriggerTime:00000000 CloudtriggerTime
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:59     .bss.CloudtriggerTime:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:69     .bss.PollTimeCnt:00000000 PollTimeCnt
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:66     .bss.PollTimeCnt:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:76     .bss.RxBufferDMA:00000000 RxBufferDMA
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:73     .bss.RxBufferDMA:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:83     .bss.DMARxLenU2:00000000 DMARxLenU2
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:80     .bss.DMARxLenU2:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:90     .bss.rsRxBuf:00000000 rsRxBuf
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:87     .bss.rsRxBuf:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:97     .bss.rsRxIndexLen:00000000 rsRxIndexLen
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:94     .bss.rsRxIndexLen:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:104    .bss.rsRxLen:00000000 rsRxLen
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:101    .bss.rsRxLen:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:111    .bss.rsRxTime:00000000 rsRxTime
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:108    .bss.rsRxTime:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:117    .bss.rsPackFlag:00000000 rsPackFlag
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:118    .bss.rsPackFlag:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:123    .bss.rsRecFlag:00000000 rsRecFlag
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:124    .bss.rsRecFlag:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:129    .bss.ProSta:00000000 ProSta
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:130    .bss.ProSta:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:135    .bss.linkflagSta:00000000 linkflagSta
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:136    .bss.linkflagSta:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:141    .bss.CurStaSendCnt:00000000 CurStaSendCnt
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:142    .bss.CurStaSendCnt:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:148    .bss.SendCntRecClear:00000000 SendCntRecClear
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:145    .bss.SendCntRecClear:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:155    .bss.SendGPSCnt:00000000 SendGPSCnt
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:152    .bss.SendGPSCnt:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:161    .bss.GPSStatFlag:00000000 GPSStatFlag
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:162    .bss.GPSStatFlag:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:168    .bss.ec20send:00000000 ec20send
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:165    .bss.ec20send:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:175    .bss.pec20:00000000 pec20
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:172    .bss.pec20:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:182    .bss.ec20heart:00000000 ec20heart
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:179    .bss.ec20heart:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:189    .bss.pech20:00000000 pech20
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:186    .bss.pech20:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:196    .bss.u3rx:00000000 u3rx
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:193    .bss.u3rx:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:203    .bss.RxLenU3:00000000 RxLenU3
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 68
+
+
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:200    .bss.RxLenU3:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:209    .bss.last_Res_6:00000000 last_Res_6
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:210    .bss.last_Res_6:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:215    .bss.radar_ID:00000000 radar_ID
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:216    .bss.radar_ID:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:221    .bss.frame_num:00000000 frame_num
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:222    .bss.frame_num:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:227    .bss.warning_cfg:00000000 warning_cfg
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:228    .bss.warning_cfg:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:234    .bss.msint:00000000 msint
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:231    .bss.msint:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:240    .data.trigger_order:00000000 trigger_order
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:247    .bss.lifetime_count:00000000 lifetime_count
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:244    .bss.lifetime_count:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:253    .bss.danger_keep:00000000 danger_keep
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:254    .bss.danger_keep:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:259    .bss.ready_2_warning:00000000 ready_2_warning
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:260    .bss.ready_2_warning:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:265    .bss.waringtimeflag:00000000 waringtimeflag
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:266    .bss.waringtimeflag:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:271    .bss.waringspeedflag:00000000 waringspeedflag
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:272    .bss.waringspeedflag:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:278    .bss.waringtime:00000000 waringtime
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:275    .bss.waringtime:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:284    .bss.warning_ID:00000000 warning_ID
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:285    .bss.warning_ID:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:291    .bss.ms10:00000000 ms10
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:288    .bss.ms10:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:298    .bss.warmSend:00000000 warmSend
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:295    .bss.warmSend:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:305    .bss.sendbuf:00000000 sendbuf
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:302    .bss.sendbuf:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:311    .bss.warmnobeep:00000000 warmnobeep
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:312    .bss.warmnobeep:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:317    .bss.linkflag:00000000 linkflag
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:318    .bss.linkflag:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:323    .bss.sendingflag:00000000 sendingflag
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:324    .bss.sendingflag:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:330    .bss.simCnt:00000000 simCnt
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:327    .bss.simCnt:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:337    .bss.psend:00000000 psend
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:334    .bss.psend:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:343    .bss.readsxtioflag:00000000 readsxtioflag
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:344    .bss.readsxtioflag:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:350    .data.POLLTime:00000000 POLLTime
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:347    .data.POLLTime:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:410    .data.SendList:00000000 SendList
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:354    .rodata:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:407    .data.SendList:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:464    .data.RecExpected:00000000 RecExpected
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:461    .data.RecExpected:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:483    .text.Clear_Buffer:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:489    .text.Clear_Buffer:00000000 Clear_Buffer
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:549    .text.Clear_Buffer:00000034 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:555    .text.ucharCmp:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:561    .text.ucharCmp:00000000 ucharCmp
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:638    .text.findStrCmp:00000000 $t
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s 			page 69
+
+
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:644    .text.findStrCmp:00000000 findStrCmp
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:724    .text.HexStrConvert:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:730    .text.HexStrConvert:00000000 HexStrConvert
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:855    .text.delay_ms:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:861    .text.delay_ms:00000000 delay_ms
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:911    .text.delay_ms:00000028 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:916    .text.ec20power:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:922    .text.ec20power:00000000 ec20power
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:995    .text.ec20power:00000060 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:1005   .bss.txb:00000000 txb
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:1002   .bss.txb:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:1012   .text.GetIDCode:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:1018   .text.GetIDCode:00000000 GetIDCode
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:1095   .text.GetIDCode:0000005c $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:1128   .text.DataSendPre:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:1134   .text.DataSendPre:00000000 DataSendPre
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:1478   .text.DataSendPre:000001f4 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:2813   .bss.indx.1:00000000 indx.1
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:1504   .bss.sendedflag:00000000 sendedflag
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:1505   .bss.sendedflag:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:1510   .bss.warmonceflag:00000000 warmonceflag
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:1511   .bss.warmonceflag:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:1552   .text.ec20ProcessFun:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:1558   .text.ec20ProcessFun:00000000 ec20ProcessFun
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:1900   .text.ec20ProcessFun:000001f0 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:1927   .text.ec20ProcessFun:00000254 $t
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:2372   .text.ec20ProcessFun:000004d0 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:2429   .text.PollFun:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:2435   .text.PollFun:00000000 PollFun
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:2780   .text.PollFun:000001f8 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:2818   .bss.initflag.0:00000000 initflag.0
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:2810   .bss.indx.1:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccHmcf8Z.s:2819   .bss.initflag.0:00000000 $d
+
+UNDEFINED SYMBOLS
+HAL_GPIO_WritePin
+delay_oledms
+sprintf
+SendTxDebug
+memcpy
+HAL_UART_Transmit
+huart2
+HAL_UART_Receive_DMA
+SendTxBuf
+strstr
+u1Conf
+u2Conf
+u3Conf
+HAL_GPIO_ReadPin
