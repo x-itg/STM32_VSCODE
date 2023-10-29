@@ -89,7 +89,9 @@ source [find /usr/local/share/openocd/scripts/target/stm32f1x.cfg]###
 ```
 
 
-## 二、windows下工程搭建(参考)[https://blog.csdn.net/gjy_skyblue/article/details/119669725?spm=1001.2014.3001.5502]
+## 二、windows下工程搭建
+ 
+ (参考)[https://blog.csdn.net/gjy_skyblue/article/details/119669725?spm=1001.2014.3001.5502]
 
 - 安装的软件：
 - - vscode cortex-debug插件；
