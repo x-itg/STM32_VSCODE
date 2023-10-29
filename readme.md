@@ -69,17 +69,17 @@ sudo cp stm32f1discovery.cfg /usr/local/share/openocd/scripts/board
 
 --------------------makefile文件修改-------------
 upload: build/$(PROJECT).bin
-	openocd -f board/stm32f1discovery.cfg -c "reset_config trst_only combined" -c "program build/$(PROJECT).elf verify reset exit"
+    openocd -f board/stm32f1discovery.cfg -c "reset_config trst_only combined" -c "program build/$(PROJECT).elf verify reset exit"
 ifeq ($(OS),Windows_NT)
 debug-start:
-	openocd -f openocd_win.cfg
+    openocd -f openocd_win.cfg
 reset:
-	openocd -f openocd_win.cfg -c init -c halt -reset -c shutdown
+    openocd -f openocd_win.cfg -c init -c halt -reset -c shutdown
 else
 debug-start:
-	openocd -f openocd_lnx.cfg
+    openocd -f openocd_lnx.cfg
 reset:
-	openocd -f openocd_lnx.cfg -c init -c halt -reset -c shu
+    openocd -f openocd_lnx.cfg -c init -c halt -reset -c shu
 
 
 在工作目录下添加openocd.cfg文件，内容：
@@ -88,10 +88,9 @@ source [find /usr/local/share/openocd/scripts/interface/stlink.cfg]
 source [find /usr/local/share/openocd/scripts/target/stm32f1x.cfg]### 
 ```
 
-
 ## 二、windows下工程搭建
- 
- (参考)[https://blog.csdn.net/gjy_skyblue/article/details/119669725?spm=1001.2014.3001.5502]
+
+ [参考]([【精选】Makerbase VESC 第三课 VSCODE环境搭建-CSDN博客](https://blog.csdn.net/gjy_skyblue/article/details/119669725?spm=1001.2014.3001.5502))
 
 - 安装的软件：
 - - vscode cortex-debug插件；
@@ -122,7 +121,7 @@ source [find /usr/local/share/openocd/scripts/target/stm32f1x.cfg]###
 ```
 
 ## 四、SSH自动登录
- 
+
 ```
 --------------ubuntu开启ssh----------------------------
 1. 查看是否安装SSHServer：ps -e|grep ssh
@@ -160,6 +159,7 @@ Host 001
 登录
 ssh 001
 ```
+
 ## 五、远程ubuntu用本地windows的usb
 
 本地windows电脑使用usbipd-win做usbip的服务器
@@ -224,7 +224,6 @@ netsh interface portproxy show all
 netsh interface portproxy reset #删除所有端口转发
 ```
 
-
 # 七、WSL 图形界面
 
 - https://learn.microsoft.com/zh-cn/windows/wsl/install-manual#step-4--download-the-linux-kernel-update-package
@@ -237,6 +236,7 @@ netsh interface portproxy reset #删除所有端口转发
 - 双击安装Ubuntu_1804.2019.522.0_x64.appx
 
 #### wsl2 应用程序直接打开gui远程桌面连接
+
 ```
 - windows下载VxSrv安装时注意勾选Disable access control:    https://nchc.dl.sourceforge.net/project/vcxsrv/vcxsrv/1.20.14.0/vcxsrv-64.1.20.14.0.installer.exe
 - sudo apt install -y x11-apps
@@ -277,9 +277,6 @@ netsh interface portproxy reset #删除所有端口转发
 - sudo nano /etc/xrdp/sesman.ini   #将 `KillDisconnected`的值修改为 `true`,保存退出
 - sudo systemctl restart xrdp
 ```
-
-
-
 
 ## 八、ROS、Python
 
@@ -424,4 +421,3 @@ generate_messages(
 #查看服务
 rossrv show beginner_tutorials/AddTwoInts
 ```
-
