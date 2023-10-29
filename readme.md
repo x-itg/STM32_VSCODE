@@ -48,7 +48,7 @@ ubuntu下安装stm32cubeclt之前有安装过的可以卸载掉：https://www.st
 ---------------------下载安装openocd--------------
 
 根据这篇文章 安装openocd：https://blog.csdn.net/daoshengtianxia/article/details/115038674
-git clone https://gitee.com/daoshengtianxia/openocd.git
+git clone https://gitee.com/x-itg/openocd.git
 下载openocd及其子模块后编译安装
 sudo ./bootstrap
 ./configure --enable-stlink
