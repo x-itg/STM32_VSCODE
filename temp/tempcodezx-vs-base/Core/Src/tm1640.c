@@ -474,11 +474,9 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *AdcHandle)
     Tc = 310;
   if (Tc >= 1980 && Tc <= 2030)
     Tc = 2000;
-
-  Ta = Ta + Tb / 10;
-  Tb = Tb + Tc / 10;
-  Tc = Tc + Ta / 10;
-
+  Ta = Ta + Tb % 8;
+  Tb = Tb + Tc % 7;
+  Tc = Tc + Ta % 5;
   updateValues(&Ta, &Tb, &Tc, &mmTa, &mmTb, &mmTc);
 
   // PreTa PreTb PreTc 其中最大-最小的数值>50
