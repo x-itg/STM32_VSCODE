@@ -394,7 +394,7 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *AdcHandle)
   }
   cnt++;
 
-  if (cnt > 3000)
+  if (cnt > 1000) // 3000
   {
     cnt = 0;
 

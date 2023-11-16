@@ -79,45 +79,43 @@ static void MX_IWDG_Init(void);
 #define MAXRXU2 500
 unsigned char RxBufU2[MAXRXU2];
 unsigned char TxBufU2[200];
-unsigned short RxLenU2=0;
-unsigned short rsRxIndex=0;
-unsigned char rsPackFlag=0;
-unsigned short rsRxTime=0;
-unsigned short rsRxLen=0;
+unsigned short RxLenU2 = 0;
+unsigned short rsRxIndex = 0;
+unsigned char rsPackFlag = 0;
+unsigned short rsRxTime = 0;
+unsigned short rsRxLen = 0;
 unsigned char rsRxBuf[200];
-#define ADCPause     HAL_ADC_Stop_DMA(&hadc)
-#define ADCContinue  HAL_ADC_Start_DMA(&hadc, (uint32_t*)&AdDataOrig,1500)
+#define ADCPause HAL_ADC_Stop_DMA(&hadc)
+#define ADCContinue HAL_ADC_Start_DMA(&hadc, (uint32_t *)&AdDataOrig, 1500)
 #pragma pack(1)
 
-
-
-
-typedef struct {
-  signed int Ta;//»˝∏ˆŒ¬∂»
+typedef struct
+{
+  signed int Ta; // ‰∏â‰∏™Ê∏©Â∫¶
   signed int Tb;
   signed int Tc;
-  signed int pTa;//∂œµÁ«∞»˝∏ˆŒ¬∂»
+  signed int pTa; // Êñ≠ÁîµÂâç‰∏â‰∏™Ê∏©Â∫¶
   signed int pTb;
   signed int pTc;
-  
-  signed int FenH;//∑Áª˙∂® ±  √ø∏Ù∂‡…Ÿ–° ±
-  signed int FenM;//∑Áª˙∂® ±  ≥÷–¯◊™º∏∑÷÷”
-  signed int Tcala1;//Œ¬∂»≤π≥•
+
+  signed int FenH;   // È£éÊú∫ÂÆöÊó∂  ÊØèÈöîÂ§öÂ∞ëÂ∞èÊó∂
+  signed int FenM;   // È£éÊú∫ÂÆöÊó∂  ÊåÅÁª≠ËΩ¨Âá†ÂàÜÈíü
+  signed int Tcala1; // Ê∏©Â∫¶Ë°•ÂÅø
   signed int Tcala2;
   signed int Tcala3;
-  signed int Tset1;//∆Ù∂ØŒ¬∂»„–÷µ
-  signed int Tset2;//πÿ±’
-  signed int Tset3;//±®æØ
-  signed int Tset4;//π ’œ
-  signed int cshuiCha;//≥˝ ™ªÿ≤Ó »˝∏ˆªÿ≤Ó÷µ
-  signed int cwhuiCha;//≥¨Œ¬±®æØªÿ≤Ó
-  signed int tzhuiCha;//Ã¯’¢ªÿ≤Ó
-  signed int MnTest;//≤‚ ‘ Œ¬∂»÷µ
-  
-  signed int addr;//0 Œﬁ 1 ≈º  2 ∆Ê
+  signed int Tset1;    // ÂêØÂä®Ê∏©Â∫¶ÈòàÂÄº
+  signed int Tset2;    // ÂÖ≥Èó≠
+  signed int Tset3;    // Êä•Ë≠¶
+  signed int Tset4;    // ÊïÖÈöú
+  signed int cshuiCha; // Èô§ÊπøÂõûÂ∑Æ ‰∏â‰∏™ÂõûÂ∑ÆÂÄº
+  signed int cwhuiCha; // Ë∂ÖÊ∏©Êä•Ë≠¶ÂõûÂ∑Æ
+  signed int tzhuiCha; // Ë∑≥Èó∏ÂõûÂ∑Æ
+  signed int MnTest;   // ÊµãËØï Ê∏©Â∫¶ÂÄº
+
+  signed int addr; // 0 Êó† 1 ÂÅ∂  2 Â•á
   signed int jojy;
   signed int btlv;
-  
+
   signed int k1;
   signed int k2;
   signed int k3;
@@ -125,222 +123,243 @@ typedef struct {
   signed int b2;
   signed int b3;
   unsigned char macFlag[17];
-}RUDATA;
+} RUDATA;
 RUDATA sRundata;
 static const unsigned char aucCRCHi[] = {
-  0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41,
-  0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x00, 0xC1, 0x81, 0x40,
-  0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41,
-  0x00, 0xC1, 0x81, 0x40, 0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41,
-  0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41,
-  0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x00, 0xC1, 0x81, 0x40,
-  0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x00, 0xC1, 0x81, 0x40,
-  0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41, 0x00, 0xC1, 0x81, 0x40,
-  0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41,
-  0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x00, 0xC1, 0x81, 0x40,
-  0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41,
-  0x00, 0xC1, 0x81, 0x40, 0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 
-  0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41,
-  0x00, 0xC1, 0x81, 0x40, 0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 
-  0x01, 0xC0, 0x80, 0x41, 0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41,
-  0x00, 0xC1, 0x81, 0x40, 0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41,
-  0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41, 
-  0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x00, 0xC1, 0x81, 0x40,
-  0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41,
-  0x00, 0xC1, 0x81, 0x40, 0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41,
-  0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41,
-  0x00, 0xC1, 0x81, 0x40
-};
+    0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41,
+    0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x00, 0xC1, 0x81, 0x40,
+    0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41,
+    0x00, 0xC1, 0x81, 0x40, 0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41,
+    0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41,
+    0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x00, 0xC1, 0x81, 0x40,
+    0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x00, 0xC1, 0x81, 0x40,
+    0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41, 0x00, 0xC1, 0x81, 0x40,
+    0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41,
+    0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x00, 0xC1, 0x81, 0x40,
+    0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41,
+    0x00, 0xC1, 0x81, 0x40, 0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41,
+    0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41,
+    0x00, 0xC1, 0x81, 0x40, 0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41,
+    0x01, 0xC0, 0x80, 0x41, 0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41,
+    0x00, 0xC1, 0x81, 0x40, 0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41,
+    0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41,
+    0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x00, 0xC1, 0x81, 0x40,
+    0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41,
+    0x00, 0xC1, 0x81, 0x40, 0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41,
+    0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41,
+    0x00, 0xC1, 0x81, 0x40};
 
 static const unsigned char aucCRCLo[] = {
-  0x00, 0xC0, 0xC1, 0x01, 0xC3, 0x03, 0x02, 0xC2, 0xC6, 0x06, 0x07, 0xC7,
-  0x05, 0xC5, 0xC4, 0x04, 0xCC, 0x0C, 0x0D, 0xCD, 0x0F, 0xCF, 0xCE, 0x0E,
-  0x0A, 0xCA, 0xCB, 0x0B, 0xC9, 0x09, 0x08, 0xC8, 0xD8, 0x18, 0x19, 0xD9,
-  0x1B, 0xDB, 0xDA, 0x1A, 0x1E, 0xDE, 0xDF, 0x1F, 0xDD, 0x1D, 0x1C, 0xDC,
-  0x14, 0xD4, 0xD5, 0x15, 0xD7, 0x17, 0x16, 0xD6, 0xD2, 0x12, 0x13, 0xD3,
-  0x11, 0xD1, 0xD0, 0x10, 0xF0, 0x30, 0x31, 0xF1, 0x33, 0xF3, 0xF2, 0x32,
-  0x36, 0xF6, 0xF7, 0x37, 0xF5, 0x35, 0x34, 0xF4, 0x3C, 0xFC, 0xFD, 0x3D,
-  0xFF, 0x3F, 0x3E, 0xFE, 0xFA, 0x3A, 0x3B, 0xFB, 0x39, 0xF9, 0xF8, 0x38, 
-  0x28, 0xE8, 0xE9, 0x29, 0xEB, 0x2B, 0x2A, 0xEA, 0xEE, 0x2E, 0x2F, 0xEF,
-  0x2D, 0xED, 0xEC, 0x2C, 0xE4, 0x24, 0x25, 0xE5, 0x27, 0xE7, 0xE6, 0x26,
-  0x22, 0xE2, 0xE3, 0x23, 0xE1, 0x21, 0x20, 0xE0, 0xA0, 0x60, 0x61, 0xA1,
-  0x63, 0xA3, 0xA2, 0x62, 0x66, 0xA6, 0xA7, 0x67, 0xA5, 0x65, 0x64, 0xA4,
-  0x6C, 0xAC, 0xAD, 0x6D, 0xAF, 0x6F, 0x6E, 0xAE, 0xAA, 0x6A, 0x6B, 0xAB, 
-  0x69, 0xA9, 0xA8, 0x68, 0x78, 0xB8, 0xB9, 0x79, 0xBB, 0x7B, 0x7A, 0xBA,
-  0xBE, 0x7E, 0x7F, 0xBF, 0x7D, 0xBD, 0xBC, 0x7C, 0xB4, 0x74, 0x75, 0xB5,
-  0x77, 0xB7, 0xB6, 0x76, 0x72, 0xB2, 0xB3, 0x73, 0xB1, 0x71, 0x70, 0xB0,
-  0x50, 0x90, 0x91, 0x51, 0x93, 0x53, 0x52, 0x92, 0x96, 0x56, 0x57, 0x97,
-  0x55, 0x95, 0x94, 0x54, 0x9C, 0x5C, 0x5D, 0x9D, 0x5F, 0x9F, 0x9E, 0x5E,
-  0x5A, 0x9A, 0x9B, 0x5B, 0x99, 0x59, 0x58, 0x98, 0x88, 0x48, 0x49, 0x89,
-  0x4B, 0x8B, 0x8A, 0x4A, 0x4E, 0x8E, 0x8F, 0x4F, 0x8D, 0x4D, 0x4C, 0x8C,
-  0x44, 0x84, 0x85, 0x45, 0x87, 0x47, 0x46, 0x86, 0x82, 0x42, 0x43, 0x83,
-  0x41, 0x81, 0x80, 0x40
-};
+    0x00, 0xC0, 0xC1, 0x01, 0xC3, 0x03, 0x02, 0xC2, 0xC6, 0x06, 0x07, 0xC7,
+    0x05, 0xC5, 0xC4, 0x04, 0xCC, 0x0C, 0x0D, 0xCD, 0x0F, 0xCF, 0xCE, 0x0E,
+    0x0A, 0xCA, 0xCB, 0x0B, 0xC9, 0x09, 0x08, 0xC8, 0xD8, 0x18, 0x19, 0xD9,
+    0x1B, 0xDB, 0xDA, 0x1A, 0x1E, 0xDE, 0xDF, 0x1F, 0xDD, 0x1D, 0x1C, 0xDC,
+    0x14, 0xD4, 0xD5, 0x15, 0xD7, 0x17, 0x16, 0xD6, 0xD2, 0x12, 0x13, 0xD3,
+    0x11, 0xD1, 0xD0, 0x10, 0xF0, 0x30, 0x31, 0xF1, 0x33, 0xF3, 0xF2, 0x32,
+    0x36, 0xF6, 0xF7, 0x37, 0xF5, 0x35, 0x34, 0xF4, 0x3C, 0xFC, 0xFD, 0x3D,
+    0xFF, 0x3F, 0x3E, 0xFE, 0xFA, 0x3A, 0x3B, 0xFB, 0x39, 0xF9, 0xF8, 0x38,
+    0x28, 0xE8, 0xE9, 0x29, 0xEB, 0x2B, 0x2A, 0xEA, 0xEE, 0x2E, 0x2F, 0xEF,
+    0x2D, 0xED, 0xEC, 0x2C, 0xE4, 0x24, 0x25, 0xE5, 0x27, 0xE7, 0xE6, 0x26,
+    0x22, 0xE2, 0xE3, 0x23, 0xE1, 0x21, 0x20, 0xE0, 0xA0, 0x60, 0x61, 0xA1,
+    0x63, 0xA3, 0xA2, 0x62, 0x66, 0xA6, 0xA7, 0x67, 0xA5, 0x65, 0x64, 0xA4,
+    0x6C, 0xAC, 0xAD, 0x6D, 0xAF, 0x6F, 0x6E, 0xAE, 0xAA, 0x6A, 0x6B, 0xAB,
+    0x69, 0xA9, 0xA8, 0x68, 0x78, 0xB8, 0xB9, 0x79, 0xBB, 0x7B, 0x7A, 0xBA,
+    0xBE, 0x7E, 0x7F, 0xBF, 0x7D, 0xBD, 0xBC, 0x7C, 0xB4, 0x74, 0x75, 0xB5,
+    0x77, 0xB7, 0xB6, 0x76, 0x72, 0xB2, 0xB3, 0x73, 0xB1, 0x71, 0x70, 0xB0,
+    0x50, 0x90, 0x91, 0x51, 0x93, 0x53, 0x52, 0x92, 0x96, 0x56, 0x57, 0x97,
+    0x55, 0x95, 0x94, 0x54, 0x9C, 0x5C, 0x5D, 0x9D, 0x5F, 0x9F, 0x9E, 0x5E,
+    0x5A, 0x9A, 0x9B, 0x5B, 0x99, 0x59, 0x58, 0x98, 0x88, 0x48, 0x49, 0x89,
+    0x4B, 0x8B, 0x8A, 0x4A, 0x4E, 0x8E, 0x8F, 0x4F, 0x8D, 0x4D, 0x4C, 0x8C,
+    0x44, 0x84, 0x85, 0x45, 0x87, 0x47, 0x46, 0x86, 0x82, 0x42, 0x43, 0x83,
+    0x41, 0x81, 0x80, 0x40};
 
-unsigned short CRC16x( unsigned char * pucFrame, unsigned short usLen )
+unsigned short CRC16x(unsigned char *pucFrame, unsigned short usLen)
 {
-  unsigned char           ucCRCHi = 0xFF;
-  unsigned char           ucCRCLo = 0xFF;
-  int             iIndex;
-  
-  while( usLen-- )
+  unsigned char ucCRCHi = 0xFF;
+  unsigned char ucCRCLo = 0xFF;
+  int iIndex;
+
+  while (usLen--)
   {
-    iIndex = ucCRCLo ^ *( pucFrame++ );
-    ucCRCLo = ( unsigned char )( ucCRCHi ^ aucCRCHi[iIndex] );
+    iIndex = ucCRCLo ^ *(pucFrame++);
+    ucCRCLo = (unsigned char)(ucCRCHi ^ aucCRCHi[iIndex]);
     ucCRCHi = aucCRCLo[iIndex];
   }
-  return ( unsigned short )( ucCRCHi << 8 | ucCRCLo );
+  return (unsigned short)(ucCRCHi << 8 | ucCRCLo);
 }
 void LoadReadData(void)
 {
-  sRundata.Ta=Ta;//»˝∏ˆŒ¬∂»
-  sRundata.Tb=Tb;
-  sRundata.Tc=Tc;
-  sRundata.pTa=pTa;//∂œµÁ«∞»˝∏ˆŒ¬∂»
-  sRundata.pTb=pTb;
-  sRundata.pTc=pTc;
-  
-  sRundata.FenH=FenH;//∑Áª˙∂® ±  √ø∏Ù∂‡…Ÿ–° ±
-  sRundata.FenM=FenM;//∑Áª˙∂® ±  ≥÷–¯◊™º∏∑÷÷”
-  sRundata.Tcala1=Tcala1;//Œ¬∂»≤π≥•
-  sRundata.Tcala2=Tcala2;
-  sRundata.Tcala3=Tcala3;
-  sRundata.Tset1=Tset1;//Œ¬∂»„–÷µ
-  sRundata.Tset2=Tset2;
-  sRundata.Tset3=Tset3;
-  sRundata.Tset4=Tset4;
-  sRundata.cshuiCha=cshuiCha;//≥˝ ™ªÿ≤Ó »˝∏ˆªÿ≤Ó÷µ
-  sRundata.cwhuiCha=cwhuiCha;//≥¨Œ¬±®æØªÿ≤Ó
-  sRundata.tzhuiCha=tzhuiCha;//Ã¯’¢ªÿ≤Ó
-  sRundata.MnTest=MnTest;//≤‚ ‘ Œ¬∂»÷µ
-  
-  sRundata.addr=addr;//0 Œﬁ 1 ≈º  2 ∆Ê
-  sRundata.jojy=jojy;
-  sRundata.btlv=btlv;
-  
-  sRundata.k1=(signed int)k1*10;
-  sRundata.k2=(signed int)k2*10;
-  sRundata.k3=(signed int)k3*10;
-  sRundata.b1=(signed int)b1*10;
-  sRundata.b2=(signed int)b2*10;
-  sRundata.b3=(signed int)b3*10;
-  unsigned short i=0;
-  for(i=0;i<17;i++)
+  sRundata.Ta = Ta; // ‰∏â‰∏™Ê∏©Â∫¶
+  sRundata.Tb = Tb;
+  sRundata.Tc = Tc;
+  sRundata.pTa = pTa; // Êñ≠ÁîµÂâç‰∏â‰∏™Ê∏©Â∫¶
+  sRundata.pTb = pTb;
+  sRundata.pTc = pTc;
+
+  sRundata.FenH = FenH;     // È£éÊú∫ÂÆöÊó∂  ÊØèÈöîÂ§öÂ∞ëÂ∞èÊó∂
+  sRundata.FenM = FenM;     // È£éÊú∫ÂÆöÊó∂  ÊåÅÁª≠ËΩ¨Âá†ÂàÜÈíü
+  sRundata.Tcala1 = Tcala1; // Ê∏©Â∫¶Ë°•ÂÅø
+  sRundata.Tcala2 = Tcala2;
+  sRundata.Tcala3 = Tcala3;
+  sRundata.Tset1 = Tset1; // Ê∏©Â∫¶ÈòàÂÄº
+  sRundata.Tset2 = Tset2;
+  sRundata.Tset3 = Tset3;
+  sRundata.Tset4 = Tset4;
+  sRundata.cshuiCha = cshuiCha; // Èô§ÊπøÂõûÂ∑Æ ‰∏â‰∏™ÂõûÂ∑ÆÂÄº
+  sRundata.cwhuiCha = cwhuiCha; // Ë∂ÖÊ∏©Êä•Ë≠¶ÂõûÂ∑Æ
+  sRundata.tzhuiCha = tzhuiCha; // Ë∑≥Èó∏ÂõûÂ∑Æ
+  sRundata.MnTest = MnTest;     // ÊµãËØï Ê∏©Â∫¶ÂÄº
+
+  sRundata.addr = addr; // 0 Êó† 1 ÂÅ∂  2 Â•á
+  sRundata.jojy = jojy;
+  sRundata.btlv = btlv;
+
+  sRundata.k1 = (signed int)k1 * 10;
+  sRundata.k2 = (signed int)k2 * 10;
+  sRundata.k3 = (signed int)k3 * 10;
+  sRundata.b1 = (signed int)b1 * 10;
+  sRundata.b2 = (signed int)b2 * 10;
+  sRundata.b3 = (signed int)b3 * 10;
+  unsigned short i = 0;
+  for (i = 0; i < 17; i++)
   {
-    sRundata.macFlag[i]=macFlag[i];
+    sRundata.macFlag[i] = macFlag[i];
   }
 }
-//∑≈µΩ¥Æø⁄ø’œ–÷–∂œ¿Ô
+// ÊîæÂà∞‰∏≤Âè£Á©∫Èó≤‰∏≠Êñ≠Èáå
 void u2RxIt(void)
 {
-  
+
   __HAL_UART_CLEAR_IDLEFLAG(&huart2);
-  
+
   HAL_UART_DMAStop(&huart2);
-  
+
   __HAL_UART_CLEAR_FLAG(&huart2, UART_CLEAR_OREF | UART_CLEAR_NEF | UART_CLEAR_PEF | UART_CLEAR_FEF);
-  
-  RxLenU2=MAXRXU2-huart2.hdmarx->Instance->CNDTR;//NDTR;//Ω” ’µΩµƒ◊÷Ω⁄≥§∂»
-  unsigned short i=0;
-  
+
+  RxLenU2 = MAXRXU2 - huart2.hdmarx->Instance->CNDTR; // NDTR;//Êé•Êî∂Âà∞ÁöÑÂ≠óËäÇÈïøÂ∫¶
+  unsigned short i = 0;
+
   extern unsigned int addr;
-  if(RxBufU2[0]==addr&&
-     RxBufU2[1]==0x03&&
-     RxBufU2[2]==0x00&&
-     RxBufU2[3]==0x00&&
-     RxBufU2[4]==0x00&&
-     RxBufU2[5]==0x05&&RxLenU2==8
-               )
+  if (RxBufU2[0] == addr &&
+      RxBufU2[1] == 0x03 &&
+      RxBufU2[2] == 0x00 &&
+      RxBufU2[3] == 0x00 &&
+      RxBufU2[4] == 0x00 &&
+      RxBufU2[5] == 0x05 && RxLenU2 == 8)
   {
-    i=0;
-    TxBufU2[0]=addr;
-    TxBufU2[1]=0x03;
-    TxBufU2[2]=0x0A;
-    unsigned short Tmp=0;
-    if(Ta>Tset3)Tmp=Tmp|0x0001;else Tmp=Tmp&(~0x0001);
-    if(Tb>Tset3)Tmp=Tmp|0x0002;else Tmp=Tmp&(~0x0002);
-    if(Tc>Tset3)Tmp=Tmp|0x0004;else Tmp=Tmp&(~0x0004);
-    if(macFlag[0]!=0)Tmp=Tmp|0x0008;else Tmp=Tmp&(~0x0008);
-    if(macFlag[1]!=0)Tmp=Tmp|0x0010;else Tmp=Tmp&(~0x0010);
-    if(macFlag[2]!=0)Tmp=Tmp|0x0020;else Tmp=Tmp&(~0x0020);
-    TxBufU2[3]=Tmp>>8;
-    TxBufU2[4]=Tmp>>0;
-    signed short Txxx=0;
-    Txxx=Ta*10+0x23;
-    TxBufU2[5]=Txxx>>8;
-    TxBufU2[6]=Txxx>>0;
-    Txxx=Tb*10+0x23;
-    TxBufU2[7]=Txxx>>8;
-    TxBufU2[8]=Txxx>>0;
-    Txxx=Tc*10+0x23;
-    TxBufU2[9]=Txxx>>8;
-    TxBufU2[10]=Txxx>>0; 
-    TxBufU2[11]=FenH>>8;
-    TxBufU2[12]=FenH>>0;
-    unsigned short crc1,crc2;
-    crc1=crc2=CRC16x(TxBufU2,13);
-    TxBufU2[13]=((crc1)&0xff);
-    TxBufU2[14]=((crc2>>8)&0xff);
-    
-    TxEn;ADCPause;
-    HAL_UART_Transmit(&huart2, TxBufU2, 15, 100);ADCContinue;
+    i = 0;
+    TxBufU2[0] = addr;
+    TxBufU2[1] = 0x03;
+    TxBufU2[2] = 0x0A;
+    unsigned short Tmp = 0;
+    if (Ta > Tset3)
+      Tmp = Tmp | 0x0001;
+    else
+      Tmp = Tmp & (~0x0001);
+    if (Tb > Tset3)
+      Tmp = Tmp | 0x0002;
+    else
+      Tmp = Tmp & (~0x0002);
+    if (Tc > Tset3)
+      Tmp = Tmp | 0x0004;
+    else
+      Tmp = Tmp & (~0x0004);
+    if (macFlag[0] != 0)
+      Tmp = Tmp | 0x0008;
+    else
+      Tmp = Tmp & (~0x0008);
+    if (macFlag[1] != 0)
+      Tmp = Tmp | 0x0010;
+    else
+      Tmp = Tmp & (~0x0010);
+    if (macFlag[2] != 0)
+      Tmp = Tmp | 0x0020;
+    else
+      Tmp = Tmp & (~0x0020);
+    TxBufU2[3] = Tmp >> 8;
+    TxBufU2[4] = Tmp >> 0;
+    signed short Txxx = 0;
+    Txxx = Ta * 10 + 0x23;
+    TxBufU2[5] = Txxx >> 8;
+    TxBufU2[6] = Txxx >> 0;
+    Txxx = Tb * 10 + 0x23;
+    TxBufU2[7] = Txxx >> 8;
+    TxBufU2[8] = Txxx >> 0;
+    Txxx = Tc * 10 + 0x23;
+    TxBufU2[9] = Txxx >> 8;
+    TxBufU2[10] = Txxx >> 0;
+    TxBufU2[11] = FenH >> 8;
+    TxBufU2[12] = FenH >> 0;
+    unsigned short crc1, crc2;
+    crc1 = crc2 = CRC16x(TxBufU2, 13);
+    TxBufU2[13] = ((crc1) & 0xff);
+    TxBufU2[14] = ((crc2 >> 8) & 0xff);
+
+    TxEn;
+    ADCPause;
+    HAL_UART_Transmit(&huart2, TxBufU2, 15, 100);
+    ADCContinue;
   }
-  if(//◊‘∂Ø  ÷∂Øø™  ÷∂Øπÿ
-     RxBufU2[0]==0xFA&&
-     RxBufU2[1]==0x04&&
-     RxBufU2[2]==0xD1&&
-     RxBufU2[5]==0xFB&&RxLenU2==6
-             )
+  if ( // Ëá™Âä® ÊâãÂä®ÂºÄ ÊâãÂä®ÂÖ≥
+      RxBufU2[0] == 0xFA &&
+      RxBufU2[1] == 0x04 &&
+      RxBufU2[2] == 0xD1 &&
+      RxBufU2[5] == 0xFB && RxLenU2 == 6)
   {
-    macFlag[12]=RxBufU2[3];ADCPause;
-    TxEn;HAL_UART_Transmit(&huart2, RxBufU2, rsRxIndex, 100);ADCContinue;
+    macFlag[12] = RxBufU2[3];
+    ADCPause;
+    TxEn;
+    HAL_UART_Transmit(&huart2, RxBufU2, rsRxIndex, 100);
+    ADCContinue;
   }
-  
-  if(//∑«œ˚“Ù œ˚“Ù 
-     RxBufU2[0]==0xFA&&
-     RxBufU2[1]==0x04&&
-     RxBufU2[2]==0xD2&&
-     RxBufU2[5]==0xFB&&RxLenU2==6
-             )
+
+  if ( // ÈùûÊ∂àÈü≥ Ê∂àÈü≥
+      RxBufU2[0] == 0xFA &&
+      RxBufU2[1] == 0x04 &&
+      RxBufU2[2] == 0xD2 &&
+      RxBufU2[5] == 0xFB && RxLenU2 == 6)
   {
-    macFlag[15]=RxBufU2[3];ADCPause;
-    TxEn;HAL_UART_Transmit(&huart2, RxBufU2, rsRxIndex, 100);ADCContinue;
+    macFlag[15] = RxBufU2[3];
+    ADCPause;
+    TxEn;
+    HAL_UART_Transmit(&huart2, RxBufU2, rsRxIndex, 100);
+    ADCContinue;
   }
-  
-  if(//∂¡»°À˘”–≤Œ ˝
-     RxBufU2[0]==0xFA&&
-     RxBufU2[1]==0x04&&
-     RxBufU2[2]==0xF1&&
-     RxBufU2[5]==0xFB&&RxLenU2==6
-             )
+
+  if ( // ËØªÂèñÊâÄÊúâÂèÇÊï∞
+      RxBufU2[0] == 0xFA &&
+      RxBufU2[1] == 0x04 &&
+      RxBufU2[2] == 0xF1 &&
+      RxBufU2[5] == 0xFB && RxLenU2 == 6)
   {
-    i=0;
-    TxBufU2[i++]=0xFA;
-    TxBufU2[i++]=0x04;
-    TxBufU2[i++]=0xF1;
-    unsigned int sDataLen=sizeof(sRundata);
+    i = 0;
+    TxBufU2[i++] = 0xFA;
+    TxBufU2[i++] = 0x04;
+    TxBufU2[i++] = 0xF1;
+    unsigned int sDataLen = sizeof(sRundata);
     LoadReadData();
-    memcpy(&TxBufU2[i],(unsigned char *)&sRundata,sDataLen);i=i+sDataLen;
-    TxBufU2[i++]=0xFB;ADCPause;
-    TxEn;HAL_UART_Transmit(&huart2, TxBufU2, i, 100);ADCContinue;
+    memcpy(&TxBufU2[i], (unsigned char *)&sRundata, sDataLen);
+    i = i + sDataLen;
+    TxBufU2[i++] = 0xFB;
+    ADCPause;
+    TxEn;
+    HAL_UART_Transmit(&huart2, TxBufU2, i, 100);
+    ADCContinue;
   }
-  HAL_UART_Receive_DMA(&huart2, RxBufU2, MAXRXU2); //‘Ÿ¥Œø™∆ÙDMAΩ” ’
+  HAL_UART_Receive_DMA(&huart2, RxBufU2, MAXRXU2); // ÂÜçÊ¨°ÂºÄÂêØDMAÊé•Êî∂
   RxEn;
 }
-
-
-
 
 /* USER CODE END 0 */
 
 /**
-  * @brief  The application entry point.
-  * @retval int
-  */
+ * @brief  The application entry point.
+ * @retval int
+ */
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-  
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -349,14 +368,14 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-  
+
   /* USER CODE END Init */
 
   /* Configure the system clock */
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-  
+
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
@@ -366,12 +385,12 @@ int main(void)
   MX_I2C1_Init();
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
-  //MX_IWDG_Init();
+  // MX_IWDG_Init();
   /* USER CODE BEGIN 2 */
   DS18B20Configuration();
-  
+
   TM1640_GPIO_Config();
-  HAL_ADC_Start_DMA(&hadc, (uint32_t*)&AdDataOrig,1500);// ø™∆Ù≤…—˘
+  HAL_ADC_Start_DMA(&hadc, (uint32_t *)&AdDataOrig, 1500); // ÂºÄÂêØÈááÊ†∑
   JDQ1_L;
   JDQ2_L;
   JDQ3_L;
@@ -380,7 +399,7 @@ int main(void)
   JDQ6_L;
   LoadPara();
   RxEn;
-  HAL_UART_Receive_DMA(&huart2, RxBufU2, MAXRXU2);  
+  HAL_UART_Receive_DMA(&huart2, RxBufU2, MAXRXU2);
   __HAL_UART_ENABLE_IT(&huart2, UART_IT_IDLE);
   BeepOn;
   /* USER CODE END 2 */
@@ -393,15 +412,15 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
     ReadKey();
-    //HAL_IWDG_Refresh(&hiwdg);
+    // HAL_IWDG_Refresh(&hiwdg);
   }
   /* USER CODE END 3 */
 }
 
 /**
-  * @brief System Clock Configuration
-  * @retval None
-  */
+ * @brief System Clock Configuration
+ * @retval None
+ */
 void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
@@ -409,10 +428,9 @@ void SystemClock_Config(void)
   RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
 
   /** Initializes the RCC Oscillators according to the specified parameters
-  * in the RCC_OscInitTypeDef structure.
-  */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_HSI14
-                              |RCC_OSCILLATORTYPE_LSI;
+   * in the RCC_OscInitTypeDef structure.
+   */
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI | RCC_OSCILLATORTYPE_HSI14 | RCC_OSCILLATORTYPE_LSI;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSI14State = RCC_HSI14_ON;
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
@@ -428,9 +446,8 @@ void SystemClock_Config(void)
   }
 
   /** Initializes the CPU, AHB and APB buses clocks
-  */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-                              |RCC_CLOCKTYPE_PCLK1;
+   */
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_PCLK1;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
@@ -439,7 +456,7 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART1|RCC_PERIPHCLK_I2C1;
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART1 | RCC_PERIPHCLK_I2C1;
   PeriphClkInit.Usart1ClockSelection = RCC_USART1CLKSOURCE_PCLK1;
   PeriphClkInit.I2c1ClockSelection = RCC_I2C1CLKSOURCE_SYSCLK;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
@@ -449,25 +466,25 @@ void SystemClock_Config(void)
 }
 
 /**
-  * @brief ADC Initialization Function
-  * @param None
-  * @retval None
-  */
+ * @brief ADC Initialization Function
+ * @param None
+ * @retval None
+ */
 static void MX_ADC_Init(void)
 {
 
   /* USER CODE BEGIN ADC_Init 0 */
-  
+
   /* USER CODE END ADC_Init 0 */
 
   ADC_ChannelConfTypeDef sConfig = {0};
 
   /* USER CODE BEGIN ADC_Init 1 */
-  
+
   /* USER CODE END ADC_Init 1 */
 
   /** Configure the global features of the ADC (Clock, Resolution, Data Alignment and number of conversion)
-  */
+   */
   hadc.Instance = ADC1;
   hadc.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV1;
   hadc.Init.Resolution = ADC_RESOLUTION_12B;
@@ -488,7 +505,7 @@ static void MX_ADC_Init(void)
   }
 
   /** Configure for the selected ADC regular channel to be converted.
-  */
+   */
   sConfig.Channel = ADC_CHANNEL_5;
   sConfig.Rank = ADC_RANK_CHANNEL_NUMBER;
   sConfig.SamplingTime = ADC_SAMPLETIME_7CYCLES_5;
@@ -498,7 +515,7 @@ static void MX_ADC_Init(void)
   }
 
   /** Configure for the selected ADC regular channel to be converted.
-  */
+   */
   sConfig.Channel = ADC_CHANNEL_6;
   if (HAL_ADC_ConfigChannel(&hadc, &sConfig) != HAL_OK)
   {
@@ -506,32 +523,31 @@ static void MX_ADC_Init(void)
   }
 
   /** Configure for the selected ADC regular channel to be converted.
-  */
+   */
   sConfig.Channel = ADC_CHANNEL_7;
   if (HAL_ADC_ConfigChannel(&hadc, &sConfig) != HAL_OK)
   {
     Error_Handler();
   }
   /* USER CODE BEGIN ADC_Init 2 */
-  
-  /* USER CODE END ADC_Init 2 */
 
+  /* USER CODE END ADC_Init 2 */
 }
 
 /**
-  * @brief I2C1 Initialization Function
-  * @param None
-  * @retval None
-  */
+ * @brief I2C1 Initialization Function
+ * @param None
+ * @retval None
+ */
 static void MX_I2C1_Init(void)
 {
 
   /* USER CODE BEGIN I2C1_Init 0 */
-  
+
   /* USER CODE END I2C1_Init 0 */
 
   /* USER CODE BEGIN I2C1_Init 1 */
-  
+
   /* USER CODE END I2C1_Init 1 */
   hi2c1.Instance = I2C1;
   hi2c1.Init.Timing = 0x00808CD2;
@@ -548,38 +564,37 @@ static void MX_I2C1_Init(void)
   }
 
   /** Configure Analogue filter
-  */
+   */
   if (HAL_I2CEx_ConfigAnalogFilter(&hi2c1, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
   {
     Error_Handler();
   }
 
   /** Configure Digital filter
-  */
+   */
   if (HAL_I2CEx_ConfigDigitalFilter(&hi2c1, 0) != HAL_OK)
   {
     Error_Handler();
   }
   /* USER CODE BEGIN I2C1_Init 2 */
-  
-  /* USER CODE END I2C1_Init 2 */
 
+  /* USER CODE END I2C1_Init 2 */
 }
 
 /**
-  * @brief IWDG Initialization Function
-  * @param None
-  * @retval None
-  */
+ * @brief IWDG Initialization Function
+ * @param None
+ * @retval None
+ */
 static void MX_IWDG_Init(void)
 {
 
   /* USER CODE BEGIN IWDG_Init 0 */
-  
+
   /* USER CODE END IWDG_Init 0 */
 
   /* USER CODE BEGIN IWDG_Init 1 */
-  
+
   /* USER CODE END IWDG_Init 1 */
   hiwdg.Instance = IWDG;
   hiwdg.Init.Prescaler = IWDG_PRESCALER_4;
@@ -590,25 +605,24 @@ static void MX_IWDG_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN IWDG_Init 2 */
-  
-  /* USER CODE END IWDG_Init 2 */
 
+  /* USER CODE END IWDG_Init 2 */
 }
 
 /**
-  * @brief USART1 Initialization Function
-  * @param None
-  * @retval None
-  */
+ * @brief USART1 Initialization Function
+ * @param None
+ * @retval None
+ */
 static void MX_USART1_UART_Init(void)
 {
 
   /* USER CODE BEGIN USART1_Init 0 */
-  
+
   /* USER CODE END USART1_Init 0 */
 
   /* USER CODE BEGIN USART1_Init 1 */
-  
+
   /* USER CODE END USART1_Init 1 */
   huart1.Instance = USART1;
   huart1.Init.BaudRate = 9600;
@@ -625,25 +639,24 @@ static void MX_USART1_UART_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN USART1_Init 2 */
-  
-  /* USER CODE END USART1_Init 2 */
 
+  /* USER CODE END USART1_Init 2 */
 }
 
 /**
-  * @brief USART2 Initialization Function
-  * @param None
-  * @retval None
-  */
+ * @brief USART2 Initialization Function
+ * @param None
+ * @retval None
+ */
 static void MX_USART2_UART_Init(void)
 {
 
   /* USER CODE BEGIN USART2_Init 0 */
-  
+
   /* USER CODE END USART2_Init 0 */
 
   /* USER CODE BEGIN USART2_Init 1 */
-  
+
   /* USER CODE END USART2_Init 1 */
   huart2.Instance = USART2;
   huart2.Init.BaudRate = 9600;
@@ -660,14 +673,13 @@ static void MX_USART2_UART_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN USART2_Init 2 */
-  
-  /* USER CODE END USART2_Init 2 */
 
+  /* USER CODE END USART2_Init 2 */
 }
 
 /**
-  * Enable DMA controller clock
-  */
+ * Enable DMA controller clock
+ */
 static void MX_DMA_Init(void)
 {
 
@@ -684,19 +696,18 @@ static void MX_DMA_Init(void)
   /* DMA1_Channel4_5_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DMA1_Channel4_5_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(DMA1_Channel4_5_IRQn);
-
 }
 
 /**
-  * @brief GPIO Initialization Function
-  * @param None
-  * @retval None
-  */
+ * @brief GPIO Initialization Function
+ * @param None
+ * @retval None
+ */
 static void MX_GPIO_Init(void)
 {
   GPIO_InitTypeDef GPIO_InitStruct = {0};
-/* USER CODE BEGIN MX_GPIO_Init_1 */
-/* USER CODE END MX_GPIO_Init_1 */
+  /* USER CODE BEGIN MX_GPIO_Init_1 */
+  /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOC_CLK_ENABLE();
@@ -705,27 +716,26 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13|GPIO_PIN_14|GPIO_PIN_15, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1|GPIO_PIN_8|GPIO_PIN_9|GPIO_PIN_15, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1 | GPIO_PIN_8 | GPIO_PIN_9 | GPIO_PIN_15, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_2|GPIO_PIN_10|GPIO_PIN_3|GPIO_PIN_4
-                          |GPIO_PIN_5, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_2 | GPIO_PIN_10 | GPIO_PIN_3 | GPIO_PIN_4 | GPIO_PIN_5, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_6|GPIO_PIN_7, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_6 | GPIO_PIN_7, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : PC13 PC14 PC15 */
-  GPIO_InitStruct.Pin = GPIO_PIN_13|GPIO_PIN_14|GPIO_PIN_15;
+  GPIO_InitStruct.Pin = GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PA1 PA8 PA9 PA15 */
-  GPIO_InitStruct.Pin = GPIO_PIN_1|GPIO_PIN_8|GPIO_PIN_9|GPIO_PIN_15;
+  GPIO_InitStruct.Pin = GPIO_PIN_1 | GPIO_PIN_8 | GPIO_PIN_9 | GPIO_PIN_15;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -739,8 +749,7 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pins : PB2 PB10 PB3 PB4
                            PB5 */
-  GPIO_InitStruct.Pin = GPIO_PIN_2|GPIO_PIN_10|GPIO_PIN_3|GPIO_PIN_4
-                          |GPIO_PIN_5;
+  GPIO_InitStruct.Pin = GPIO_PIN_2 | GPIO_PIN_10 | GPIO_PIN_3 | GPIO_PIN_4 | GPIO_PIN_5;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -753,26 +762,26 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PB12 PB13 PB14 PB15 */
-  GPIO_InitStruct.Pin = GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14|GPIO_PIN_15;
+  GPIO_InitStruct.Pin = GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PA10 PA11 PA12 */
-  GPIO_InitStruct.Pin = GPIO_PIN_10|GPIO_PIN_11|GPIO_PIN_12;
+  GPIO_InitStruct.Pin = GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PF6 PF7 */
-  GPIO_InitStruct.Pin = GPIO_PIN_6|GPIO_PIN_7;
+  GPIO_InitStruct.Pin = GPIO_PIN_6 | GPIO_PIN_7;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
 
-/* USER CODE BEGIN MX_GPIO_Init_2 */
-/* USER CODE END MX_GPIO_Init_2 */
+  /* USER CODE BEGIN MX_GPIO_Init_2 */
+  /* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */
@@ -780,25 +789,25 @@ static void MX_GPIO_Init(void)
 /* USER CODE END 4 */
 
 /**
-  * @brief  This function is executed in case of error occurrence.
-  * @retval None
-  */
+ * @brief  This function is executed in case of error occurrence.
+ * @retval None
+ */
 void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
-  
+
   /* USER CODE END Error_Handler_Debug */
 }
 
-#ifdef  USE_FULL_ASSERT
+#ifdef USE_FULL_ASSERT
 /**
-  * @brief  Reports the name of the source file and the source line number
-  *         where the assert_param error has occurred.
-  * @param  file: pointer to the source file name
-  * @param  line: assert_param error line source number
-  * @retval None
-  */
+ * @brief  Reports the name of the source file and the source line number
+ *         where the assert_param error has occurred.
+ * @param  file: pointer to the source file name
+ * @param  line: assert_param error line source number
+ * @retval None
+ */
 void assert_failed(uint8_t *file, uint32_t line)
 {
   /* USER CODE BEGIN 6 */

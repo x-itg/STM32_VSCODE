@@ -2,8 +2,8 @@
 void DelayUs(unsigned int nus)
 {
   unsigned int x;
-  for(;nus>0;nus--)
-    for(x=100;x>0;x--)
+  for (; nus > 0; nus--)
+    for (x = 100; x > 0; x--)
       ;
 }
 
@@ -27,176 +27,176 @@ void DS18B20GPIOOUTSET(void)
   HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
 }
 
-//¸´Î»DS18B20
-void DS18B20_Reset(void)	   
-{                 
-  DS18B20GPIOOUTSET(); 	//SET PG11 OUTPUT
-  HAL_GPIO_WritePin(GPIOF,GPIO_PIN_6,GPIO_PIN_RESET); 	//À­µÍDQ
-  DelayUs(750);    	//À­µÍ750us
-  HAL_GPIO_WritePin(GPIOF,GPIO_PIN_6,GPIO_PIN_SET); 	//DQ=1 
-  DelayUs(15);     	//15US
+// å¤ä½DS18B20
+void DS18B20_Reset(void)
+{
+  DS18B20GPIOOUTSET();                                  // SET PG11 OUTPUT
+  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_6, GPIO_PIN_RESET); // æ‹‰ä½DQ
+  DelayUs(750);                                         // æ‹‰ä½750us
+  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_6, GPIO_PIN_SET);   // DQ=1
+  DelayUs(15);                                          // 15US
 }
 
-//µÈ´ıDS18B20µÄ»ØÓ¦
-//·µ»Ø1:Î´¼ì²âµ½DS18B20µÄ´æÔÚ
-//·µ»Ø0:´æÔÚ
-unsigned char DS18B20_IsOnline(void) 	   
-{   
+// ç­‰å¾…DS18B20çš„å›åº”
+// è¿”å›1:æœªæ£€æµ‹åˆ°DS18B20çš„å­˜åœ¨
+// è¿”å›0:å­˜åœ¨
+unsigned char DS18B20_IsOnline(void)
+{
   uint16_t retry = 0;
-  DS18B20GPIOINSET();	//SET PA0 INPUT
-  
+  DS18B20GPIOINSET(); // SET PA0 INPUT
+
   while (DS18B20_DQ_I && retry < 200)
   {
     retry++;
     DelayUs(1);
-  };	 
-  
-  if(retry >= 200)
+  };
+
+  if (retry >= 200)
   {
     return 1;
   }
-  else 
+  else
   {
     retry = 0;
   }
-  
+
   while (!DS18B20_DQ_I && retry < 240)
   {
-    retry ++;
+    retry++;
     DelayUs(1);
   };
-  
-  if(retry >= 240)
+
+  if (retry >= 240)
   {
-    return 1;	
-  }		
-  
+    return 1;
+  }
+
   return 0;
 }
 
-//´ÓDS18B20¶ÁÈ¡Ò»¸öÎ»
-//·µ»ØÖµ£º1/0
-unsigned char DS18B20_ReadBit(void) 	 
+// ä»DS18B20è¯»å–ä¸€ä¸ªä½
+// è¿”å›å€¼ï¼š1/0
+unsigned char DS18B20_ReadBit(void)
 {
   unsigned char data;
-  DS18B20GPIOOUTSET();	
-  HAL_GPIO_WritePin(GPIOF,GPIO_PIN_6,GPIO_PIN_RESET); 
+  DS18B20GPIOOUTSET();
+  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_6, GPIO_PIN_RESET);
   DelayUs(2);
-  HAL_GPIO_WritePin(GPIOF,GPIO_PIN_6,GPIO_PIN_SET); 
-  DS18B20GPIOINSET();	
+  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_6, GPIO_PIN_SET);
+  DS18B20GPIOINSET();
   DelayUs(12);
-  if(DS18B20_DQ_I)
+  if (DS18B20_DQ_I)
   {
     data = 1;
   }
-  else 
+  else
   {
     data = 0;
-  }	
-  DelayUs(50);           
+  }
+  DelayUs(50);
   return data;
 }
 
-//´ÓDS18B20¶ÁÈ¡Ò»¸ö×Ö½Ú
-//·µ»ØÖµ£º¶Áµ½µÄÊı¾İ
-unsigned char DS18B20_ReadByte(void)     
-{        
+// ä»DS18B20è¯»å–ä¸€ä¸ªå­—èŠ‚
+// è¿”å›å€¼ï¼šè¯»åˆ°çš„æ•°æ®
+unsigned char DS18B20_ReadByte(void)
+{
   unsigned char i, j, dat;
   dat = 0;
-  for (i = 1; i <= 8; i ++) 
+  for (i = 1; i <= 8; i++)
   {
     j = DS18B20_ReadBit();
     dat = (j << 7) | (dat >> 1);
-  }						    
+  }
   return dat;
 }
 
-//Ğ´Ò»¸ö×Ö½Úµ½DS18B20
-//dat£ºÒªĞ´ÈëµÄ×Ö½Ú
-void DS18B20_WriteByte(unsigned char dat)     
-{             
+// å†™ä¸€ä¸ªå­—èŠ‚åˆ°DS18B20
+// datï¼šè¦å†™å…¥çš„å­—èŠ‚
+void DS18B20_WriteByte(unsigned char dat)
+{
   unsigned char j;
   unsigned char testb;
-  DS18B20GPIOOUTSET();	//SET PG11 OUTPUT;
-  for (j = 1; j <= 8; j ++) 
+  DS18B20GPIOOUTSET(); // SET PG11 OUTPUT;
+  for (j = 1; j <= 8; j++)
   {
     testb = dat & 0x01;
     dat >>= 1;
-    if (testb) 
+    if (testb)
     {
-      HAL_GPIO_WritePin(GPIOF,GPIO_PIN_6,GPIO_PIN_RESET);	// Write 1
-      DelayUs(2);                            
-      HAL_GPIO_WritePin(GPIOF,GPIO_PIN_6,GPIO_PIN_SET);
-      DelayUs(60);             
+      HAL_GPIO_WritePin(GPIOF, GPIO_PIN_6, GPIO_PIN_RESET); // Write 1
+      DelayUs(2);
+      HAL_GPIO_WritePin(GPIOF, GPIO_PIN_6, GPIO_PIN_SET);
+      DelayUs(60);
     }
-    else 
+    else
     {
-      HAL_GPIO_WritePin(GPIOF,GPIO_PIN_6,GPIO_PIN_RESET);	// Write 0
-      DelayUs(60);             
-      HAL_GPIO_WritePin(GPIOF,GPIO_PIN_6,GPIO_PIN_SET);
-      DelayUs(2);                          
+      HAL_GPIO_WritePin(GPIOF, GPIO_PIN_6, GPIO_PIN_RESET); // Write 0
+      DelayUs(60);
+      HAL_GPIO_WritePin(GPIOF, GPIO_PIN_6, GPIO_PIN_SET);
+      DelayUs(2);
     }
   }
 }
 
-//¿ªÊ¼ÎÂ¶È×ª»»
-void DS18B20_StartConversion(void) 
-{   						               
-  DS18B20_Reset();	   
-  DS18B20_IsOnline();	 
-  DS18B20_WriteByte(0xcc);	// skip rom
-  DS18B20_WriteByte(0x44);	// convert
-} 
+// å¼€å§‹æ¸©åº¦è½¬æ¢
+void DS18B20_StartConversion(void)
+{
+  DS18B20_Reset();
+  DS18B20_IsOnline();
+  DS18B20_WriteByte(0xcc); // skip rom
+  DS18B20_WriteByte(0x44); // convert
+}
 
-//³õÊ¼»¯DS18B20µÄIO¿Ú DQ Í¬Ê±¼ì²âDSµÄ´æÔÚ
-//·µ»Ø1:²»´æÔÚ
-//·µ»Ø0:´æÔÚ    	 
+// åˆå§‹åŒ–DS18B20çš„IOå£ DQ åŒæ—¶æ£€æµ‹DSçš„å­˜åœ¨
+// è¿”å›1:ä¸å­˜åœ¨
+// è¿”å›0:å­˜åœ¨
 unsigned char DS18B20Configuration(void)
 {
-  
-  HAL_GPIO_WritePin(GPIOF,GPIO_PIN_6,GPIO_PIN_SET);    //Êä³ö1
-  
-  DS18B20_Reset();
-  
-  return DS18B20_IsOnline();
-}  
 
-//´Óds18b20µÃµ½ÎÂ¶ÈÖµ
-//¾«¶È£º0.1C
-//·µ»ØÖµ£ºÎÂ¶ÈÖµ £¨-550~1250£© 
+  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_6, GPIO_PIN_SET); // è¾“å‡º1
+
+  DS18B20_Reset();
+
+  return DS18B20_IsOnline();
+}
+
+// ä»ds18b20å¾—åˆ°æ¸©åº¦å€¼
+// ç²¾åº¦ï¼š0.1C
+// è¿”å›å€¼ï¼šæ¸©åº¦å€¼ ï¼ˆ-550~1250ï¼‰
 signed short DS18B20_GetTemperature(void)
 {
   unsigned char temp;
-  unsigned char TL,TH;
+  unsigned char TL, TH;
   signed short tem;
-  DS18B20_StartConversion();  			// ds1820 start convert
+  DS18B20_StartConversion(); // ds1820 start convert
   DS18B20_Reset();
-  DS18B20_IsOnline();	 
-  DS18B20_WriteByte(0xCC);	// skip rom
-  DS18B20_WriteByte(0xBE);	// convert	    
-  TL = DS18B20_ReadByte(); 	// LSB   
-  TH = DS18B20_ReadByte(); 	// MSB  
-  
-  if(TH > 7)
+  DS18B20_IsOnline();
+  DS18B20_WriteByte(0xCC); // skip rom
+  DS18B20_WriteByte(0xBE); // convert
+  TL = DS18B20_ReadByte(); // LSB
+  TH = DS18B20_ReadByte(); // MSB
+
+  if (TH > 7)
   {
     TH = ~TH;
-    TL = ~TL; 
-    temp = 0;					//ÎÂ¶ÈÎª¸º  
+    TL = ~TL;
+    temp = 0; // æ¸©åº¦ä¸ºè´Ÿ
   }
-  else 
+  else
   {
-    temp = 1;				//ÎÂ¶ÈÎªÕı	  	
-  }		
-  tem = TH; 					//»ñµÃ¸ß°ËÎ»
-  tem <<= 8;    
-  tem += TL;					//»ñµÃµ×°ËÎ»
-  tem = ((signed short) ((float)tem * 0.625));		//×ª»»     
-  if(temp)
-  {
-    return tem; 		//·µ»ØÎÂ¶ÈÖµ
+    temp = 1; // æ¸©åº¦ä¸ºæ­£
   }
-  else 
+  tem = TH; // è·å¾—é«˜å…«ä½
+  tem <<= 8;
+  tem += TL;                                  // è·å¾—åº•å…«ä½
+  tem = ((signed short)((float)tem * 0.625)); // è½¬æ¢
+  if (temp)
+  {
+    return tem; // è¿”å›æ¸©åº¦å€¼
+  }
+  else
   {
     return -tem;
-  }		
+  }
 }
