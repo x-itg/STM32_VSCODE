@@ -137,7 +137,7 @@ void SysTick_Handler(void)
   one1000msCnt++;
   extern unsigned int LogTime;
   LogTime++;
-
+  extern unsigned int jcBootCnt;
   extern unsigned char JDQFLAG;
   extern unsigned char JDQCHAN;
   extern unsigned char JDQSTAT;
@@ -145,6 +145,7 @@ void SysTick_Handler(void)
   if (JDQSTAT == 1 || JDQSTAT == 2 || JDQSTAT == 3)
     JDQTIME++; // 改变后开始延时
   static unsigned int stms = 0;
+  jcBootCnt++;
   if (++stms > 60000)
   {
     stms = 0;

@@ -203,7 +203,7 @@ signed int cshuiCha = 50; // 除湿回差 三个回差值
 signed int cwhuiCha = 50; // 超温报警回差
 signed int tzhuiCha = 50; // 跳闸回差
 signed int MnTest = 0;    // 测试 温度值
-
+unsigned int jcBootCnt = 0;
 unsigned int addr = 1;
 // 0 无
 // 1 偶
@@ -426,12 +426,23 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *AdcHandle)
       if(va[2]<x3[2])x4[2]=140.0*va[2]/(x2[2]-x1[2])-140.0*x1[2]/(x2[2]-x1[2]);else 140.0-140.0*va[2]/(x2[2]-x1[2])+140.0*x1[2]/(x2[2]-x1[2]);
 #endif
 #if 1
-      if (JDQSTAT == 0)
-        Ta = (signed int)((k1 * (float)max[2] - b1) + (float)Tcala1); //+(float)Tcala1;//
-      if (JDQSTAT == 0)
-        Tb = (signed int)((k2 * (float)max[0] - b2) + (float)Tcala2); //+(float)Tcala2;//
-      if (JDQSTAT == 0)
-        Tc = (signed int)((k3 * (float)max[1] - b3) + (float)Tcala3); //+(float)Tcala3;//
+      if (jcBootCnt >= 5000)
+      {
+        jcBootCnt = 5000;
+        if (JDQSTAT == 0)
+          Ta = (signed int)((k1 * (float)max[2] - b1) + (float)Tcala1); //+(float)Tcala1;//
+        if (JDQSTAT == 0)
+          Tb = (signed int)((k2 * (float)max[0] - b2) + (float)Tcala2); //+(float)Tcala2;//
+        if (JDQSTAT == 0)
+          Tc = (signed int)((k3 * (float)max[1] - b3) + (float)Tcala3); //+(float)Tcala3;//
+      }
+      else
+      {
+        Ta = (signed int)((11.0 * (float)max[2] - 2705.0));
+        Tb = (signed int)((11.0 * (float)max[0] - 2705.0));
+        Tc = (signed int)((11.0 * (float)max[1] - 2705.0));
+      }
+
 #endif
       // Ta=10*AdcValue[5]-Tcala1;
       // Tb=10*AdcValue[4]-Tcala2;
