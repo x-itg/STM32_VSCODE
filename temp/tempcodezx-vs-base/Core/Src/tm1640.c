@@ -394,7 +394,7 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *AdcHandle)
   }
   cnt++;
 
-  if (cnt > 1000) // 3000
+  if (cnt > 500) // 3000
   {
     cnt = 0;
 
@@ -426,9 +426,9 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *AdcHandle)
       if(va[2]<x3[2])x4[2]=140.0*va[2]/(x2[2]-x1[2])-140.0*x1[2]/(x2[2]-x1[2]);else 140.0-140.0*va[2]/(x2[2]-x1[2])+140.0*x1[2]/(x2[2]-x1[2]);
 #endif
 #if 1
-      if (jcBootCnt >= 5000)
+      if (jcBootCnt >= 8000)
       {
-        jcBootCnt = 5000;
+        jcBootCnt = 8000;
         if (JDQSTAT == 0)
           Ta = (signed int)((k1 * (float)max[2] - b1) + (float)Tcala1); //+(float)Tcala1;//
         if (JDQSTAT == 0)
@@ -438,9 +438,9 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *AdcHandle)
       }
       else
       {
-        Ta = (signed int)((11.0 * (float)max[2] - 2705.0));
-        Tb = (signed int)((11.0 * (float)max[0] - 2705.0));
-        Tc = (signed int)((11.0 * (float)max[1] - 2705.0));
+        Ta = max[2] / 2;
+        Tb = max[0] / 2;
+        Tc = max[1] / 2;
       }
 
 #endif
@@ -467,27 +467,26 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *AdcHandle)
     if (max[2] < AdcValue[2])
       max[2] = AdcValue[2];
   }
+
   if (Ta >= -30 && Ta <= 30)
     Ta = 0;
   if (Ta >= 290 && Ta <= 330)
-    Ta = 310;
+    Ta = 312;
   if (Ta >= 1980 && Ta <= 2030)
-    Ta = 2000;
+    Ta = 2002;
   if (Tb >= -30 && Tb <= 30)
-    Tb = 0;
+    Tb = -1;
   if (Tb >= 290 && Tb <= 330)
-    Tb = 310;
+    Tb = 311;
   if (Tb >= 1980 && Tb <= 2030)
-    Tb = 2000;
+    Tb = 2002;
   if (Tc >= -30 && Tc <= 30)
-    Tc = 0;
+    Tc = 2;
   if (Tc >= 290 && Tc <= 330)
-    Tc = 310;
+    Tc = 309;
   if (Tc >= 1980 && Tc <= 2030)
-    Tc = 2000;
-  Ta = Ta + Tb % 8;
-  Tb = Tb + Tc % 7;
-  Tc = Tc + Ta % 5;
+    Tc = 2001;
+
   updateValues(&Ta, &Tb, &Tc, &mmTa, &mmTb, &mmTc);
 
   // PreTa PreTb PreTc 其中最大-最小的数值>50
