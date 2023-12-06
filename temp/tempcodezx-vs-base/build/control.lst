@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccNf5l7a.s 			page 1
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccn6MI1o.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccNf5l7a.s 			page 1
   13:Core/Src/control.c ****     //willBeepTime=10;
   14:Core/Src/control.c ****   }
   15:Core/Src/control.c ****   else 
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccNf5l7a.s 			page 2
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccn6MI1o.s 			page 2
 
 
   16:Core/Src/control.c ****   {
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccNf5l7a.s 			page 1
   46:Core/Src/control.c ****   else 
   47:Core/Src/control.c ****   {
   48:Core/Src/control.c ****     //JDQ4_L;
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccNf5l7a.s 			page 3
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccn6MI1o.s 			page 3
 
 
   49:Core/Src/control.c ****   }
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccNf5l7a.s 			page 1
  102              		.loc 1 53 5 is_stmt 1 view .LVU24
  103 004e 0122     		movs	r2, #1
  104 0050 8021     		movs	r1, #128
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccNf5l7a.s 			page 4
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccn6MI1o.s 			page 4
 
 
  105 0052 0C48     		ldr	r0, .L8+12
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccNf5l7a.s 			page 1
  158              	sysms:
  159 0000 00000000 		.space	4
  160              		.section	.bss.willBeepTime,"aw",%nobits
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccNf5l7a.s 			page 5
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccn6MI1o.s 			page 5
 
 
  161              		.align	2
@@ -254,20 +254,20 @@ ARM GAS  C:\Users\57298\AppData\Local\Temp\ccNf5l7a.s 			page 1
  173              		.file 6 "Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_gpio.h"
  174              		.file 7 "Core/Inc/TM1640.h"
  175              		.file 8 "Core/Inc/ds18b20.h"
-ARM GAS  C:\Users\57298\AppData\Local\Temp\ccNf5l7a.s 			page 6
+ARM GAS  C:\Users\57298\AppData\Local\Temp\ccn6MI1o.s 			page 6
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 control.c
-C:\Users\57298\AppData\Local\Temp\ccNf5l7a.s:18     .text.ReadKey:00000000 $t
-C:\Users\57298\AppData\Local\Temp\ccNf5l7a.s:24     .text.ReadKey:00000000 ReadKey
-C:\Users\57298\AppData\Local\Temp\ccNf5l7a.s:135    .text.ReadKey:00000078 $d
-C:\Users\57298\AppData\Local\Temp\ccNf5l7a.s:165    .bss.willBeepTime:00000000 willBeepTime
-C:\Users\57298\AppData\Local\Temp\ccNf5l7a.s:151    .bss.ReadTemputer:00000000 ReadTemputer
-C:\Users\57298\AppData\Local\Temp\ccNf5l7a.s:158    .bss.sysms:00000000 sysms
-C:\Users\57298\AppData\Local\Temp\ccNf5l7a.s:147    .bss.ReadTemputer:00000000 $d
-C:\Users\57298\AppData\Local\Temp\ccNf5l7a.s:154    .bss.sysms:00000000 $d
-C:\Users\57298\AppData\Local\Temp\ccNf5l7a.s:161    .bss.willBeepTime:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccn6MI1o.s:18     .text.ReadKey:00000000 $t
+C:\Users\57298\AppData\Local\Temp\ccn6MI1o.s:24     .text.ReadKey:00000000 ReadKey
+C:\Users\57298\AppData\Local\Temp\ccn6MI1o.s:135    .text.ReadKey:00000078 $d
+C:\Users\57298\AppData\Local\Temp\ccn6MI1o.s:165    .bss.willBeepTime:00000000 willBeepTime
+C:\Users\57298\AppData\Local\Temp\ccn6MI1o.s:151    .bss.ReadTemputer:00000000 ReadTemputer
+C:\Users\57298\AppData\Local\Temp\ccn6MI1o.s:158    .bss.sysms:00000000 sysms
+C:\Users\57298\AppData\Local\Temp\ccn6MI1o.s:147    .bss.ReadTemputer:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccn6MI1o.s:154    .bss.sysms:00000000 $d
+C:\Users\57298\AppData\Local\Temp\ccn6MI1o.s:161    .bss.willBeepTime:00000000 $d
 
 UNDEFINED SYMBOLS
 HAL_GPIO_ReadPin

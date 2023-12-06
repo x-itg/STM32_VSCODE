@@ -1,7 +1,6 @@
-./build/*.o
-./build/*.map
-./build/*.elf
-
-./build/*.lst
-./build/*.d
+build/*.o
+build/*.map
+build/*.elf
+build/*.lst
+build/*.d
  
