@@ -394,7 +394,7 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *AdcHandle)
   }
   cnt++;
 
-  if (cnt > 500) // 3000
+  if (cnt > 1000) // 3000
   {
     cnt = 0;
 
@@ -426,9 +426,9 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *AdcHandle)
       if(va[2]<x3[2])x4[2]=140.0*va[2]/(x2[2]-x1[2])-140.0*x1[2]/(x2[2]-x1[2]);else 140.0-140.0*va[2]/(x2[2]-x1[2])+140.0*x1[2]/(x2[2]-x1[2]);
 #endif
 #if 1
-      if (jcBootCnt >= 8000)
+      if (jcBootCnt >= 500) // 8000 开机自检 500开机不自检测
       {
-        jcBootCnt = 8000;
+        jcBootCnt = 500;
         if (JDQSTAT == 0)
           Ta = (signed int)((k1 * (float)max[2] - b1) + (float)Tcala1); //+(float)Tcala1;//
         if (JDQSTAT == 0)
@@ -700,8 +700,9 @@ void UpateShData(void)
   // 超温报警
   if ((Ta > Tset3 || Tb > Tset3 || Tc > Tset3))
   {
-    macFlag[2] = 1;  // 超温报警
-    macFlag[14] = 1; // 叫
+    if (macFlag[1] != 1) // 非故障报警
+      macFlag[2] = 1;    // 超温报警
+    macFlag[14] = 1;     // 叫
   }
   if (Ta < (Tset3 - cwhuiCha) && Tb < (Tset3 - cwhuiCha) && Tc < (Tset3 - cwhuiCha)) // 停止温度
   {
@@ -711,8 +712,9 @@ void UpateShData(void)
   // 跳闸
   if ((Ta > Tset4 || Tb > Tset4 || Tc > Tset4))
   {
-    macFlag[3] = 1;  // 跳闸
-    macFlag[14] = 1; // 叫
+    if (macFlag[1] != 1) // 非故障报警
+      macFlag[3] = 1;    // 跳闸
+    macFlag[14] = 1;     // 叫
   }
   if (Ta < (Tset4 - tzhuiCha) && Tb < (Tset4 - tzhuiCha) && Tc < (Tset4 - tzhuiCha)) // 停止温度
   {

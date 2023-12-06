@@ -1,7 +1,7 @@
 ./build/*.o
 ./build/*.map
 ./build/*.elf
-./build/*.hex
+
 ./build/*.lst
 ./build/*.d
-./build/*p.bin
+ 
