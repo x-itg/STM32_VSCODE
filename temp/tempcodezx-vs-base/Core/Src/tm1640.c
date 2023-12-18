@@ -693,6 +693,7 @@ void UpateShData(void)
     macFlag[14] = 1; // 叫
     macFlag[2] = 0;  // 取消超温报警
     macFlag[3] = 0;  // 取消跳闸报警
+    macFlag[0] = 0;  // 不转
   }
   if ((Ta >= TMIN && Ta <= TMAX) && (Tb >= TMIN && Tb <= TMAX) && (Tc >= TMIN && Tc <= TMAX)) //&&URead&&VRead)
   {
