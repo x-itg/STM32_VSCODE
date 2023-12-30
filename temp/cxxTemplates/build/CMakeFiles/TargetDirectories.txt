@@ -1,0 +1,3 @@
+/home/z/Templates/build/CMakeFiles/rebuild_cache.dir
+/home/z/Templates/build/CMakeFiles/testsrc.dir
+/home/z/Templates/build/CMakeFiles/edit_cache.dir

@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/z/Templates/main.cxx
+iostream
+-
+vector
+-
+boost/version.hpp
+-
+boost/config.hpp
+-
+boost/smart_ptr.hpp
+-
+
