@@ -1,14 +1,63 @@
 // 构造 vectors
 #include <iostream>
 #include <vector>
-
-#include <boost/version.hpp>
-#include <boost/config.hpp>
-#include <boost/smart_ptr.hpp>
+#include <iterator>
+#include <deque>
+using namespace std;
 
 int main()
 {
+    deque<int> data = {10, 20, 30, 40};
+    data.push_front(100);
+    deque<int>::iterator dit;
+    for (dit = data.begin(); dit != data.end(); dit++)
+    {
+        cout << *dit << " ";
+    }
+    cout << endl;
+
+    data.pop_front();
+    for (dit = data.begin(); dit != data.end(); dit++)
+    {
+        cout << *dit << " ";
+    }
+    cout << endl;
+
+    vector<int> cond = {1, 2, 3, 3, 3, 3, 4, 5, 6};
+    vector<int>::iterator it;
+    for (it = cond.begin(); it != cond.end(); it++)
+    {
+        cout << *it;
+    }
+    cout << endl;
+    for (it = cond.begin(); it != cond.end();)
+    {
+        if (*it == 3)
+        {
+            it = cond.erase(it); // 避免迭代器失效
+        }
+        else
+        {
+            it++;
+        }
+    }
+    for (it = cond.begin(); it != cond.end(); it++)
+    {
+        cout << *it;
+    }
+    cout << endl;
+
+    return 0;
+}
+
+/*
+#include <boost/version.hpp>
+#include <boost/config.hpp>
+#include <boost/smart_ptr.hpp>
+int main()
+{
     // vector示例--------------------------------------
+
     std::cout << "-------vector示例-------" << std::endl;
     //  创建一个空的vector
     std::vector<int> v;
@@ -73,3 +122,4 @@ int main()
 
     return 0;
 }
+*/
