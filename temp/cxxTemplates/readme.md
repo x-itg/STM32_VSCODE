@@ -3,12 +3,7 @@
 1. 安装
    
    ```
-   apt-get install build-essential
-   apt-get install gcc
-   apt-get install g++
-   apt-get install gdb
-   apt-get install cmake
-   apt-get install libboost-all-dev
+   sudo apt-get install build-essential gcc g++ gdb cmake libboost-all-dev
    ```
    
    ```
