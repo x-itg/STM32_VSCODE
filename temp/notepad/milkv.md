@@ -31,25 +31,41 @@
    `./build.sh `
    
    # Docker 下图像识别
+   
+   - [配置 Docker 开发环境 | Milk-V (milkv.io)](https://milkv.io/zh/docs/duo/application-development/tpu/tpu-docker)
 
-9. `docker pull sophgo/tpuc_dev:v2.2`
+9. docker pull sophgo/tpuc_dev:v3.1
 
-10. `docker run --privileged --name DuoTpuc -v /workspace -it sophgo/tpuc_dev:v2.2`
+10. docker run --privileged --name DuoTPU -v /workspace -it  sophgo/tpuc_dev:v3.1
 
-11. 启动容器去容器软件中启动
+11. docker exec -it d982a5da9706263c85dc78eef4574c0717ecd254a3887da2d1d7e43bcde2d400 /bin/bash
 
-12. https://codeload.github.com/sophgo/tpu-mlir/tar.gz/refs/tags/v1.5-beta.0
+12. git clone https://github.com/milkv-duo/tpu-mlir.git
 
-13. `docker cp tpu-mlir-1.5-beta.0.tar.gz d982a5da9706263c85dc78eef4574c0717ecd254a3887da2d1d7e43bcde2d400:/workspace/tpu-mlir.tar.gz`
+13. source ./tpu-mlir/envsetup.sh
 
-14. `tar -zxvf tpu-mlir.tar.gz`
 
-15. `sudo su`
 
-16. `source ./tpu-mlir-1.5-beta.0/envsetup.sh`
 
-17. `cd ..`返回上级 和tpu-mlir-1.5-beta.0同级目录
 
-18. `mkdir densenet121 && cd densenet121`
 
-19. `wget https://github.com/onnx/models/raw/main/vision/classification/de121/model/densenet-12.tar.gz`
+
+
+
+
+
+1. https://codeload.github.com/sophgo/tpu-mlir/tar.gz/refs/tags/v1.5-beta.0
+
+2. `docker cp tpu-mlir-1.5-beta.0.tar.gz d982a5da9706263c85dc78eef4574c0717ecd254a3887da2d1d7e43bcde2d400:/workspace/tpu-mlir.tar.gz`
+
+3. `tar -zxvf tpu-mlir.tar.gz`
+
+4. `sudo su`
+
+5. `source ./tpu-mlir-1.5-beta.0/envsetup.sh`
+
+6. `cd ..`返回上级 和tpu-mlir-1.5-beta.0同级目录
+
+7. `mkdir densenet121 && cd densenet121`
+
+8. `wget https://github.com/onnx/models/raw/main/vision/classification/de121/model/densenet-12.tar.gz`
