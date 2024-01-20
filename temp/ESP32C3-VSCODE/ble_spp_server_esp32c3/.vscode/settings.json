@@ -1,0 +1,17 @@
+{
+  "C_Cpp.intelliSenseEngine": "default",
+  "idf.adapterTargetName": "esp32c3",
+  "idf.openOcdConfigs": [
+    "board/esp32c3-builtin.cfg"
+  ],
+  "idf.portWin": "COM6",
+  "idf.flashType": "UART",
+  "files.associations": {
+    "ble_spp_server_demo.h": "c",
+    "esp_gap_ble_api.h": "c",
+    "nvs_flash.h": "c",
+    "esp_bt.h": "c",
+    "esp_bt_defs.h": "c",
+    "esp_bt_main.h": "c"
+  }
+}
