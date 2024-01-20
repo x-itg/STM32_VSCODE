@@ -44,16 +44,6 @@
 
 13. source ./tpu-mlir/envsetup.sh
 
-
-
-
-
-
-
-
-
-
-
 1. https://codeload.github.com/sophgo/tpu-mlir/tar.gz/refs/tags/v1.5-beta.0
 
 2. `docker cp tpu-mlir-1.5-beta.0.tar.gz d982a5da9706263c85dc78eef4574c0717ecd254a3887da2d1d7e43bcde2d400:/workspace/tpu-mlir.tar.gz`
