@@ -1,0 +1,5 @@
+-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\HARDWARE\LED -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\STM32F10x_FWLib\inc -I..\CORE -I..\HARDWARE\BEEP -I..\HARDWARE\AD7705 -I..\HARDWARE\MOTOR 
+-I d:\Keil_v4\ARM\RV31\INC 
+-I d:\Keil_v4\ARM\CMSIS\Include 
+-I d:\Keil_v4\ARM\Inc\ST\STM32F10x 
+-DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -o "..\OBJ\app.o" --omf_browse "..\OBJ\app.crf" --depend "..\OBJ\app.d" "app.c"

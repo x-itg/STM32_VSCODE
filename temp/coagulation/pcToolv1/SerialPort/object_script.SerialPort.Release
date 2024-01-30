@@ -1,0 +1,17 @@
+INPUT(
+./release\main.o
+./release\mainwindow.o
+./release\qcustomplot.o
+./release\modbusCRC.o
+./release\qyRecDecode.o
+./release\ComUpgrade.o
+./release\refDPI.o
+./release\plotFunction.o
+./release\str2intUC.o
+./release\fileOut.o
+./release\ComSet.o
+./release\aboutDebug.o
+./release\aboutComTool.o
+./release\moc_mainwindow.o
+./release\moc_qcustomplot.o
+);
